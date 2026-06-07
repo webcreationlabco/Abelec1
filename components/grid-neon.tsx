@@ -47,11 +47,15 @@ export default function GridNeon() {
     const travelers: Traveler[] = [];
     let raf: number;
     let lastSpawn = 0;
+    // Cache dimensions — updated only on resize, not read from DOM every frame
+    let cW = 0, cH = 0;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
-      canvas.width  = canvas.offsetWidth  * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
+      cW = canvas.offsetWidth;
+      cH = canvas.offsetHeight;
+      canvas.width  = cW * dpr;
+      canvas.height = cH * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
@@ -59,14 +63,13 @@ export default function GridNeon() {
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    const W = () => canvas.offsetWidth;
-    const H = () => canvas.offsetHeight;
-
     // Seed a few travelers to start
-    for (let i = 0; i < 3; i++) travelers.push(spawn(W(), H()));
+    for (let i = 0; i < 3; i++) travelers.push(spawn(cW, cH));
 
     const frame = (ts: number) => {
-      const w = W(), h = H();
+      // Skip draw entirely when tab is hidden — saves GPU/CPU
+      if (document.hidden) { raf = requestAnimationFrame(frame); return; }
+      const w = cW, h = cH;
       ctx.clearRect(0, 0, w, h);
 
       // Keep up to 4 travelers alive at a time, spawn with a short gap

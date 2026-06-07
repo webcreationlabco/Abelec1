@@ -399,8 +399,12 @@ export default function HorizontalTimeline() {
     startPings();
     startCounter();
 
-    const onResize = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", onResize);
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 150);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
       main.kill();
@@ -408,6 +412,7 @@ export default function HorizontalTimeline() {
       browserTl.current?.kill();
       pingKill.current.forEach((t) => t?.kill());
       if (counterIv.current) clearInterval(counterIv.current);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
     };
   }, []);

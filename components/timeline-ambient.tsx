@@ -173,10 +173,25 @@ export function ConstellationWidget() {
 
     container.addEventListener("mouseenter", handleEnter);
     container.addEventListener("mouseleave", handleLeave);
+
+    // Pause all tweens when widget scrolls out of viewport — save CPU
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          driftTweens.current.forEach((t) => t.resume());
+        } else {
+          driftTweens.current.forEach((t) => t.pause());
+        }
+      },
+      { rootMargin: "100px" }
+    );
+    io.observe(container);
+
     return () => {
       driftTweens.current.forEach((t) => t.kill());
       container.removeEventListener("mouseenter", handleEnter);
       container.removeEventListener("mouseleave", handleLeave);
+      io.disconnect();
     };
   }, []);
 

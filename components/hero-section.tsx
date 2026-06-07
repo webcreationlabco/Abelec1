@@ -243,17 +243,16 @@ export default function HeroSection() {
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.transform  = "translateY(-4px)";
-                el.style.boxShadow  = "0 12px 32px rgba(10,31,68,0.10)";
-                el.style.borderLeft = "3px solid #E66324";
+                el.style.transform = "translateY(-4px)";
+                // inset box-shadow simulates left accent border without layout shift
+                el.style.boxShadow = "inset 3px 0 0 #E66324, 0 12px 32px rgba(10,31,68,0.10)";
                 const arrow = el.querySelector<HTMLElement>(".cta-arrow");
                 if (arrow) arrow.style.transform = "translateX(4px)";
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.transform  = "translateY(0)";
-                el.style.boxShadow  = "0 4px 18px rgba(0,0,0,0.05)";
-                el.style.borderLeft = "1px solid rgba(10,31,68,0.07)";
+                el.style.transform = "translateY(0)";
+                el.style.boxShadow = "0 4px 18px rgba(0,0,0,0.05)";
                 const arrow = el.querySelector<HTMLElement>(".cta-arrow");
                 if (arrow) arrow.style.transform = "translateX(0)";
               }}
