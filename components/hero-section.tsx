@@ -156,23 +156,23 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.44, ease: EASE }}
-            style={{ width: "100%", maxWidth: 560, marginBottom: 12 }}
+            style={{ width: "100%", maxWidth: 660, marginBottom: 14 }}
           >
             <form onSubmit={e => e.preventDefault()}>
               <div style={{
-                display: "flex", alignItems: "center", height: 50,
-                background: "rgba(255,255,255,0.92)",
+                display: "flex", alignItems: "center", height: 60,
+                background: "rgba(255,255,255,0.95)",
                 backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-                borderRadius: 11,
+                borderRadius: 14,
                 border: `1.5px solid ${focused ? "#E66324" : "rgba(10,31,68,0.10)"}`,
                 boxShadow: focused
-                  ? "0 0 0 3px rgba(230,99,36,0.09), 0 6px 20px rgba(0,0,0,0.06)"
-                  : "0 4px 16px rgba(0,0,0,0.05)",
+                  ? "0 0 0 3px rgba(230,99,36,0.09), 0 8px 28px rgba(0,0,0,0.07)"
+                  : "0 6px 24px rgba(0,0,0,0.06)",
                 overflow: "hidden",
                 transition: "border-color 0.2s, box-shadow 0.2s",
               }}>
-                <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 10, padding: "0 14px" }}>
-                  <Search size={13} style={{ color: focused ? "#E66324" : "#bbb", flexShrink: 0, transition: "color 0.2s" }} />
+                <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 12, padding: "0 18px" }}>
+                  <Search size={16} style={{ color: focused ? "#E66324" : "#bbb", flexShrink: 0, transition: "color 0.2s" }} />
                   <input
                     type="text" value={query}
                     onChange={e => setQuery(e.target.value)}
@@ -181,17 +181,17 @@ export default function HeroSection() {
                     placeholder="Ex: Pompe de vidange Bosch, filtre de hotte Whirlpool..."
                     style={{
                       flex: 1, border: "none", outline: "none",
-                      background: "transparent", fontSize: 12.5,
+                      background: "transparent", fontSize: 14,
                       color: "#0A1F44", fontFamily: "inherit",
                     }}
                   />
                 </div>
-                <div style={{ padding: "0 4px 0 0" }}>
+                <div style={{ padding: "0 5px 0 0" }}>
                   <button type="submit" style={{
-                    height: 40, padding: "0 18px",
+                    height: 48, padding: "0 24px",
                     background: "#E66324", color: "white",
-                    border: "none", borderRadius: 8,
-                    fontSize: 12.5, fontWeight: 700, fontFamily: "inherit", cursor: "pointer",
+                    border: "none", borderRadius: 10,
+                    fontSize: 14, fontWeight: 700, fontFamily: "inherit", cursor: "pointer",
                     transition: "background 0.15s",
                   }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c94f1a"; }}
@@ -245,56 +245,63 @@ export default function HeroSection() {
         {/* ── CTA CARDS ───────────────────────────────────────────────── */}
         <div style={{
           position: "relative", zIndex: 2,
-          display: "grid", gridTemplateColumns: "repeat(3,1fr)",
-          borderTop: LINE,
+          display: "flex", gap: 16, justifyContent: "center",
+          padding: "0 24px 32px", flexWrap: "wrap",
         }}>
           {CTA_CARDS.map(({ illustration, title, sub }, i) => (
             <motion.button
               key={title}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.60 + i * 0.08, ease: EASE }}
+              transition={{ duration: 0.6, delay: 0.62 + i * 0.10, ease: EASE }}
               style={{
-                background: "transparent",
-                borderRight: i < 2 ? LINE : "none",
-                borderLeft: "none", borderTop: "none", borderBottom: "none",
+                flex: "1 1 210px", maxWidth: 248,
+                background: "rgba(255,255,255,0.82)",
+                backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
+                borderRadius: 16,
+                border: "1px solid rgba(10,31,68,0.07)",
+                boxShadow: "0 4px 18px rgba(0,0,0,0.05)",
                 cursor: "pointer", textAlign: "left",
-                fontFamily: "inherit",
-                padding: "18px 24px",
-                display: "flex", alignItems: "center", gap: 14,
-                transition: "background 0.2s ease",
+                fontFamily: "inherit", overflow: "hidden",
+                transition: "transform 0.22s ease, box-shadow 0.22s ease, border-left 0.15s ease",
+                padding: 0,
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.background = "rgba(255,255,255,0.65)";
+                el.style.transform  = "translateY(-4px)";
+                el.style.boxShadow  = "0 12px 32px rgba(10,31,68,0.10)";
+                el.style.borderLeft = "3px solid #E66324";
                 const arrow = el.querySelector<HTMLElement>(".cta-arrow");
                 if (arrow) arrow.style.transform = "translateX(4px)";
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.background = "transparent";
+                el.style.transform  = "translateY(0)";
+                el.style.boxShadow  = "0 4px 18px rgba(0,0,0,0.05)";
+                el.style.borderLeft = "1px solid rgba(10,31,68,0.07)";
                 const arrow = el.querySelector<HTMLElement>(".cta-arrow");
                 if (arrow) arrow.style.transform = "translateX(0)";
               }}
             >
+              {/* Illustration area */}
               <div style={{
-                width: 40, height: 40, borderRadius: 9,
-                background: "rgba(10,31,68,0.04)", border: LINE,
+                height: 96, background: "#F0EEEb",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                flexShrink: 0,
+                borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
-                <Image src={illustration} alt={title} width={26} height={26}
-                  style={{ objectFit: "contain" }} />
+                <Image src={illustration} alt={title} width={68} height={68}
+                  style={{ objectFit: "contain", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.10))" }}
+                />
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{
-                  fontSize: 12.5, fontWeight: 700, color: "#0A1F44",
-                  fontFamily: SANS, marginBottom: 2, letterSpacing: "-0.01em",
-                }}>{title}</div>
-                <div style={{ fontSize: 11, color: "rgba(10,31,68,0.38)", fontFamily: SANS }}>{sub}</div>
+              {/* Text + arrow */}
+              <div style={{ padding: "12px 14px 12px 16px", display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 2, letterSpacing: "-0.01em" }}>{title}</div>
+                  <div style={{ fontSize: 11.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
+                </div>
+                <ArrowRight size={14} color="#E66324" className="cta-arrow"
+                  style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
               </div>
-              <ArrowRight size={13} color="#E66324" className="cta-arrow"
-                style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
             </motion.button>
           ))}
         </div>

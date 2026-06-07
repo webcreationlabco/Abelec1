@@ -222,7 +222,7 @@ export default function Header() {
       {/* ── Announcement marquee bar ─────────────────────────────────────── */}
       <div
         className="w-full overflow-hidden border-b border-abelec-navy/[0.06]"
-        style={{ height: "36px", background: "#F0EBE3", display: "flex", alignItems: "center" }}
+        style={{ height: "36px", background: "#FFFFFF", display: "flex", alignItems: "center" }}
       >
         <div className="announcement-track flex whitespace-nowrap">
           {[0, 1, 2, 3].map((i) => (
@@ -245,14 +245,14 @@ export default function Header() {
       <header
         className="sticky top-0 z-40"
         style={{
-          background: "#F8F5F0",
+          background: "#FFFFFF",
           borderBottom: "1px solid rgba(26, 58, 92, 0.08)",
           opacity: scrolled ? 0 : 1,
           pointerEvents: scrolled ? "none" : "auto",
           transition: "opacity 0.2s ease",
         }}
       >
-        <div className="relative max-w-[1240px] mx-auto grid grid-cols-[1fr_auto_1fr] max-sm:grid-cols-[1fr_1fr] items-center px-4 sm:px-8 py-[14px] sm:py-[18px]">
+        <div className="relative max-w-[1240px] mx-auto grid grid-cols-[1fr_auto_1fr] max-sm:grid-cols-[1fr_1fr] items-center px-4 sm:px-8 py-[9px] sm:py-[12px]">
           {/* Logo — left */}
           <Link href="/" aria-label="Abelec">
             <Image src="/ABELEC_LOGO.svg" alt="Abelec" width={120} height={40} priority className="h-9 w-auto object-contain" />
