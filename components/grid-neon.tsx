@@ -62,15 +62,15 @@ export default function GridNeon() {
     const W = () => canvas.offsetWidth;
     const H = () => canvas.offsetHeight;
 
-    // Seed a handful of travelers spread across the canvas
-    for (let i = 0; i < 6; i++) travelers.push(spawn(W(), H()));
+    // Seed one traveler to start
+    travelers.push(spawn(W(), H()));
 
     const frame = (ts: number) => {
       const w = W(), h = H();
       ctx.clearRect(0, 0, w, h);
 
-      // Spawn a new traveler every ~1 s (max 10 alive at once)
-      if (ts - lastSpawn > 950 && travelers.length < 10) {
+      // Only one traveler alive at a time, spawn next after 400ms gap
+      if (travelers.length === 0 && ts - lastSpawn > 400) {
         travelers.push(spawn(w, h));
         lastSpawn = ts;
       }
