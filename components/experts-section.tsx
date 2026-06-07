@@ -35,7 +35,7 @@ export default function ExpertsSection() {
   const t = useT();
 
   return (
-    <section className="bg-abelec-cream-light py-16 px-6">
+    <section aria-label="Notre équipe d'experts" className="bg-abelec-cream-light py-16 px-6">
       <div className="max-w-[1240px] mx-auto">
         <div className="grid grid-cols-2 gap-14 items-center max-lg:grid-cols-1">
           {/* Left — text */}

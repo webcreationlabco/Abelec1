@@ -86,33 +86,35 @@ export default function HeroSection() {
             Entreprise familiale belge · Fondée en 1983
           </motion.p>
 
-          {/* Title */}
+          {/* Title — h1 with display:contents preserves visual layout, adds semantic H1 */}
           <motion.div
             initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
             style={{ marginBottom: 10 }}
           >
-            <span style={{
-              display: "block", color: "#0A1F44",
-              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-              fontWeight: 800, lineHeight: 0.95,
-              letterSpacing: "-0.04em",
-              fontFamily: SANS,
-            }}>La Pièce</span>
-            <span style={{
-              display: "block", color: "#0A1F44",
-              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-              fontWeight: 800, lineHeight: 0.95,
-              letterSpacing: "-0.04em",
-              fontFamily: SANS,
-            }}>Détachée</span>
-            <span style={{
-              display: "block", color: "#0A1F44",
-              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-              fontWeight: 800, lineHeight: 0.95,
-              letterSpacing: "-0.04em",
-              fontFamily: SANS,
-            }}>Électroménager</span>
+            <h1 style={{ display: "contents", font: "inherit" }}>
+              <span style={{
+                display: "block", color: "#0A1F44",
+                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+                fontWeight: 800, lineHeight: 0.95,
+                letterSpacing: "-0.04em",
+                fontFamily: SANS,
+              }}>La Pièce</span>
+              <span style={{
+                display: "block", color: "#0A1F44",
+                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+                fontWeight: 800, lineHeight: 0.95,
+                letterSpacing: "-0.04em",
+                fontFamily: SANS,
+              }}>Détachée</span>
+              <span style={{
+                display: "block", color: "#0A1F44",
+                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+                fontWeight: 800, lineHeight: 0.95,
+                letterSpacing: "-0.04em",
+                fontFamily: SANS,
+              }}>Électroménager</span>
+            </h1>
           </motion.div>
 
           {/* Reference text */}

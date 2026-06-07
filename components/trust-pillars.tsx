@@ -84,7 +84,7 @@ function StatPillar({ delay }: { delay: number }) {
 
 export default function TrustPillars() {
   return (
-    <section className="bg-white py-16 px-6 border-t border-abelec-cream-line">
+    <section aria-label="Nos engagements qualité" className="bg-white py-16 px-6 border-t border-abelec-cream-line">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <p className="eyebrow mb-4">Pourquoi choisir Abelec</p>

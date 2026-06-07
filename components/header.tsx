@@ -259,7 +259,7 @@ export default function Header() {
           </Link>
 
           {/* Nav — center (hidden on mobile) */}
-          <div onMouseLeave={closeMega} className="max-sm:hidden">
+          <nav aria-label="Navigation principale" onMouseLeave={closeMega} className="max-sm:hidden">
             <button
               className="flex items-center gap-1.5 font-medium text-[15px] text-abelec-navy-ink px-4 py-2.5 rounded-lg hover:bg-abelec-navy/[0.06] transition-colors"
               onMouseEnter={openMega}
@@ -272,7 +272,7 @@ export default function Header() {
             <div onMouseEnter={openMega}>
               <MegaMenu open={megaOpen} t={t} raw={raw} />
             </div>
-          </div>
+          </nav>
 
           {/* Right controls — right-aligned */}
           <div className="flex items-center gap-1 justify-end">

@@ -191,7 +191,7 @@ export default function CategoriesSection() {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
   return (
-    <section className="bg-abelec-cream-light py-16 px-6">
+    <section aria-label="Catégories d'appareils électroménagers" className="bg-abelec-cream-light py-16 px-6">
       <div className="max-w-[1240px] mx-auto">
         {/* Header — left-aligned */}
         <div className="mb-12">

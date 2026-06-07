@@ -231,7 +231,7 @@ export default function ProductsSection() {
     : PRODUCTS.filter((p) => p.category === activeTab);
 
   return (
-    <section className="bg-abelec-cream-light py-16 px-6">
+    <section aria-label="Catalogue de pièces détachées" className="bg-abelec-cream-light py-16 px-6">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="text-center mb-10">

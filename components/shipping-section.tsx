@@ -24,7 +24,7 @@ export default function ShippingSection() {
   const t = useT();
 
   return (
-    <section className="bg-abelec-cream-deep py-16 px-6">
+    <section aria-label="Livraison et transporteurs partenaires" className="bg-abelec-cream-deep py-16 px-6">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
