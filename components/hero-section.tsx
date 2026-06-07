@@ -84,10 +84,14 @@ export default function HeroSection() {
         overflow:   "hidden",
       }}>
 
-        {/* ── Subtle horizontal scan-line texture ───────────────────────── */}
+        {/* ── Grid lines background (64px, 1px, ~0.04 opacity) ─────────── */}
         <div style={{
           position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(10,31,68,0.025) 31px, rgba(10,31,68,0.025) 32px)",
+          backgroundImage: [
+            "linear-gradient(rgba(10,31,68,0.045) 1px, transparent 1px)",
+            "linear-gradient(90deg, rgba(10,31,68,0.045) 1px, transparent 1px)",
+          ].join(", "),
+          backgroundSize: "64px 64px",
         }} />
 
         {/* ── BENTO GRID ────────────────────────────────────────────────── */}
