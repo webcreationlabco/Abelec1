@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import GridNeon from "@/components/grid-neon";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LINE = "1px solid rgba(10,31,68,0.07)";
@@ -84,7 +85,7 @@ export default function HeroSection() {
         overflow:   "hidden",
       }}>
 
-        {/* ── Grid lines background (64px, 1px, ~0.04 opacity) ─────────── */}
+        {/* ── Static grid lines (CSS, 64px) ─────────────────────────────── */}
         <div style={{
           position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
           backgroundImage: [
@@ -94,9 +95,12 @@ export default function HeroSection() {
           backgroundSize: "64px 64px",
         }} />
 
+        {/* ── Neon orange travelers on grid lines (canvas) ───────────── */}
+        <GridNeon />
+
         {/* ── BENTO GRID ────────────────────────────────────────────────── */}
         <div style={{
-          flex: 1, position: "relative", zIndex: 1,
+          flex: 1, position: "relative", zIndex: 2,
           display: "grid",
           gridTemplateColumns: "clamp(170px,15vw,230px) 1fr clamp(170px,15vw,230px)",
           gridTemplateRows: "1fr auto",
