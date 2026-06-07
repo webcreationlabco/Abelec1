@@ -210,7 +210,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.62 + i * 0.10, ease: EASE }}
               style={{
-                flex: "1 1 210px", maxWidth: 248,
+                flex: "1 1 260px", maxWidth: 300,
                 background: "rgba(255,255,255,0.82)",
                 backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
                 borderRadius: 16,
@@ -240,21 +240,21 @@ export default function HeroSection() {
             >
               {/* Illustration area */}
               <div style={{
-                height: 120, background: "#F0EEEB",
+                height: 150, background: "#F0EEEB",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
-                <Image src={illustration} alt={title} width={84} height={84}
-                  style={{ objectFit: "contain", filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.12))" }}
+                <Image src={illustration} alt={title} width={106} height={106}
+                  style={{ objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.13))" }}
                 />
               </div>
               {/* Text + arrow */}
-              <div style={{ padding: "14px 16px 14px 18px", display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ padding: "16px 18px 16px 20px", display: "flex", alignItems: "center", gap: 10 }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 3, letterSpacing: "-0.01em" }}>{title}</div>
-                  <div style={{ fontSize: 12, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 4, letterSpacing: "-0.01em" }}>{title}</div>
+                  <div style={{ fontSize: 12.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
                 </div>
-                <ArrowRight size={15} color="#E66324" className="cta-arrow"
+                <ArrowRight size={16} color="#E66324" className="cta-arrow"
                   style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
               </div>
             </motion.button>
@@ -269,26 +269,6 @@ export default function HeroSection() {
         `}</style>
       </section>
 
-      {/* ── TRUST BAR ── */}
-      <div style={{ borderBottom: LINE, background: "white" }}>
-        <div style={{
-          maxWidth: 1240, margin: "0 auto", padding: "13px 48px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          gap: 36, flexWrap: "wrap",
-        }}>
-          {[
-            { label: "4.9 / 5",           sub: "312 avis vérifiés" },
-            { label: "Garantie 12 mois",   sub: undefined },
-            { label: "Livraison 48h",      sub: undefined },
-            { label: "100 000 références", sub: "en stock" },
-          ].map(({ label, sub }, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 12.5, fontWeight: 600, color: "#0A1F44" }}>{label}</span>
-              {sub && <span style={{ fontSize: 11.5, color: "#9a9a9a" }}>{sub}</span>}
-            </div>
-          ))}
-        </div>
-      </div>
     </>
   );
 }
