@@ -119,7 +119,21 @@
     "card2Cta": "Describe my issue",
     "card3Title": "I have the part reference",
     "card3Desc": "Find your product on our website.",
-    "card3Cta": "Enter part reference"
+    "card3Cta": "Enter part reference",
+    "titleLine1": "Spare Parts",
+    "titleLine2": "for Your",
+    "titleLine3": "Appliance",
+    "statsLine": "100,000 references · 48h delivery · 6 European countries",
+    "searchPlaceholder": "E.g.: Bosch drain pump, Whirlpool hood filter…",
+    "badge1": "100,000 in stock",
+    "badge2": "48h delivery",
+    "badge3": "12-month warranty",
+    "ctaCard1Title": "Browse by appliance",
+    "ctaCard1Sub": "Browse the catalogue",
+    "ctaCard2Title": "I have a breakdown",
+    "ctaCard2Sub": "Describe the problem",
+    "ctaCard3Title": "I have a reference",
+    "ctaCard3Sub": "Enter your part code"
   },
   "brands": {
     "label": "Compatible brands · ",
@@ -176,7 +190,9 @@
     },
     "selectZone": "Select a zone to see available parts",
     "hoverZone": "Hover and click a zone to see the parts",
-    "badge": "Interactive 3D view"
+    "badge": "Interactive 3D view",
+    "ourAppliances": "Our appliances",
+    "close": "Close"
   },
   "experts": {
     "eyebrow": "Section 05 · The people behind the site",
@@ -323,6 +339,16 @@
       }
     ]
   },
+  "pillars": {
+    "eyebrow": "Why choose Abelec",
+    "p1Title": "43 years of expertise",
+    "p1Desc": "Founded in 1983 in Péronnes-lez-Binche, our team knows every reference by heart. Human advice, no chatbot.",
+    "p2Title": "Delivery within 48h",
+    "p2Desc": "100,000 parts in permanent stock. Order before 2 pm, receive tomorrow in 6 European countries.",
+    "p3Title": "1-year warranty",
+    "p3Desc": "All our parts are guaranteed for 12 months. Defective part? We replace it, no questions asked.",
+    "statDesc": "Appliances repaired thanks to our parts since 1983."
+  },
   "footer": {
     "tagline": "Appliance spare parts since 1983.",
     "address": "Avenue Léopold III 38B",
@@ -400,6 +426,7 @@
     "confirm": "Continue"
   },
   "helpdeskPanel": {
+    "title": "Abelec Support",
     "greeting": "Hello! How can we help you today?",
     "status": "Online · Responds within 2h",
     "chooseSubject": "Choose a topic",

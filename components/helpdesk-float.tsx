@@ -78,7 +78,7 @@ export default function HelpdeskFloat() {
                   <MessageCircle size={18} strokeWidth={2} className="text-white" />
                 </div>
                 <div>
-                  <p className="font-slab font-bold text-white text-[15px] leading-tight">Support Abelec</p>
+                  <p className="font-slab font-bold text-white text-[15px] leading-tight">{t("helpdeskPanel.title")}</p>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-2 h-2 rounded-full bg-green-400 shrink-0" />
                     <span className="text-[11px] text-white/60 font-mono">{t("helpdeskPanel.status")}</span>

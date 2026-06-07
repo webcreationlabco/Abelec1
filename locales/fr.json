@@ -119,7 +119,21 @@
     "card2Cta": "Décrire ma panne",
     "card3Title": "J'ai la référence de la pièce",
     "card3Desc": "Vous avez déjà la référence ? Trouvez-la directement dans notre catalogue.",
-    "card3Cta": "Entrer la référence pièce"
+    "card3Cta": "Entrer la référence pièce",
+    "titleLine1": "La Pièce",
+    "titleLine2": "Détachée",
+    "titleLine3": "Électroménager",
+    "statsLine": "100 000 références · Livraison 48h · 6 pays d'Europe",
+    "searchPlaceholder": "Ex : Pompe de vidange Bosch, filtre de hotte Whirlpool…",
+    "badge1": "100 000 en stock",
+    "badge2": "Livraison 48h",
+    "badge3": "Garantie 12 mois",
+    "ctaCard1Title": "Je cherche par appareil",
+    "ctaCard1Sub": "Parcourez le catalogue",
+    "ctaCard2Title": "J'ai une panne",
+    "ctaCard2Sub": "Décrivez le problème",
+    "ctaCard3Title": "J'ai une référence",
+    "ctaCard3Sub": "Entrez votre code pièce"
   },
   "brands": {
     "label": "Marques compatibles · ",
@@ -176,7 +190,9 @@
     },
     "selectZone": "Sélectionnez une zone pour voir les pièces disponibles",
     "hoverZone": "Survolez et cliquez sur une zone pour voir les pièces",
-    "badge": "Vue 3D interactive"
+    "badge": "Vue 3D interactive",
+    "ourAppliances": "Nos appareils",
+    "close": "Fermer"
   },
   "experts": {
     "eyebrow": "Section 05 · L'humain derrière le site",
@@ -323,6 +339,16 @@
       }
     ]
   },
+  "pillars": {
+    "eyebrow": "Pourquoi choisir Abelec",
+    "p1Title": "43 ans d'expertise",
+    "p1Desc": "Fondée en 1983 à Péronnes-lez-Binche, notre équipe connaît chaque référence par cœur. Conseil humain, pas de chatbot.",
+    "p2Title": "Livraison en 48h",
+    "p2Desc": "100 000 pièces en stock permanent. Commandez avant 14h, recevez demain dans 6 pays d'Europe.",
+    "p3Title": "Garantie 1 an",
+    "p3Desc": "Toutes nos pièces sont garanties 12 mois. Pièce défectueuse ? On remplace, sans discussion.",
+    "statDesc": "Appareils réparés grâce à nos pièces depuis 1983."
+  },
   "footer": {
     "tagline": "La pièce détachée électroménager depuis 1983.",
     "address": "Avenue Léopold III 38B",
@@ -400,6 +426,7 @@
     "confirm": "Continuer"
   },
   "helpdeskPanel": {
+    "title": "Support Abelec",
     "greeting": "Bonjour ! Comment pouvons-nous vous aider aujourd’hui ?",
     "status": "En ligne · Répond en < 2h",
     "chooseSubject": "Choisissez un sujet",

@@ -119,7 +119,21 @@
     "card2Cta": "Mijn panne beschrijven",
     "card3Title": "Ik heb de referentie van het onderdeel",
     "card3Desc": "Vind uw product op onze website.",
-    "card3Cta": "Onderdeelreferentie invoeren"
+    "card3Cta": "Onderdeelreferentie invoeren",
+    "titleLine1": "Onderdelen",
+    "titleLine2": "voor Uw",
+    "titleLine3": "Toestel",
+    "statsLine": "100.000 referenties · Levering 48u · 6 Europese landen",
+    "searchPlaceholder": "Bijv.: Bosch aftakpomp, Whirlpool afzuigkap filter…",
+    "badge1": "100.000 op voorraad",
+    "badge2": "Levering 48u",
+    "badge3": "12 maanden garantie",
+    "ctaCard1Title": "Zoeken op toestel",
+    "ctaCard1Sub": "Door de catalogus bladeren",
+    "ctaCard2Title": "Ik heb een panne",
+    "ctaCard2Sub": "Beschrijf het probleem",
+    "ctaCard3Title": "Ik heb een referentie",
+    "ctaCard3Sub": "Voer uw stukcode in"
   },
   "brands": {
     "label": "Compatibele merken · ",
@@ -176,7 +190,9 @@
     },
     "selectZone": "Selecteer een zone om de beschikbare onderdelen te zien",
     "hoverZone": "Beweeg over en klik op een zone om de onderdelen te zien",
-    "badge": "Interactieve 3D-weergave"
+    "badge": "Interactieve 3D-weergave",
+    "ourAppliances": "Onze toestellen",
+    "close": "Sluiten"
   },
   "experts": {
     "eyebrow": "Sectie 05 · De mensen achter de site",
@@ -323,6 +339,16 @@
       }
     ]
   },
+  "pillars": {
+    "eyebrow": "Waarom Abelec kiezen",
+    "p1Title": "43 jaar expertise",
+    "p1Desc": "Opgericht in 1983 in Péronnes-lez-Binche, kent ons team elke referentie van buiten. Menselijk advies, geen chatbot.",
+    "p2Title": "Levering binnen 48u",
+    "p2Desc": "100.000 onderdelen permanent op voorraad. Bestel voor 14u, ontvang morgen in 6 Europese landen.",
+    "p3Title": "1 jaar garantie",
+    "p3Desc": "Al onze onderdelen zijn 12 maanden gegarandeerd. Defect onderdeel? Wij vervangen het, zonder discussie.",
+    "statDesc": "Toestellen hersteld dankzij onze onderdelen sinds 1983."
+  },
   "footer": {
     "tagline": "Reserveonderdelen voor huishoudapparaten sinds 1983.",
     "address": "Leopoldlaan III 38B",
@@ -400,6 +426,7 @@
     "confirm": "Verdergaan"
   },
   "helpdeskPanel": {
+    "title": "Abelec Support",
     "greeting": "Hallo ! Hoe kunnen we u vandaag helpen ?",
     "status": "Online · Antwoordt binnen 2u",
     "chooseSubject": "Kies een onderwerp",

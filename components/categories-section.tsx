@@ -139,7 +139,7 @@ function CategoryModal({
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-lg grid place-items-center text-abelec-muted hover:text-abelec-navy-ink hover:bg-abelec-cream-light transition-colors ml-4 shrink-0 mt-0.5"
-            aria-label="Fermer"
+            aria-label={t("categories.close")}
           >
             <X size={16} strokeWidth={2} />
           </button>
@@ -195,7 +195,7 @@ export default function CategoriesSection() {
       <div className="max-w-[1240px] mx-auto">
         {/* Header — left-aligned */}
         <div className="mb-12">
-          <p className="eyebrow mb-3">Nos appareils</p>
+          <p className="eyebrow mb-3">{t("categories.ourAppliances")}</p>
           <h2 className="font-slab text-abelec-navy">
             {t("categories.title")}{" "}
             <span className="text-abelec-orange italic">{t("categories.titleAccent")}</span>

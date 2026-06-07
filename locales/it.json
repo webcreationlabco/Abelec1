@@ -119,7 +119,21 @@
     "card2Cta": "Descrivi il guasto",
     "card3Title": "Ho la referenza del pezzo",
     "card3Desc": "Trova il tuo prodotto sul nostro sito.",
-    "card3Cta": "Inserisci referenza pezzo"
+    "card3Cta": "Inserisci referenza pezzo",
+    "titleLine1": "Ricambi",
+    "titleLine2": "per il Vostro",
+    "titleLine3": "Elettrodomestico",
+    "statsLine": "100.000 referenze · Consegna in 48h · 6 paesi europei",
+    "searchPlaceholder": "Es.: Pompa scarico Bosch, filtro cappa Whirlpool…",
+    "badge1": "100.000 in magazzino",
+    "badge2": "Consegna 48h",
+    "badge3": "Garanzia 12 mesi",
+    "ctaCard1Title": "Cerca per apparecchio",
+    "ctaCard1Sub": "Sfoglia il catalogo",
+    "ctaCard2Title": "Ho un guasto",
+    "ctaCard2Sub": "Descrivi il problema",
+    "ctaCard3Title": "Ho un riferimento",
+    "ctaCard3Sub": "Inserisci il codice pezzo"
   },
   "brands": {
     "label": "Marchi compatibili · ",
@@ -176,7 +190,9 @@
     },
     "selectZone": "Seleziona una zona per vedere i pezzi disponibili",
     "hoverZone": "Passa sopra e clicca su una zona per vedere i pezzi",
-    "badge": "Vista 3D interattiva"
+    "badge": "Vista 3D interattiva",
+    "ourAppliances": "I nostri elettrodomestici",
+    "close": "Chiudi"
   },
   "experts": {
     "eyebrow": "Sezione 05 · Le persone dietro il sito",
@@ -323,6 +339,16 @@
       }
     ]
   },
+  "pillars": {
+    "eyebrow": "Perché scegliere Abelec",
+    "p1Title": "43 anni di esperienza",
+    "p1Desc": "Fondata nel 1983 a Péronnes-lez-Binche, il nostro team conosce ogni riferimento a memoria. Consulenza umana, nessun chatbot.",
+    "p2Title": "Consegna in 48 ore",
+    "p2Desc": "100.000 pezzi in stock permanente. Ordina prima delle 14:00, ricevi domani in 6 paesi europei.",
+    "p3Title": "Garanzia 1 anno",
+    "p3Desc": "Tutti i nostri pezzi sono garantiti 12 mesi. Pezzo difettoso? Lo sostituiamo, senza discussioni.",
+    "statDesc": "Elettrodomestici riparati grazie ai nostri pezzi dal 1983."
+  },
   "footer": {
     "tagline": "Ricambi per elettrodomestici dal 1983.",
     "address": "Avenue Léopold III 38B",
@@ -400,6 +426,7 @@
     "confirm": "Continua"
   },
   "helpdeskPanel": {
+    "title": "Supporto Abelec",
     "greeting": "Ciao ! Come possiamo aiutarti oggi ?",
     "status": "Online · Risponde in < 2h",
     "chooseSubject": "Scegli un argomento",

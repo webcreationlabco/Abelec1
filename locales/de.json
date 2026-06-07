@@ -119,7 +119,21 @@
     "card2Cta": "Defekt beschreiben",
     "card3Title": "Ich habe die Teilereferenz",
     "card3Desc": "Finden Sie Ihr Produkt auf unserer Website.",
-    "card3Cta": "Teilereferenz eingeben"
+    "card3Cta": "Teilereferenz eingeben",
+    "titleLine1": "Ersatzteile",
+    "titleLine2": "für Ihr",
+    "titleLine3": "Haushaltsgerät",
+    "statsLine": "100.000 Referenzen · Lieferung 48h · 6 europäische Länder",
+    "searchPlaceholder": "Z.B.: Bosch Laugenpumpe, Whirlpool Dunstabzug Filter…",
+    "badge1": "100.000 auf Lager",
+    "badge2": "Lieferung 48h",
+    "badge3": "12 Monate Garantie",
+    "ctaCard1Title": "Nach Gerät suchen",
+    "ctaCard1Sub": "Katalog durchsuchen",
+    "ctaCard2Title": "Ich habe eine Panne",
+    "ctaCard2Sub": "Problem beschreiben",
+    "ctaCard3Title": "Ich habe eine Referenz",
+    "ctaCard3Sub": "Teilcode eingeben"
   },
   "brands": {
     "label": "Kompatible Marken · ",
@@ -176,7 +190,9 @@
     },
     "selectZone": "Wählen Sie eine Zone, um verfügbare Teile zu sehen",
     "hoverZone": "Fahren Sie über eine Zone und klicken Sie um die Teile zu sehen",
-    "badge": "Interaktive 3D-Ansicht"
+    "badge": "Interaktive 3D-Ansicht",
+    "ourAppliances": "Unsere Geräte",
+    "close": "Schließen"
   },
   "experts": {
     "eyebrow": "Abschnitt 05 · Die Menschen hinter der Website",
@@ -323,6 +339,16 @@
       }
     ]
   },
+  "pillars": {
+    "eyebrow": "Warum Abelec wählen",
+    "p1Title": "43 Jahre Erfahrung",
+    "p1Desc": "Gegründet 1983 in Péronnes-lez-Binche, kennt unser Team jede Referenz auswendig. Menschliche Beratung, kein Chatbot.",
+    "p2Title": "Lieferung in 48 Stunden",
+    "p2Desc": "100.000 Teile dauerhaft auf Lager. Bestellen Sie vor 14 Uhr, erhalten Sie Ihre Bestellung morgen in 6 europäischen Ländern.",
+    "p3Title": "1 Jahr Garantie",
+    "p3Desc": "Alle unsere Teile sind 12 Monate garantiert. Defektes Teil? Wir ersetzen es, ohne Diskussion.",
+    "statDesc": "Seit 1983 dank unserer Teile reparierte Geräte."
+  },
   "footer": {
     "tagline": "Ersatzteile für Haushaltsgeräte seit 1983.",
     "address": "Avenue Léopold III 38B",
@@ -400,6 +426,7 @@
     "confirm": "Weiter"
   },
   "helpdeskPanel": {
+    "title": "Abelec Support",
     "greeting": "Hallo ! Wie können wir Ihnen heute helfen ?",
     "status": "Online · Antwortet in < 2h",
     "chooseSubject": "Wählen Sie ein Thema",

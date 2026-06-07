@@ -3,26 +3,12 @@
 import { motion, useInView } from "framer-motion";
 import { Wrench, Truck, ShieldCheck, Hammer } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
+import { useT } from "@/lib/i18n";
 
-const PILLARS = [
-  {
-    icon: Wrench,
-    title: "43 ans d'expertise",
-    description:
-      "Fondée en 1983 à Péronnes-lez-Binche, notre équipe connaît chaque référence par cœur. Conseil humain, pas de chatbot.",
-  },
-  {
-    icon: Truck,
-    title: "Livraison en 48h",
-    description:
-      "100 000 pièces en stock permanent. Commandez avant 14h, recevez demain dans 6 pays d'Europe.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Garantie 1 an",
-    description:
-      "Toutes nos pièces sont garanties 12 mois. Pièce défectueuse ? On remplace, sans discussion.",
-  },
+const PILLARS: { icon: typeof Wrench; titleKey: string; descKey: string }[] = [
+  { icon: Wrench,     titleKey: "pillars.p1Title", descKey: "pillars.p1Desc" },
+  { icon: Truck,      titleKey: "pillars.p2Title", descKey: "pillars.p2Desc" },
+  { icon: ShieldCheck, titleKey: "pillars.p3Title", descKey: "pillars.p3Desc" },
 ];
 
 const STAT_END = 287598;
@@ -57,6 +43,7 @@ function formatNumber(n: number) {
 }
 
 function StatPillar({ delay }: { delay: number }) {
+  const t = useT();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const count = useCountUp(STAT_END, inView);
@@ -76,18 +63,20 @@ function StatPillar({ delay }: { delay: number }) {
         {formatNumber(count)}
       </h3>
       <p className="text-abelec-muted text-[14.5px] leading-relaxed">
-        Appareils réparés grâce à nos pièces depuis 1983.
+        {t("pillars.statDesc")}
       </p>
     </motion.div>
   );
 }
 
 export default function TrustPillars() {
+  const t = useT();
+
   return (
-    <section aria-label="Nos engagements qualité" className="bg-white py-16 px-6 border-t border-abelec-cream-line">
+    <section aria-label={t("pillars.eyebrow")} className="bg-white py-16 px-6 border-t border-abelec-cream-line">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
-        <p className="eyebrow mb-4">Pourquoi choisir Abelec</p>
+        <p className="eyebrow mb-4">{t("pillars.eyebrow")}</p>
         <hr className="border-abelec-cream-line mb-10" />
 
         {/* Grid — 4 cols desktop, 1 col mobile */}
@@ -96,7 +85,7 @@ export default function TrustPillars() {
             const Icon = pillar.icon;
             return (
               <motion.div
-                key={pillar.title}
+                key={pillar.titleKey}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
@@ -108,10 +97,10 @@ export default function TrustPillars() {
               >
                 <Icon size={28} className="text-abelec-orange" />
                 <h3 className="font-slab text-abelec-navy-ink text-[22px] font-bold mt-4 mb-2">
-                  {pillar.title}
+                  {t(pillar.titleKey)}
                 </h3>
                 <p className="text-abelec-muted text-[14.5px] leading-relaxed">
-                  {pillar.description}
+                  {t(pillar.descKey)}
                 </p>
               </motion.div>
             );

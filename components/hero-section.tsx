@@ -8,20 +8,22 @@ import GridNeon from "@/components/grid-neon";
 import ApplianceReferenceModal from "@/components/modals/appliance-reference-modal";
 import BreakdownModal          from "@/components/modals/breakdown-modal";
 import PartReferenceModal      from "@/components/modals/part-reference-modal";
+import { useT } from "@/lib/i18n";
 
 type ModalId = "appliance" | "breakdown" | "part";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LINE = "1px solid rgba(10,31,68,0.07)";
 
-const CTA_CARDS: { illustration: string; title: string; sub: string; modal: ModalId }[] = [
-  { illustration: "/illustrations/appareil-reference.png", title: "Je cherche par appareil", sub: "Parcourez le catalogue",  modal: "appliance" },
-  { illustration: "/illustrations/frigo-panne.png",        title: "J'ai une panne",          sub: "Décrivez le problème",   modal: "breakdown" },
-  { illustration: "/illustrations/piece-reference.png",    title: "J'ai une référence",      sub: "Entrez votre code pièce", modal: "part"     },
+const CTA_CARDS: { illustration: string; titleKey: string; subKey: string; modal: ModalId }[] = [
+  { illustration: "/illustrations/appareil-reference.png", titleKey: "hero.ctaCard1Title", subKey: "hero.ctaCard1Sub", modal: "appliance" },
+  { illustration: "/illustrations/frigo-panne.png",        titleKey: "hero.ctaCard2Title", subKey: "hero.ctaCard2Sub", modal: "breakdown" },
+  { illustration: "/illustrations/piece-reference.png",    titleKey: "hero.ctaCard3Title", subKey: "hero.ctaCard3Sub", modal: "part"     },
 ];
 
 
 export default function HeroSection() {
+  const t = useT();
   const [query,       setQuery]       = useState("");
   const [focused,     setFocused]     = useState(false);
   const [activeModal, setActiveModal] = useState<ModalId | null>(null);
@@ -83,7 +85,7 @@ export default function HeroSection() {
               fontFamily: MONO, marginBottom: 14,
             }}
           >
-            Entreprise familiale belge · Fondée en 1983
+            {t("hero.eyebrow")}
           </motion.p>
 
           {/* Title — h1 with display:contents preserves visual layout, adds semantic H1 */}
@@ -93,27 +95,15 @@ export default function HeroSection() {
             style={{ marginBottom: 10 }}
           >
             <h1 style={{ display: "contents", font: "inherit" }}>
-              <span style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-                fontWeight: 800, lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-                fontFamily: SANS,
-              }}>La Pièce</span>
-              <span style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-                fontWeight: 800, lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-                fontFamily: SANS,
-              }}>Détachée</span>
-              <span style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
-                fontWeight: 800, lineHeight: 0.95,
-                letterSpacing: "-0.04em",
-                fontFamily: SANS,
-              }}>Électroménager</span>
+              {(["hero.titleLine1", "hero.titleLine2", "hero.titleLine3"] as const).map((key) => (
+                <span key={key} style={{
+                  display: "block", color: "#0A1F44",
+                  fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+                  fontWeight: 800, lineHeight: 0.95,
+                  letterSpacing: "-0.04em",
+                  fontFamily: SANS,
+                }}>{t(key)}</span>
+              ))}
             </h1>
           </motion.div>
 
@@ -126,7 +116,7 @@ export default function HeroSection() {
               fontFamily: SANS, marginBottom: 16, letterSpacing: "0.01em",
             }}
           >
-            100 000 références · Livraison 48h · 6 pays d'Europe
+            {t("hero.statsLine")}
           </motion.p>
 
           {/* Search bar */}
@@ -155,7 +145,7 @@ export default function HeroSection() {
                     onChange={e => setQuery(e.target.value)}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
-                    placeholder="Ex: Pompe de vidange Bosch, filtre de hotte Whirlpool..."
+                    placeholder={t("hero.searchPlaceholder")}
                     style={{
                       flex: 1, border: "none", outline: "none",
                       background: "transparent", fontSize: 14,
@@ -174,7 +164,7 @@ export default function HeroSection() {
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#c94f1a"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#E66324"; }}
                   >
-                    Rechercher
+                    {t("hero.searchBtn")}
                   </button>
                 </div>
               </div>
@@ -188,10 +178,10 @@ export default function HeroSection() {
             style={{ display: "flex", gap: 6, justifyContent: "center", flexWrap: "wrap", marginBottom: 28 }}
           >
             {[
-              { pulse: true,  text: "100 000 en stock" },
-              { pulse: false, text: "Livraison 48h"    },
-              { pulse: false, text: "Garantie 12 mois" },
-            ].map(({ pulse, text }, i) => (
+              { pulse: true,  textKey: "hero.badge1" },
+              { pulse: false, textKey: "hero.badge2" },
+              { pulse: false, textKey: "hero.badge3" },
+            ].map(({ pulse, textKey }, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: 6,
                 padding: "5px 12px",
@@ -212,7 +202,7 @@ export default function HeroSection() {
                   fontSize: 10, fontWeight: 600, letterSpacing: "1.2px",
                   textTransform: "uppercase", color: "rgba(10,31,68,0.45)",
                   fontFamily: MONO,
-                }}>{text}</span>
+                }}>{t(textKey)}</span>
               </div>
             ))}
           </motion.div>
@@ -224,9 +214,9 @@ export default function HeroSection() {
           display: "flex", gap: 16, justifyContent: "center",
           padding: "0 24px 32px", flexWrap: "wrap",
         }}>
-          {CTA_CARDS.map(({ illustration, title, sub, modal }, i) => (
+          {CTA_CARDS.map(({ illustration, titleKey, subKey, modal }, i) => (
             <motion.button
-              key={title}
+              key={titleKey}
               onClick={() => setActiveModal(modal)}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -265,15 +255,15 @@ export default function HeroSection() {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
-                <Image src={illustration} alt={title} width={130} height={130}
+                <Image src={illustration} alt={t(titleKey)} width={130} height={130}
                   style={{ objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.13))", maxHeight: "80%", width: "auto" }}
                 />
               </div>
               {/* Text + arrow */}
               <div style={{ padding: "16px 18px 16px 20px", display: "flex", alignItems: "center", gap: 10 }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 4, letterSpacing: "-0.01em" }}>{title}</div>
-                  <div style={{ fontSize: 12.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 4, letterSpacing: "-0.01em" }}>{t(titleKey)}</div>
+                  <div style={{ fontSize: 12.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{t(subKey)}</div>
                 </div>
                 <ArrowRight size={16} color="#E66324" className="cta-arrow"
                   style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
