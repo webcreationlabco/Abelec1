@@ -79,7 +79,7 @@ export default function ExpertsSection() {
             <TeamPhoto
               src="/images/team/travail.jpg"
               label={t("experts.photo1")}
-              imgHeight="h-[220px]"
+              imgHeight="h-[clamp(140px,38vw,220px)]"
               wrapperClassName="col-span-2"
             />
 
@@ -87,14 +87,14 @@ export default function ExpertsSection() {
             <TeamPhoto
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DSC08676-Gf3fatnZm5vcydCNKzdFAlMRrHdpS6.jpg"
               label={t("experts.photo2")}
-              imgHeight="h-[160px]"
+              imgHeight="h-[clamp(110px,26vw,160px)]"
             />
 
             {/* Photo 3 */}
             <TeamPhoto
               src="/images/team/mains.jpg"
               label={t("experts.photo3")}
-              imgHeight="h-[160px]"
+              imgHeight="h-[clamp(110px,26vw,160px)]"
             />
           </motion.div>
         </div>

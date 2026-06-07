@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock } from "lucide-react";
+import { Lock, ArrowRight } from "lucide-react";
 import { useT, useI18n } from "@/lib/i18n";
 
 // ── KPI data ──────────────────────────────────────────────────────────────
@@ -199,43 +200,64 @@ export default function TrustSection() {
 
           </motion.div>
 
-          {/* ── BLOC 3 — KPI logistiques ─────────────────────────────── */}
+          {/* ── BLOC 3 — Nos partenaires ─────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.14, duration: 0.4 }}
-            className="bg-white rounded-[16px] border border-abelec-cream-line p-6"
+            className="bg-white rounded-[16px] border border-abelec-cream-line p-6 flex flex-col"
           >
-            <p className="font-mono text-[10px] text-abelec-muted-2 uppercase tracking-[0.12em] mb-6">
-              03 · {t("trust.kpiTitle")}
+            <p className="font-mono text-[10px] text-abelec-muted-2 uppercase tracking-[0.12em] mb-5">
+              03 · Nos partenaires
             </p>
 
-            <div className="space-y-5">
-              {KPI_BARS.map((kpi, i) => (
-                <div key={kpi.labelKey} className="flex items-center gap-4">
-                  {/* Big number */}
-                  <span className="font-slab font-bold text-[clamp(17px,2.5vw,22px)] tracking-tight w-14 sm:w-16 shrink-0 tabular-nums" style={{ color: "#E8732A" }}>
-                    {kpi.display}
-                  </span>
-                  {/* Bar + label */}
-                  <div className="flex-1 min-w-0">
-                    <span className="font-mono text-[10px] text-abelec-muted uppercase tracking-[0.05em] block mb-1.5 truncate">
-                      {t(kpi.labelKey)}
-                    </span>
-                    <div className="h-[7px] bg-abelec-cream-light rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${kpi.value}%` }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 + i * 0.1, duration: 0.8, ease: "easeOut" }}
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: kpi.color }}
-                      />
-                    </div>
+            <div className="flex flex-col gap-2.5 flex-1">
+              {[
+                {
+                  label: "Repair Cafés & ASBL",
+                  desc: "Tarifs préférentiels pour les initiatives citoyennes de réparation. Support technique dédié et livraison 48h.",
+                  color: "#2563EB",
+                  bg: "#EFF6FF",
+                },
+                {
+                  label: "Foyers & Institutions",
+                  desc: "Compte pro avec facturation mensuelle et interlocuteur unique pour résidences et structures sociales.",
+                  color: "#059669",
+                  bg: "#ECFDF5",
+                },
+                {
+                  label: "Professionnels & Enseignes",
+                  desc: "Conditions tarifaires négociables, stock de 100 000 pièces et livraison B2B Europe pour les pros.",
+                  color: "#D97E3A",
+                  bg: "#FFF7ED",
+                },
+              ].map(({ label, desc, color, bg }) => (
+                <div
+                  key={label}
+                  className="flex items-start gap-3 p-3.5 rounded-xl border border-abelec-cream-line"
+                  style={{ background: bg }}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0 mt-1.5"
+                    style={{ background: color }}
+                  />
+                  <div>
+                    <p className="font-slab font-bold text-[13px] text-abelec-navy leading-tight mb-0.5">{label}</p>
+                    <p className="text-[11.5px] text-abelec-muted leading-relaxed">{desc}</p>
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-abelec-cream-line">
+              <Link
+                href="/partenaires"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-abelec-orange hover:text-[#b8612a] transition-colors"
+              >
+                Voir plus
+                <ArrowRight size={14} strokeWidth={2.2} />
+              </Link>
             </div>
           </motion.div>
 
@@ -252,7 +274,7 @@ export default function TrustSection() {
             </p>
 
             {/* Real payment logos */}
-            <div className="grid grid-cols-2 max-[380px]:grid-cols-1 gap-3 mb-6">
+            <div className="grid grid-cols-2 max-[480px]:grid-cols-1 gap-3 mb-6">
               {[
                 { src: "/images/payment/visa.png",       alt: "Visa",       h: 28 },
                 { src: "/images/payment/mastercard.png", alt: "Mastercard", h: 36 },

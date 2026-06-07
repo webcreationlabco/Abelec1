@@ -2,151 +2,61 @@
 
 import { useEffect, useRef } from "react";
 
-// ── Types ──────────────────────────────────────────────────────────────────
 interface Particle {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  baseVx: number;
-  baseVy: number;
-  shape: 0 | 1 | 2 | 3 | 4;
-  rotation: number;
-  rgba: string;
-  boundR: number; // half bounding-box used for bounce & repulsion
-  hexR: number;   // hex bolt radius (used only for shape 0)
+  // target velocity (spring easing back to base drift)
+  tvx: number;
+  tvy: number;
+  radius: number;
+  // pulse state
+  pulse: boolean;
+  pulsePhase: number;
+  pulseSpeed: number;
+  baseOpacity: number;
 }
 
-// ── Colors ─────────────────────────────────────────────────────────────────
-const NAVY   = "rgba(26,58,92,0.3)";
-const ORANGE = "rgba(217,126,58,0.25)";
+const PARTICLE_COUNT  = 420;
+const LINK_DIST       = 150;
+const REPULSE_DIST    = 120;
+const REPULSE_PUSH    = 60;   // px to push away
+const SPRING          = 0.06; // spring easing back to base velocity
+const MAX_SPEED       = 1.4;
+const BASE_SPEED      = 0.10;
+const PULSE_COUNT     = 25;   // how many particles pulse
+const NAVY            = "27,43,75"; // #1B2B4B
+const GLOW_RADIUS     = 8;
 
-// ── Shape drawers ──────────────────────────────────────────────────────────
-// ctx is already translated to particle center and rotated.
-
-/** 1. Boulon hexagonal — 14–20px (radius 7–10) */
-function drawHexBolt(ctx: CanvasRenderingContext2D, r: number) {
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = (Math.PI / 3) * i - Math.PI / 6;
-    const x = r * Math.cos(a);
-    const y = r * Math.sin(a);
-    if (i === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
-  }
-  ctx.closePath();
-  ctx.stroke();
-  // Inner circle (socket)
-  ctx.beginPath();
-  ctx.arc(0, 0, r * 0.36, 0, Math.PI * 2);
-  ctx.stroke();
-}
-
-/** 2. Joint torique — outer r=12, inner r=7 */
-function drawORing(ctx: CanvasRenderingContext2D) {
-  ctx.beginPath();
-  ctx.arc(0, 0, 12, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(0, 0, 7, 0, Math.PI * 2);
-  ctx.stroke();
-}
-
-/** 3. Rondelle — outer r=10, inner r=5 */
-function drawWasher(ctx: CanvasRenderingContext2D) {
-  ctx.beginPath();
-  ctx.arc(0, 0, 10, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(0, 0, 5, 0, Math.PI * 2);
-  ctx.stroke();
-}
-
-/** 4. Vis — 8px wide, 18px tall, tête hexagonale + trait horizontal */
-function drawScrew(ctx: CanvasRenderingContext2D) {
-  // Hex head centered at (0, -5) — radius 3.5 → width ≈ 7px, height ≈ 6px
-  const hr = 3.5;
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = (Math.PI / 3) * i;
-    const x = hr * Math.cos(a);
-    const y = -5 + hr * Math.sin(a);
-    if (i === 0) { ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
-  }
-  ctx.closePath();
-  ctx.stroke();
-  // Horizontal trait at head center
-  ctx.beginPath();
-  ctx.moveTo(-2.5, -5);
-  ctx.lineTo(2.5, -5);
-  ctx.stroke();
-  // Shaft: 3px wide, from y=-1.5 to y=+9
-  ctx.beginPath();
-  ctx.rect(-1.5, -1.5, 3, 10.5);
-  ctx.stroke();
-}
-
-/** 5. Courroie — 22px wide, 10px tall — ellipse + 2 poulies */
-function drawBelt(ctx: CanvasRenderingContext2D) {
-  const pr = 5; // pulley radius
-  const cx = 6; // center-to-center half-distance → total width = 2*(pr+cx)=22
-  // Left pulley
-  ctx.beginPath();
-  ctx.arc(-cx, 0, pr, 0, Math.PI * 2);
-  ctx.stroke();
-  // Right pulley
-  ctx.beginPath();
-  ctx.arc(cx, 0, pr, 0, Math.PI * 2);
-  ctx.stroke();
-  // Belt tangents
-  ctx.beginPath();
-  ctx.moveTo(-cx, -pr);
-  ctx.lineTo(cx, -pr);
-  ctx.moveTo(-cx, pr);
-  ctx.lineTo(cx, pr);
-  ctx.stroke();
-}
-
-// Bounding half-sizes per shape (for bounce margins)
-const BOUND: [number, number, number, number, number] = [
-  10, // hex bolt max radius
-  12, // o-ring
-  10, // washer
-  11, // screw half-height
-  11, // belt half-width
-];
-
-// ── Particle factory ───────────────────────────────────────────────────────
-function makeParticle(w: number, h: number): Particle {
-  const shape = Math.floor(Math.random() * 5) as 0 | 1 | 2 | 3 | 4;
-  const hexR  = 7 + Math.random() * 3;          // 7–10 px (only for hex bolt)
-  const boundR = shape === 0 ? hexR : BOUND[shape];
-
-  const speed = 0.3 + Math.random() * 0.4;      // 0.3–0.7 px/frame
+function makeParticle(W: number, H: number, index: number): Particle {
+  const speed = BASE_SPEED + Math.random() * 0.15;
   const angle = Math.random() * Math.PI * 2;
-  const vx = Math.cos(angle) * speed;
-  const vy = Math.sin(angle) * speed;
-
+  const tvx = Math.cos(angle) * speed;
+  const tvy = Math.sin(angle) * speed;
+  const rng = Math.random();
+  const radius = rng < 0.4 ? 1.5 : rng < 0.75 ? 2.5 : 4.0;
+  const pulse = index < PULSE_COUNT;
   return {
-    x: boundR + Math.random() * (w - 2 * boundR),
-    y: boundR + Math.random() * (h - 2 * boundR),
-    vx,
-    vy,
-    baseVx: vx,
-    baseVy: vy,
-    shape,
-    rotation: Math.random() * Math.PI * 2,
-    rgba: Math.random() < 0.7 ? NAVY : ORANGE,
-    boundR,
-    hexR,
+    x:           Math.random() * W,
+    y:           Math.random() * H,
+    vx:          tvx,
+    vy:          tvy,
+    tvx,
+    tvy,
+    radius,
+    pulse,
+    pulsePhase:  Math.random() * Math.PI * 2,
+    pulseSpeed:  0.008 + Math.random() * 0.012,
+    baseOpacity: 0.22 + Math.random() * 0.18,
   };
 }
 
-// ── Component ──────────────────────────────────────────────────────────────
 export default function ParticlesBg() {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const particles  = useRef<Particle[]>([]);
-  const mouse      = useRef({ x: -9999, y: -9999 });
-  const rafRef     = useRef<number>(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const psRef     = useRef<Particle[]>([]);
+  const mouseRef  = useRef({ x: -9999, y: -9999 });
+  const rafRef    = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -154,85 +64,106 @@ export default function ParticlesBg() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // ── Resize ──
-    const resize = () => {
+    const init = () => {
       const parent = canvas.parentElement;
       canvas.width  = parent?.offsetWidth  ?? window.innerWidth;
       canvas.height = parent?.offsetHeight ?? window.innerHeight;
-    };
-
-    const init = () => {
-      resize();
-      particles.current = Array.from({ length: 50 }, () =>
-        makeParticle(canvas.width, canvas.height)
+      const W = canvas.width;
+      const H = canvas.height;
+      psRef.current = Array.from(
+        { length: PARTICLE_COUNT },
+        (_, i) => makeParticle(W, H, i)
       );
     };
 
     init();
 
-    // ── Mouse (window-level — works even with pointer-events:none) ──
     const onMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     };
-    const onLeave = () => { mouse.current = { x: -9999, y: -9999 }; };
-
-    // ── Animation ──
-    const REPULSE_DIST     = 130;
-    const REPULSE_STRENGTH = 0.10;
-    const RETURN_LERP      = 0.016;
-    const MAX_SPEED        = 1.8;
+    const onLeave = () => { mouseRef.current = { x: -9999, y: -9999 }; };
+    window.addEventListener("mousemove",  onMove);
+    window.addEventListener("mouseleave", onLeave);
 
     const tick = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.lineWidth = 1.2;
+      const { width: W, height: H } = canvas;
+      const { x: mx, y: my } = mouseRef.current;
+      const ps = psRef.current;
 
-      for (const p of particles.current) {
-        // Repulsion
-        const dx   = p.x - mouse.current.x;
-        const dy   = p.y - mouse.current.y;
+      ctx.clearRect(0, 0, W, H);
+
+      for (const p of ps) {
+        // Pulse phase advance
+        if (p.pulse) p.pulsePhase += p.pulseSpeed;
+
+        // Mouse repulsion — push strongly
+        const dx   = p.x - mx;
+        const dy   = p.y - my;
         const dist = Math.hypot(dx, dy);
+        let proximity = 0; // 0..1, 1 = very close to mouse
         if (dist < REPULSE_DIST && dist > 0) {
-          const force = ((REPULSE_DIST - dist) / REPULSE_DIST) * REPULSE_STRENGTH;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
+          proximity = 1 - dist / REPULSE_DIST;
+          const pushFactor = proximity * (REPULSE_PUSH / 60);
+          p.vx += (dx / dist) * pushFactor;
+          p.vy += (dy / dist) * pushFactor;
         }
+
+        // Spring back to base velocity
+        p.vx += (p.tvx - p.vx) * SPRING;
+        p.vy += (p.tvy - p.vy) * SPRING;
 
         // Speed cap
         const spd = Math.hypot(p.vx, p.vy);
         if (spd > MAX_SPEED) { p.vx *= MAX_SPEED / spd; p.vy *= MAX_SPEED / spd; }
 
-        // Drift back toward base velocity
-        p.vx += (p.baseVx - p.vx) * RETURN_LERP;
-        p.vy += (p.baseVy - p.vy) * RETURN_LERP;
+        // Move & wrap
+        p.x = (p.x + p.vx + W) % W;
+        p.y = (p.y + p.vy + H) % H;
 
-        // Move + rotate
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rotation += 0.005;
-
-        // Bounce
-        const m = p.boundR;
-        if (p.x < m)               { p.x = m;                p.vx = Math.abs(p.vx);  p.baseVx = Math.abs(p.baseVx);  }
-        if (p.x > canvas.width - m){ p.x = canvas.width - m; p.vx = -Math.abs(p.vx); p.baseVx = -Math.abs(p.baseVx); }
-        if (p.y < m)               { p.y = m;                p.vy = Math.abs(p.vy);  p.baseVy = Math.abs(p.baseVy);  }
-        if (p.y > canvas.height- m){ p.y = canvas.height - m;p.vy = -Math.abs(p.vy); p.baseVy = -Math.abs(p.baseVy); }
-
-        // Draw
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rotation);
-        ctx.strokeStyle = p.rgba;
-
-        switch (p.shape) {
-          case 0: drawHexBolt(ctx, p.hexR); break;
-          case 1: drawORing(ctx);           break;
-          case 2: drawWasher(ctx);          break;
-          case 3: drawScrew(ctx);           break;
-          case 4: drawBelt(ctx);            break;
+        // Compute opacity
+        let opacity = p.baseOpacity;
+        if (p.pulse) {
+          const t = (Math.sin(p.pulsePhase) + 1) / 2; // 0..1
+          opacity = 0.30 + t * 0.50; // 0.30..0.80
         }
+        // Glow brighter near mouse
+        const glowBoost = proximity * 0.5;
+        opacity = Math.min(1, opacity + glowBoost);
 
-        ctx.restore();
+        // Draw glow halo (radial gradient)
+        const glowR = GLOW_RADIUS + p.radius * 1.5 + proximity * 6;
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+        grad.addColorStop(0,   `rgba(${NAVY},${(opacity * 0.55).toFixed(3)})`);
+        grad.addColorStop(0.4, `rgba(${NAVY},${(opacity * 0.18).toFixed(3)})`);
+        grad.addColorStop(1,   `rgba(${NAVY},0)`);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Draw core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${NAVY},${opacity.toFixed(3)})`;
+        ctx.fill();
+      }
+
+      // Draw connection lines
+      ctx.lineWidth = 0.65;
+      for (let i = 0; i < ps.length; i++) {
+        for (let j = i + 1; j < ps.length; j++) {
+          const a = ps[i], b = ps[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < LINK_DIST) {
+            const alpha = 0.13 * (1 - d / LINK_DIST);
+            ctx.strokeStyle = `rgba(${NAVY},${alpha.toFixed(3)})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -240,15 +171,14 @@ export default function ParticlesBg() {
 
     tick();
 
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseleave", onLeave);
-    window.addEventListener("resize", init);
+    const onResize = () => init();
+    window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousemove",  onMove);
       window.removeEventListener("mouseleave", onLeave);
-      window.removeEventListener("resize", init);
+      window.removeEventListener("resize",     onResize);
     };
   }, []);
 
@@ -256,8 +186,15 @@ export default function ParticlesBg() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="absolute inset-0 w-full h-full"
-      style={{ zIndex: 0, pointerEvents: "none", background: "transparent" }}
+      style={{
+        position:      "absolute",
+        inset:         0,
+        width:         "100%",
+        height:        "100%",
+        zIndex:        0,
+        pointerEvents: "none",
+        display:       "block",
+      }}
     />
   );
 }

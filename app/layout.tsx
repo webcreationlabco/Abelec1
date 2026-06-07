@@ -1,9 +1,30 @@
 import type { Metadata } from "next";
-import { Roboto_Slab, Inter, JetBrains_Mono } from "next/font/google";
+import { Roboto_Slab, Inter, JetBrains_Mono, Syne, DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
 import LocaleDetector from "@/components/locale-detector";
 import fr from "@/locales/fr.json";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "700", "900"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["700", "800"],
+  display: "swap",
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  weight: ["800"],
+  display: "swap",
+});
 
 const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
@@ -15,7 +36,7 @@ const robotoSlab = Roboto_Slab({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -50,7 +71,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${robotoSlab.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="fr" className={`${playfair.variable} ${dmSans.variable} ${syne.variable} ${robotoSlab.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="antialiased">
         <I18nProvider
           initialLocale="fr"

@@ -126,7 +126,7 @@ function ProductCard({ product, t }: { product: typeof PRODUCTS[0]; t: (k: strin
       className="group bg-white rounded-[14px] overflow-hidden border border-abelec-cream-line hover:border-abelec-orange hover:shadow-card-md transition-[border-color,box-shadow] duration-200 flex flex-col"
     >
       {/* Photo */}
-      <Link href={`/produit/${product.slug}`} className="block relative bg-white border-b border-abelec-cream-line overflow-hidden" style={{ height: "160px" }}>
+      <Link href={`/produit/${product.slug}`} className="block relative bg-white border-b border-abelec-cream-line overflow-hidden" style={{ height: "clamp(110px, 18vw, 160px)" }}>
         {product.oldPrice && (
           <span className="absolute top-2 left-2 z-10 font-mono text-[9px] bg-abelec-orange text-white px-1.5 py-0.5 rounded-full">
             {t("products.promo")}
@@ -276,7 +276,7 @@ export default function ProductsSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-sm:grid-cols-2"
+            className="grid grid-cols-4 gap-3 max-lg:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1"
           >
             {filtered.map((product) => (
               <ProductCard key={product.id} product={product} t={t} />

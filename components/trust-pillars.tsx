@@ -68,7 +68,7 @@ function StatPillar({ delay }: { delay: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay, duration: 0.55, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-      className="pl-8 max-lg:pl-0 max-lg:border-l-0"
+      className="pl-8 max-lg:pl-0"
       style={{ borderLeft: "1px solid var(--color-abelec-cream-line, #E8DFD0)" }}
     >
       <Hammer size={28} className="text-abelec-orange" />

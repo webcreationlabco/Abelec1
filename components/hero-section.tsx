@@ -34,8 +34,22 @@ export default function HeroSection() {
     <>
       <section style={{
         position: "relative", width: "100%",
-        background: "#F8F9FA", overflow: "hidden",
+        background: "#F0EEE9", overflow: "hidden",
       }}>
+
+        {/* ── Background photo ─────────────────────────────────────────── */}
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 0,
+          backgroundImage: "url('/hero-bg.png')",
+          backgroundSize: "cover", backgroundPosition: "center",
+          opacity: 0.22,
+        }} />
+
+        {/* ── Light wash overlay ───────────────────────────────────────── */}
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none",
+          background: "linear-gradient(to bottom, rgba(240,238,233,0.55) 0%, rgba(240,238,233,0.10) 50%, rgba(240,238,233,0.75) 100%)",
+        }} />
 
         {/* ── Static 64px grid ────────────────────────────────────────── */}
         <div style={{
@@ -246,12 +260,12 @@ export default function HeroSection() {
             >
               {/* Illustration area */}
               <div style={{
-                height: 200, background: "#F0EEEB",
+                height: "clamp(140px, 22vw, 200px)", background: "#F0EEEB",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
                 <Image src={illustration} alt={title} width={130} height={130}
-                  style={{ objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.13))" }}
+                  style={{ objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.13))", maxHeight: "80%", width: "auto" }}
                 />
               </div>
               {/* Text + arrow */}
