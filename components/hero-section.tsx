@@ -9,45 +9,12 @@ import GridNeon from "@/components/grid-neon";
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LINE = "1px solid rgba(10,31,68,0.07)";
 
-const BRANDS = ["LG", "Siemens", "Miele", "Electrolux", "AEG", "Beko", "Indesit", "Whirlpool", "Bosch", "Samsung"];
-const TICKER = [...BRANDS, ...BRANDS];
-
 const CTA_CARDS = [
   { illustration: "/illustrations/frigo-panne.png",        title: "J'ai une panne",          sub: "Décrivez le problème"    },
   { illustration: "/illustrations/piece-reference.png",    title: "J'ai une référence",      sub: "Entrez votre code pièce" },
   { illustration: "/illustrations/appareil-reference.png", title: "Je cherche par appareil", sub: "Parcourez le catalogue"  },
 ];
 
-function WashingMachineIcon({ color }: { color: string }) {
-  return (
-    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke={color} strokeWidth="1.1">
-      <rect x="1.5" y="1.5" width="11" height="11" rx="1.5"/>
-      <circle cx="7" cy="8.5" r="2.8"/>
-      <rect x="2.5" y="2.5" width="3.5" height="1.8" rx="0.5" fill={color} stroke="none"/>
-    </svg>
-  );
-}
-function OvenIcon({ color }: { color: string }) {
-  return (
-    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke={color} strokeWidth="1.1">
-      <rect x="1.5" y="1.5" width="11" height="11" rx="1.5"/>
-      <rect x="3" y="5.5" width="8" height="5.5" rx="0.8"/>
-      <circle cx="4.5" cy="3.5" r="0.7" fill={color} stroke="none"/>
-      <circle cx="7" cy="3.5" r="0.7" fill={color} stroke="none"/>
-      <circle cx="9.5" cy="3.5" r="0.7" fill={color} stroke="none"/>
-    </svg>
-  );
-}
-function FridgeIcon({ color }: { color: string }) {
-  return (
-    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke={color} strokeWidth="1.1">
-      <rect x="2.5" y="1" width="9" height="12" rx="1.5"/>
-      <line x1="2.5" y1="5.5" x2="11.5" y2="5.5"/>
-      <line x1="6" y1="3" x2="6" y2="4.5"/>
-      <line x1="6" y1="7.5" x2="6" y2="9.5"/>
-    </svg>
-  );
-}
 
 export default function HeroSection() {
   const [query,   setQuery]   = useState("");
@@ -100,45 +67,34 @@ export default function HeroSection() {
           </motion.p>
 
           {/* Title */}
-          <div style={{ marginBottom: 10 }}>
-            <motion.span
-              initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
-              style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(2rem, 3.5vw, 3.8rem)",
-                fontWeight: 400, lineHeight: 1.1,
-                letterSpacing: "0.04em",
-                fontFamily: SERIF, fontStyle: "italic",
-              }}
-            >La Pièce</motion.span>
-
-            <motion.span
-              initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.18, ease: EASE }}
-              style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(3.6rem, 7.5vw, 8.5rem)",
-                fontWeight: 900, lineHeight: 0.88,
-                letterSpacing: "-0.04em",
-                fontFamily: SERIF,
-              }}
-            >DÉTACHÉE</motion.span>
-
-            <motion.span
-              initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.28, ease: EASE }}
-              style={{
-                display: "block", color: "#0A1F44",
-                fontSize: "clamp(1rem, 1.8vw, 2rem)",
-                fontWeight: 400, lineHeight: 1.3,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                fontFamily: SERIF, marginTop: 4,
-                opacity: 0.70,
-              }}
-            >Électroménager</motion.span>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
+            style={{ marginBottom: 10 }}
+          >
+            <span style={{
+              display: "block", color: "#0A1F44",
+              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+              fontWeight: 800, lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              fontFamily: SANS,
+            }}>La Pièce</span>
+            <span style={{
+              display: "block", color: "#0A1F44",
+              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+              fontWeight: 800, lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              fontFamily: SANS,
+            }}>Détachée</span>
+            <span style={{
+              display: "block", color: "#0A1F44",
+              fontSize: "clamp(3.2rem, 6.5vw, 7rem)",
+              fontWeight: 800, lineHeight: 0.95,
+              letterSpacing: "-0.04em",
+              fontFamily: SANS,
+              opacity: 0.20,
+            }}>Électroménager</span>
+          </motion.div>
 
           {/* Reference text */}
           <motion.p
@@ -211,20 +167,19 @@ export default function HeroSection() {
             style={{ display: "flex", gap: 6, justifyContent: "center", flexWrap: "wrap", marginBottom: 28 }}
           >
             {[
-              { icon: <WashingMachineIcon color="rgba(10,31,68,0.42)" />, pulse: true,  text: "100 000 en stock" },
-              { icon: <OvenIcon           color="rgba(10,31,68,0.42)" />, pulse: false, text: "Livraison 48h"    },
-              { icon: <FridgeIcon         color="rgba(10,31,68,0.42)" />, pulse: false, text: "Garantie 12 mois" },
-            ].map(({ icon, pulse, text }, i) => (
+              { pulse: true,  text: "100 000 en stock" },
+              { pulse: false, text: "Livraison 48h"    },
+              { pulse: false, text: "Garantie 12 mois" },
+            ].map(({ pulse, text }, i) => (
               <div key={i} style={{
                 display: "flex", alignItems: "center", gap: 6,
-                padding: "4px 10px",
+                padding: "5px 12px",
                 background: "rgba(255,255,255,0.62)",
                 backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
                 borderRadius: 99,
                 border: "1px solid rgba(255,255,255,0.82)",
                 boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
               }}>
-                {icon}
                 {pulse && (
                   <span style={{
                     width: 5, height: 5, borderRadius: "50%",
@@ -233,8 +188,8 @@ export default function HeroSection() {
                   }} />
                 )}
                 <span style={{
-                  fontSize: 9.5, fontWeight: 600, letterSpacing: "1.4px",
-                  textTransform: "uppercase", color: "rgba(10,31,68,0.40)",
+                  fontSize: 10, fontWeight: 600, letterSpacing: "1.2px",
+                  textTransform: "uppercase", color: "rgba(10,31,68,0.45)",
                   fontFamily: MONO,
                 }}>{text}</span>
               </div>
@@ -285,55 +240,28 @@ export default function HeroSection() {
             >
               {/* Illustration area */}
               <div style={{
-                height: 96, background: "#F0EEEb",
+                height: 120, background: "#F0EEEB",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
-                <Image src={illustration} alt={title} width={68} height={68}
-                  style={{ objectFit: "contain", filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.10))" }}
+                <Image src={illustration} alt={title} width={84} height={84}
+                  style={{ objectFit: "contain", filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.12))" }}
                 />
               </div>
               {/* Text + arrow */}
-              <div style={{ padding: "12px 14px 12px 16px", display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ padding: "14px 16px 14px 18px", display: "flex", alignItems: "center", gap: 10 }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 2, letterSpacing: "-0.01em" }}>{title}</div>
-                  <div style={{ fontSize: 11.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 3, letterSpacing: "-0.01em" }}>{title}</div>
+                  <div style={{ fontSize: 12, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{sub}</div>
                 </div>
-                <ArrowRight size={14} color="#E66324" className="cta-arrow"
+                <ArrowRight size={15} color="#E66324" className="cta-arrow"
                   style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
               </div>
             </motion.button>
           ))}
         </div>
 
-        {/* ── Brand ticker ─────────────────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.9 }}
-          style={{
-            position: "relative", zIndex: 2, width: "100%",
-            overflow: "hidden", borderTop: LINE, padding: "10px 0",
-            background: "rgba(248,249,250,0.92)",
-          }}
-        >
-          <div style={{ display: "flex", width: "max-content", animation: "abelec-ticker 36s linear infinite" }}>
-            {TICKER.map((brand, i) => (
-              <span key={i} style={{
-                fontSize: 10, fontWeight: 500, letterSpacing: "3px",
-                textTransform: "uppercase", color: "rgba(10,31,68,0.20)",
-                fontFamily: MONO, padding: "0 28px", whiteSpace: "nowrap", userSelect: "none",
-              }}>
-                {brand}<span style={{ marginLeft: 28, opacity: 0.35 }}>·</span>
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
         <style>{`
-          @keyframes abelec-ticker {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-          }
           @keyframes live-pulse {
             0%, 100% { opacity: 1;    transform: scale(1); }
             50%       { opacity: 0.4; transform: scale(0.72); }
