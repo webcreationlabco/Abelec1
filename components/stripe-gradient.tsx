@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -16,11 +17,11 @@ function def(obj: any, key: string, val: any) {
 
 // ─── MiniGl ───────────────────────────────────────────────────────────────────
 class MiniGl {
-  canvas: HTMLCanvasElement;
-  gl: WebGLRenderingContext;
-  meshes: any[];
+  canvas!: HTMLCanvasElement;
+  gl!: WebGLRenderingContext;
+  meshes!: any[];
   commonUniforms: any;
-  debug: (...a: any[]) => void;
+  debug!: (...a: any[]) => void;
   width = 0;
   height = 0;
   Material: any;

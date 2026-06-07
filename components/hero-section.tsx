@@ -13,7 +13,6 @@ import { useT } from "@/lib/i18n";
 type ModalId = "appliance" | "breakdown" | "part";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const LINE = "1px solid rgba(10,31,68,0.07)";
 
 const CTA_CARDS: { illustration: string; titleKey: string; subKey: string; modal: ModalId }[] = [
   { illustration: "/illustrations/appareil-reference.png", titleKey: "hero.ctaCard1Title", subKey: "hero.ctaCard1Sub", modal: "appliance" },
@@ -28,7 +27,6 @@ export default function HeroSection() {
   const [focused,     setFocused]     = useState(false);
   const [activeModal, setActiveModal] = useState<ModalId | null>(null);
 
-  const SERIF = "var(--font-playfair), Georgia, serif";
   const MONO  = "var(--font-mono), monospace";
   const SANS  = "var(--font-sans), system-ui, sans-serif";
 

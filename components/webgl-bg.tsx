@@ -11,12 +11,8 @@ const SPRING      = 0.025;
 const PULSE_FRAC  = 0.18;
 const ORANGE_FRAC = 0.28;
 
-// Navy neon: bright blue-ish center + navy halo
-const NAVY_FILL   = "100,145,210";
-const NAVY_GLOW   = "27,43,75";
 // Orange neon: orange center + orange halo
 const ORA_FILL    = "255,120,55";
-const ORA_GLOW    = "232,101,42";
 
 interface P {
   x: number; y: number;

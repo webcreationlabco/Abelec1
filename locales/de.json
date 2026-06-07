@@ -19,7 +19,8 @@
     "searchPlaceholder": "Ersatzteil- oder Gerätenummer…",
     "myAccount": "Mein Konto",
     "cart": "Warenkorb",
-    "search": "Suchen"
+    "search": "Suchen",
+    "changeLang": "Sprache ändern"
   },
   "mega": {
     "washingMachine": "Waschmaschine",
@@ -275,34 +276,54 @@
         "year": "1983",
         "label": "Gründung",
         "title": "Nicola Fiordaliso eröffnet Abelec",
-        "desc": "Kleines Ersatzteilatelier in Binche, Hennegau."
+        "desc": "Kleines Ersatzteilatelier in Binche, Hennegau.",
+        "line1": "1983 gründete Nicola Fiordaliso Abelec in einer kleinen Werkstatt im Hennegau mit einer einfachen Überzeugung: belgischen Reparateuren Ersatzteile anzubieten, die anderswo nicht erhältlich sind.",
+        "line2": "Das Unternehmen startete mit etwa hundert Referenzen für Waschmaschinen und Kühlschränke, die an lokale Techniker und Haushalte im Charleroi-Becken verkauft wurden.",
+        "stat": "500 Referenzen · Binche, Hennegau"
       },
       {
         "year": "1997",
         "label": "Katalog",
         "title": "Erster gedruckter Katalog",
-        "desc": "5 000 Referenzen an belgische Reparateure verteilt."
+        "desc": "5 000 Referenzen an belgische Reparateure verteilt.",
+        "line1": "Nach vierzehn Jahren organischen Wachstums veröffentlichte Abelec seinen ersten gedruckten Katalog: 5.000 nach Marke und Gerätetyp geordnete Referenzen.",
+        "line2": "An Hunderte von Reparateuren verteilt, wurde er die Bibel des selbständigen Technikers in der Region. Bestellungen kamen per Fax und Telefon.",
+        "stat": "5.000 Referenzen · 600+ Reparateure"
       },
       {
         "year": "2008",
         "label": "E-Commerce",
         "title": "Start von Abelec.be",
-        "desc": "Das Unternehmen geht online — 25 Jahre nach der Gründung."
+        "desc": "Das Unternehmen geht online — 25 Jahre nach der Gründung.",
+        "line1": "2008 machte Abelec den digitalen Sprung. Privatkunden konnten nun direkt bestellen, ohne einen zugelassenen Techniker einzuschalten.",
+        "line2": "Detaillierte technische Datenblätter, Installationsanleitungen, Modellkompatibilität. Der Umsatz verdoppelte sich in drei Jahren dank der nationalen Reichweite des Webs.",
+        "stat": "×2 Umsatz · 18.000 Referenzen"
       },
       {
         "year": "2018",
         "label": "Europa",
         "title": "Ausdehnung auf 6 europäische Länder",
-        "desc": "FR, NL, DE, IT, LU kommen zu Belgien hinzu."
+        "desc": "FR, NL, DE, IT, LU kommen zu Belgien hinzu.",
+        "line1": "Mit einem auf 60.000 Referenzen erweiterten Katalog öffnete Abelec seine Grenzen für fünf neue Märkte. Übersetzte Oberflächen, lokale Spediteure, angepasste Lieferzeiten.",
+        "line2": "Ein zentralisiertes Lager in Belgien garantiert den Versand innerhalb von 48h in ganz Westeuropa. Das Familienunternehmen wurde zu einer kontinentalen Referenz.",
+        "stat": "6 Länder · 60.000 Referenzen · Versand 48h"
       },
       {
         "year": "2026",
         "label": "V2",
         "title": "3D-Identifikation · 100 000 Refs.",
-        "desc": "Neue Plattform, Echtzeit-Helpdesk, interaktive 3D-Ansicht."
+        "desc": "Neue Plattform, Echtzeit-Helpdesk, interaktive 3D-Ansicht.",
+        "line1": "Abelec bringt seine Plattform der zweiten Generation auf den Markt: 3D-interaktive Teilerkennung, menschlicher Helpdesk in Echtzeit, Katalog mit 100.000 Referenzen.",
+        "line2": "Künstliche Intelligenz hilft Privatkunden bei der Identifizierung des Defekts — ohne die genaue Modellnummer zu kennen.",
+        "stat": "100.000 Referenzen · 80+ Marken"
       }
     ],
-    "since": "Seit 1983"
+    "since": "Seit 1983",
+    "scrollHint": "Scrollen zum Erkunden →",
+    "step": "SCHRITT",
+    "next": "weiter →",
+    "live": "Live",
+    "counterSub": "reparierte Geräte seit 1983"
   },
   "trust": {
     "eyebrow": "Abschnitt 09 · Vertrauen",
@@ -417,8 +438,12 @@
       "titleAccent": "Teilereferenz",
       "placeholder": "z.B.: C00094128, 481281729632, ...",
       "examplesLabel": "Referenzbeispiele",
-      "cta": "Dieses Teil suchen"
-    }
+      "cta": "Dieses Teil suchen",
+      "example1": "Whirlpool Türdichtung",
+      "example2": "Beko Ablaufpumpe",
+      "example3": "Miele / AEG Antriebsriemen"
+    },
+    "close": "Schließen"
   },
   "belgiumPopup": {
     "title": "Was ist Ihre Sprache?",

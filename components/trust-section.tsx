@@ -7,13 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Lock, ArrowRight } from "lucide-react";
 import { useT, useI18n } from "@/lib/i18n";
 
-// ── KPI data ──────────────────────────────────────────────────────────────
-const KPI_BARS = [
-  { labelKey: "trust.onTime",        value: 98.4, display: "98,4%", color: "#d97e3a" },
-  { labelKey: "trust.satisfaction",  value: 96,   display: "4,8/5", color: "#d97e3a" },
-  { labelKey: "trust.noReturn",      value: 98.1, display: "98,1%", color: "#22c55e" },
-  { labelKey: "trust.deliveryOnTime",value: 97.2, display: "97,2%", color: "#d97e3a" },
-];
 
 // ── Stars ─────────────────────────────────────────────────────────────────
 function Stars({ rating, size = 13 }: { rating: number; size?: number }) {

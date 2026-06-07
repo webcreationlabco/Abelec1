@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 interface ModalBaseProps {
   open: boolean;
@@ -11,6 +12,7 @@ interface ModalBaseProps {
 }
 
 export default function ModalBase({ open, onClose, children }: ModalBaseProps) {
+  const t = useT();
   // Lock body scroll & Escape key
   useEffect(() => {
     if (!open) return;
@@ -59,7 +61,7 @@ export default function ModalBase({ open, onClose, children }: ModalBaseProps) {
               <button
                 onClick={onClose}
                 className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-abelec-cream-light hover:bg-abelec-cream-line flex items-center justify-center transition-colors"
-                aria-label="Fermer"
+                aria-label={t("modals.close")}
               >
                 <X size={15} strokeWidth={2.2} className="text-abelec-navy" />
               </button>

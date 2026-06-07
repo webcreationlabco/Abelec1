@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto_Slab, Inter, JetBrains_Mono, Syne, DM_Sans, Playfair_Display } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, type Locale } from "@/lib/i18n";
 import LocaleDetector from "@/components/locale-detector";
 import fr from "@/locales/fr.json";
 
@@ -160,11 +161,26 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+const VALID_LOCALES: Locale[] = ["fr", "nl", "en", "de", "it"];
+
+const LOCALE_LOADERS: Record<Locale, () => Promise<Record<string, unknown>>> = {
+  fr: async () => fr as Record<string, unknown>,
+  nl: async () => (await import("@/locales/nl.json")).default as Record<string, unknown>,
+  en: async () => (await import("@/locales/en.json")).default as Record<string, unknown>,
+  de: async () => (await import("@/locales/de.json")).default as Record<string, unknown>,
+  it: async () => (await import("@/locales/it.json")).default as Record<string, unknown>,
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("abelec_locale")?.value;
+  const locale: Locale = VALID_LOCALES.includes(raw as Locale) ? (raw as Locale) : "fr";
+  const translations = await LOCALE_LOADERS[locale]();
+
   return (
-    <html lang="fr" className={`${playfair.variable} ${dmSans.variable} ${syne.variable} ${robotoSlab.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang={locale} className={`${playfair.variable} ${dmSans.variable} ${syne.variable} ${robotoSlab.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -173,8 +189,8 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <I18nProvider
-          initialLocale="fr"
-          initialTranslations={fr as Record<string, unknown>}
+          initialLocale={locale}
+          initialTranslations={translations}
         >
           <LocaleDetector />
           {children}

@@ -14,7 +14,7 @@ function ScrollReveal({ children, className, delay = 0 }: { children: React.Reac
       ref={ref}
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as number[] }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
       className={className}
     >
       {children}
@@ -303,7 +303,7 @@ export default function PartenairesClient() {
             {LOGO_PLACEHOLDERS.map((name) => (
               <motion.div
                 key={name}
-                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as number[] } } }}
+                variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } } }}
                 className="flex flex-col items-center gap-3 p-5 rounded-xl border border-abelec-cream-line bg-abelec-cream-light"
               >
                 <div className="w-12 h-12 rounded-xl bg-[#E8E4DE] flex items-center justify-center">

@@ -19,7 +19,8 @@
     "searchPlaceholder": "Referenza pezzo o apparecchio…",
     "myAccount": "Il mio account",
     "cart": "Carrello",
-    "search": "Cerca"
+    "search": "Cerca",
+    "changeLang": "Cambia lingua"
   },
   "mega": {
     "washingMachine": "Lavatrice",
@@ -275,34 +276,54 @@
         "year": "1983",
         "label": "Fondazione",
         "title": "Nicola Fiordaliso apre Abelec",
-        "desc": "Piccolo laboratorio di ricambi a Binche, Hainaut."
+        "desc": "Piccolo laboratorio di ricambi a Binche, Hainaut.",
+        "line1": "Nel 1983, Nicola Fiordaliso fondò Abelec in un piccolo laboratorio nell’Hainaut con una semplice convinzione: offrire ai riparatori belgi i ricambi introvabili altrove.",
+        "line2": "L’attività iniziò con un centinaio di referenze per lavatrici e frigoriferi, vendute ai tecnici locali e alle famiglie del bacino di Charleroi.",
+        "stat": "500 referenze · Binche, Hainaut"
       },
       {
         "year": "1997",
         "label": "Catalogo",
         "title": "Primo catalogo cartaceo",
-        "desc": "5 000 referenze distribuite ai riparatori belgi."
+        "desc": "5 000 referenze distribuite ai riparatori belgi.",
+        "line1": "Dopo quattordici anni di crescita organica, Abelec publicò il suo primo catalogo cartaceo: 5.000 referenze classificate per marca e tipo di elettrodomestico.",
+        "line2": "Distribuito a centinaia di riparatori, divenne la bibbia del tecnico indipendente nella regione. Gli ordini arrivavano per fax e telefono.",
+        "stat": "5.000 referenze · 600+ riparatori"
       },
       {
         "year": "2008",
         "label": "E-commerce",
         "title": "Lancio di Abelec.be",
-        "desc": "L'azienda va online — 25 anni dopo la fondazione."
+        "desc": "L'azienda va online — 25 anni dopo la fondazione.",
+        "line1": "Nel 2008, Abelec compì il salto digitale. I privati potevano ora ordinare direttamente, senza passare per un tecnico autorizzato.",
+        "line2": "Schede tecniche dettagliate, guide all’installazione, compatibilità per modello. Il fatturato raddoppiò in tre anni grazie alla portata nazionale del web.",
+        "stat": "×2 fatturato · 18.000 referenze"
       },
       {
         "year": "2018",
         "label": "Europa",
         "title": "Apertura a 6 paesi europei",
-        "desc": "FR, NL, DE, IT, LU si uniscono al Belgio."
+        "desc": "FR, NL, DE, IT, LU si uniscono al Belgio.",
+        "line1": "Con un catalogo ampliato a 60.000 referenze, Abelec aprì le frontiere a cinque nuovi mercati. Interfacce tradotte, corrieri locali, tempi di consegna adattati.",
+        "line2": "Uno stock centralizzato in Belgio garantisce la spedizione entro 48h in tutto l’Europa occidentale. L’azienda familiare divenne un riferimento continentale.",
+        "stat": "6 paesi · 60.000 referenze · Spedizione 48h"
       },
       {
         "year": "2026",
         "label": "V2",
         "title": "Identificazione 3D · 100 000 refs.",
-        "desc": "Nuova piattaforma, helpdesk in tempo reale, vista 3D interattiva."
+        "desc": "Nuova piattaforma, helpdesk in tempo reale, vista 3D interattiva.",
+        "line1": "Abelec lancia la sua piattaforma di seconda generazione: identificazione dei ricambi in 3D interattivo, helpdesk umano in tempo reale, catalogo di 100.000 referenze.",
+        "line2": "L’intelligenza artificiale aiuta i privati nell’identificazione del guasto — senza conoscere il numero di modello esatto.",
+        "stat": "100.000 referenze · 80+ marchi"
       }
     ],
-    "since": "Dal 1983"
+    "since": "Dal 1983",
+    "scrollHint": "Scorri per esplorare →",
+    "step": "FASE",
+    "next": "avanti →",
+    "live": "In diretta",
+    "counterSub": "elettrodomestici riparati dal 1983"
   },
   "trust": {
     "eyebrow": "Sezione 09 · Fiducia",
@@ -417,8 +438,12 @@
       "titleAccent": "referenza pezzo",
       "placeholder": "Es.: C00094128, 481281729632, ...",
       "examplesLabel": "Esempi di referenze",
-      "cta": "Cerca questo pezzo"
-    }
+      "cta": "Cerca questo pezzo",
+      "example1": "Guarnizione oblò Whirlpool",
+      "example2": "Pompa scarico Beko",
+      "example3": "Cinghia Miele / AEG"
+    },
+    "close": "Chiudi"
   },
   "belgiumPopup": {
     "title": "Qual è la tua lingua?",

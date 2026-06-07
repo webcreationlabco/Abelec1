@@ -7,6 +7,7 @@ import React, {
   useCallback,
   ReactNode,
 } from "react";
+import { setLocaleCookie, setLocaleStorage } from "@/lib/locale-detect";
 
 // ── Supported locales ─────────────────────────────────────────────────────
 export type Locale = "fr" | "nl" | "en" | "de" | "it";
@@ -55,6 +56,8 @@ export function I18nProvider({
     const translations = await loadLocale(l);
     setLocaleState(l);
     setT(translations);
+    setLocaleCookie(l);
+    setLocaleStorage(l);
   }, []);
 
   return (

@@ -114,7 +114,7 @@ export default function ComptePage() {
                     <InputField label={t("account.passwordLabel")} type="password" placeholder={t("account.passwordPlaceholder")}
                       value={loginForm.password} onChange={setL("password")} icon={Lock} autoComplete="current-password" />
                     <div className="flex justify-end -mt-1">
-                      <a href="#" className="text-[12.5px] text-abelec-orange hover:text-abelec-orange-dark hover:underline font-medium transition-colors">
+                      <a href="/contact" className="text-[12.5px] text-abelec-orange hover:text-abelec-orange-dark hover:underline font-medium transition-colors">
                         {t("account.forgotPassword")}
                       </a>
                     </div>
@@ -162,9 +162,9 @@ export default function ComptePage() {
                     </motion.button>
                     <p className="text-[11.5px] text-abelec-muted-2 text-center leading-relaxed">
                       {t("account.legalPrefix")}{" "}
-                      <a href="#" className="text-abelec-orange hover:underline">{t("account.legalTerms")}</a>{" "}
+                      <a href="/cgv" className="text-abelec-orange hover:underline">{t("account.legalTerms")}</a>{" "}
                       {t("account.legalAnd")}{" "}
-                      <a href="#" className="text-abelec-orange hover:underline">{t("account.legalPrivacy")}</a>.
+                      <a href="/politique-de-confidentialite" className="text-abelec-orange hover:underline">{t("account.legalPrivacy")}</a>.
                     </p>
                   </motion.form>
                 )}

@@ -11,15 +11,15 @@ interface Props {
   onClose: () => void;
 }
 
-const EXAMPLES = [
-  { ref: "C00094128",     label: "Joint hublot Whirlpool" },
-  { ref: "481281729632",  label: "Pompe vidange Beko" },
-  { ref: "1258C-EPJ",     label: "Courroie Miele / AEG" },
-];
-
 export default function PartReferenceModal({ open, onClose }: Props) {
   const t = useT();
   const [query, setQuery] = useState("");
+
+  const EXAMPLES = [
+    { ref: "C00094128",    label: t("modals.part.example1") },
+    { ref: "481281729632", label: t("modals.part.example2") },
+    { ref: "1258C-EPJ",    label: t("modals.part.example3") },
+  ];
 
   return (
     <ModalBase open={open} onClose={onClose}>

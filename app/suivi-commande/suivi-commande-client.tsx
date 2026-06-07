@@ -362,13 +362,11 @@ function OrderResults() {
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function SuiviCommandeClient() {
   const [query, setQuery]     = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(true); // show mock by default
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!query.trim()) { return; }
-    setSubmitted(true);
     setShowResults(true);
   }
 

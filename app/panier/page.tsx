@@ -53,7 +53,7 @@ function CartItemRow({ item, onQty, onRemove, t }: { item: CartItem; onQty: (id:
       transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
       className="bg-white rounded-2xl border border-abelec-cream-line p-4 sm:p-5 flex items-center gap-4 sm:gap-6 max-sm:flex-col max-sm:items-start"
     >
-      <Link href="/#produits" className="relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] shrink-0 rounded-xl overflow-hidden bg-abelec-cream-light border border-abelec-cream-line">
+      <Link href="/catalogue" className="relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] shrink-0 rounded-xl overflow-hidden bg-abelec-cream-light border border-abelec-cream-line">
         <Image src={item.img} alt={item.name} fill className="object-contain p-2.5" sizes="96px" />
       </Link>
 
@@ -145,7 +145,7 @@ export default function PanierPage() {
                     <h2 className="font-slab text-abelec-navy text-[28px] mb-2">{t("cart.emptyTitle")}</h2>
                     <p className="text-abelec-muted text-[16px] max-w-[340px] mx-auto leading-relaxed">{t("cart.emptySub")}</p>
                   </div>
-                  <Link href="/#produits">
+                  <Link href="/catalogue">
                     <motion.span whileHover={{ scale: 1.03, boxShadow: "0 8px 28px rgba(217,126,58,0.30)" }} whileTap={{ scale: 0.98 }}
                       className="inline-flex items-center gap-2.5 bg-abelec-orange hover:bg-abelec-orange-dark text-white font-bold text-[15px] px-8 py-4 rounded-2xl shadow-[inset_0_-3px_0_rgba(0,0,0,.14)] transition-colors cursor-pointer">
                       <ShoppingCart size={17} strokeWidth={2} />
@@ -178,7 +178,7 @@ export default function PanierPage() {
                     </div>
 
                     <div className="flex items-center justify-between flex-wrap gap-3 pt-2">
-                      <Link href="/#produits" className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-abelec-navy hover:text-abelec-orange transition-colors">
+                      <Link href="/catalogue" className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-abelec-navy hover:text-abelec-orange transition-colors">
                         <ArrowRight size={14} strokeWidth={2.2} className="rotate-180" />
                         {t("cart.continueShopping")}
                       </Link>

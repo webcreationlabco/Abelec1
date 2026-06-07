@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Mail } from "lucide-react";
 import { useT, useI18n } from "@/lib/i18n";
 
@@ -24,9 +25,12 @@ export default function Footer() {
   const company    = getArray("footer.company");
 
   // Static href maps (index-aligned with locale arrays)
-  const CATEGORY_HREFS = ["/#produits", "/#produits", "/#produits", "/#produits", "/#produits", "/#produits"];
-  const SERVICE_HREFS  = ["/suivi-commande", "/contact", "#pro", "/livraison-retours", "#garantie"];
-  const COMPANY_HREFS  = ["/a-propos", "/#timeline", "/marques", "/cgv", "/mentions-legales", "/politique-de-confidentialite"];
+  // footer.categories: Lave-linge, Lave-vaisselle, Réfrigérateur, Four & Cuisinière, Sèche-linge, Aspirateur
+  const CATEGORY_HREFS = ["/catalogue", "/catalogue", "/catalogue", "/catalogue", "/catalogue", "/catalogue"];
+  // footer.services: Suivi de commande, Helpdesk technique, Espace Pro, Livraison & retours, Garantie pièces
+  const SERVICE_HREFS  = ["/suivi-commande", "/contact", "/contact", "/livraison-retours", "/livraison-retours"];
+  // footer.company: À propos, Notre histoire, Marques partenaires, CGV, Mentions légales, Politique de confidentialité
+  const COMPANY_HREFS  = ["/a-propos", "/a-propos", "/marques", "/cgv", "/mentions-legales", "/politique-de-confidentialite"];
 
   return (
     <footer className="relative bg-abelec-navy text-white pt-20 pb-8">
@@ -97,7 +101,7 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {categories.map((item, i) => (
-                <li key={item}><a href={CATEGORY_HREFS[i] ?? "#"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</a></li>
+                <li key={item}><Link href={CATEGORY_HREFS[i] ?? "/catalogue"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</Link></li>
               ))}
             </ul>
           </div>
@@ -110,7 +114,7 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {services.map((item, i) => (
-                <li key={item}><a href={SERVICE_HREFS[i] ?? "#"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</a></li>
+                <li key={item}><Link href={SERVICE_HREFS[i] ?? "/contact"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</Link></li>
               ))}
             </ul>
           </div>
@@ -123,7 +127,7 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {company.map((item, i) => (
-                <li key={item}><a href={COMPANY_HREFS[i] ?? "#"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</a></li>
+                <li key={item}><Link href={COMPANY_HREFS[i] ?? "/a-propos"} className="text-[13.5px] text-[#b8c6d6] hover:text-abelec-orange transition-colors">{item}</Link></li>
               ))}
             </ul>
           </div>

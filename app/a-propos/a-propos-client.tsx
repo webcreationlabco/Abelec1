@@ -9,7 +9,7 @@ import { Wrench, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
 // ── Animation helpers ────────────────────────────────────────────────────────
 const fadeUp = {
   hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0,  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as number[] } },
+  visible: { opacity: 1, y: 0,  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } },
 };
 
 const stagger = (delayChildren = 0.08) => ({
@@ -25,7 +25,7 @@ function ScrollReveal({ children, className, delay = 0 }: { children: React.Reac
       ref={ref}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as number[] } } }}
+      variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] } } }}
       className={className}
     >
       {children}

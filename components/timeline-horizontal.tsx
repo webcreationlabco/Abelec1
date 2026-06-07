@@ -4,11 +4,11 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useT } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ── Constants ───────────────────────────────────────────────────────────── */
-const ERAS  = ["Fondation", "Catalogue", "E-commerce", "Europe", "Aujourd'hui"];
 const YEARS = ["1983", "1997", "2008", "2018", "2026"];
 
 const COUNTRIES = [
@@ -155,7 +155,7 @@ function TextCol({ step, year, era, headline, lines, stat, light, eraColor = "#d
         color:         "#d97e3a",
         marginBottom:  16,
       }}>
-        ÉTAPE {step}
+        {step}
       </div>
 
       {/* Year */}
@@ -298,10 +298,10 @@ function EuropeSVG({ svgRef }: { svgRef: React.RefObject<SVGSVGElement | null> }
    Main: HorizontalTimeline
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function HorizontalTimeline() {
+  const t = useT();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef   = useRef<HTMLDivElement>(null);
   const fillRef    = useRef<HTMLDivElement>(null);
-  const eraRef     = useRef<HTMLSpanElement>(null);
   const browserRef = useRef<SVGSVGElement>(null);
   const europeRef  = useRef<SVGSVGElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
@@ -309,6 +309,15 @@ export default function HorizontalTimeline() {
   const counterIv  = useRef<ReturnType<typeof setInterval> | null>(null);
   const pingKill   = useRef<gsap.core.Tween[]>([]);
   const browserTl  = useRef<gsap.core.Timeline | null>(null);
+
+  // Era labels derived from locale — reactive to language changes
+  const ERAS = [
+    t("timeline.milestones.0.label"),
+    t("timeline.milestones.1.label"),
+    t("timeline.milestones.2.label"),
+    t("timeline.milestones.3.label"),
+    t("timeline.milestones.4.label"),
+  ];
 
   const scrollToSlide = useCallback((i: number) => {
     const wrapper = wrapperRef.current;
@@ -321,8 +330,7 @@ export default function HorizontalTimeline() {
     const wrapper = wrapperRef.current;
     const track   = trackRef.current;
     const fill    = fillRef.current;
-    const era     = eraRef.current;
-    if (!wrapper || !track || !fill || !era) return;
+    if (!wrapper || !track || !fill) return;
 
     // ── Main horizontal scrub — only animation on scroll ──────────────────
     const main = gsap.to(track, {
@@ -337,7 +345,6 @@ export default function HorizontalTimeline() {
           gsap.set(fill, { width: `${self.progress * 100}%` });
           const idx = Math.min(Math.floor(self.progress * 5), 4);
           setActive(idx);
-          if (era) era.textContent = ERAS[idx];
         },
       },
     });
@@ -429,17 +436,17 @@ export default function HorizontalTimeline() {
           letterSpacing: "0.22em", textTransform: "uppercase" as const,
           color: "#d97e3a", marginBottom: 20,
         }}>
-          Notre histoire
+          {t("timeline.eyebrow")}
         </p>
         <h2 style={{
           fontFamily: "var(--font-slab), Georgia, serif", fontWeight: 800,
           fontSize: "clamp(38px, 5vw, 68px)", color: "#0f2340",
           lineHeight: 1.08, letterSpacing: "-0.03em", marginBottom: 24,
         }}>
-          Quatre décennies,<br />cinq moments clés.
+          {t("timeline.title")} <span style={{ color: "#d97e3a" }}>{t("timeline.titleAccent")}</span>
         </h2>
         <p style={{ fontFamily: "monospace", fontSize: 12, color: "rgba(26,58,92,0.42)", letterSpacing: "0.06em" }}>
-          Faites défiler pour explorer →
+          {t("timeline.scrollHint")}
         </p>
       </div>
 
@@ -457,13 +464,10 @@ export default function HorizontalTimeline() {
 
             {/* ════════════════════════════════════════ SLIDE 1 — 1983 */}
             <div style={{ width: "100vw", height: "100vh", flexShrink: 0, background: "#1B2B4B", display: "flex", alignItems: "center" }}>
-              <TextCol step="01/05" year="1983" era="FONDATION"
-                headline="Nicola Fiordaliso ouvre Abelec à Binche"
-                lines={[
-                  "En 1983, Nicola Fiordaliso fonde Abelec dans un petit atelier du Hainaut avec une conviction simple : proposer aux réparateurs belges les pièces introuvables ailleurs.",
-                  "L'activité démarre avec une centaine de références pour lave-linge et réfrigérateurs, vendues aux techniciens locaux et aux ménages du bassin de Charleroi.",
-                ]}
-                stat="500 références · Binche, Hainaut" light />
+              <TextCol step={`${t("timeline.step")} 01/05`} year="1983" era={ERAS[0]}
+                headline={t("timeline.milestones.0.title")}
+                lines={[t("timeline.milestones.0.line1"), t("timeline.milestones.0.line2")]}
+                stat={t("timeline.milestones.0.stat")} light />
               <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", paddingRight: 72 }}>
                 <FramedImage src="https://picsum.photos/seed/workshop1983/800/600?grayscale" frameRight />
               </div>
@@ -471,13 +475,10 @@ export default function HorizontalTimeline() {
 
             {/* ════════════════════════════════════════ SLIDE 2 — 1997 */}
             <div style={{ width: "100vw", height: "100vh", flexShrink: 0, background: "#F5F0E8", display: "flex", alignItems: "center", flexDirection: "row-reverse" }}>
-              <TextCol step="02/05" year="1997" era="CATALOGUE"
-                headline="Premier catalogue papier — 5 000 références"
-                lines={[
-                  "Après quatorze ans de croissance organique, Abelec publie son premier catalogue papier : 5 000 références classées par marque et par type d'appareil.",
-                  "Distribué à plusieurs centaines de réparateurs, il devient la bible du technicien indépendant dans la région. Les commandes arrivent par fax et téléphone.",
-                ]}
-                stat="5 000 références · 600+ réparateurs" light={false} />
+              <TextCol step={`${t("timeline.step")} 02/05`} year="1997" era={ERAS[1]}
+                headline={t("timeline.milestones.1.title")}
+                lines={[t("timeline.milestones.1.line1"), t("timeline.milestones.1.line2")]}
+                stat={t("timeline.milestones.1.stat")} light={false} />
               <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", paddingLeft: 72 }}>
                 <FramedImage src="https://picsum.photos/seed/catalog1997/800/600?grayscale" frameRight={false} />
               </div>
@@ -485,13 +486,10 @@ export default function HorizontalTimeline() {
 
             {/* ════════════════════════════════════════ SLIDE 3 — 2008 */}
             <div style={{ width: "100vw", height: "100vh", flexShrink: 0, background: "#C0541A", display: "flex", alignItems: "center" }}>
-              <TextCol step="03/05" year="2008" era="E-COMMERCE"
-                headline="Lancement d'abelec.be — 25 ans après la création"
-                lines={[
-                  "En 2008, Abelec franchit le cap du numérique. Les particuliers peuvent désormais commander directement, sans passer par un technicien agréé.",
-                  "Fiches techniques détaillées, guides d'installation, compatibilité par modèle. Le chiffre d'affaires double en trois ans grâce à la portée nationale du web.",
-                ]}
-                stat="×2 chiffre d'affaires · 18 000 références" light eraColor="rgba(255,255,255,0.85)" />
+              <TextCol step={`${t("timeline.step")} 03/05`} year="2008" era={ERAS[2]}
+                headline={t("timeline.milestones.2.title")}
+                lines={[t("timeline.milestones.2.line1"), t("timeline.milestones.2.line2")]}
+                stat={t("timeline.milestones.2.stat")} light eraColor="rgba(255,255,255,0.85)" />
               <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", paddingRight: 72 }}>
                 <BrowserSVG svgRef={browserRef} />
               </div>
@@ -499,13 +497,10 @@ export default function HorizontalTimeline() {
 
             {/* ════════════════════════════════════════ SLIDE 4 — 2018 */}
             <div style={{ width: "100vw", height: "100vh", flexShrink: 0, background: "#1B2B4B", display: "flex", alignItems: "center" }}>
-              <TextCol step="04/05" year="2018" era="EUROPE"
-                headline="Ouverture à 6 pays : France, Pays-Bas, Allemagne, Italie, Luxembourg"
-                lines={[
-                  "Forte d'un catalogue élargi à 60 000 références, Abelec ouvre ses frontières à cinq nouveaux marchés. Interfaces traduites, transporteurs locaux, délais adaptés.",
-                  "Un stock centralisé en Belgique garantit l'expédition sous 48h vers toute l'Europe de l'Ouest. L'entreprise familiale devient une référence continentale.",
-                ]}
-                stat="6 pays · 60 000 références · Expédition 48h" light />
+              <TextCol step={`${t("timeline.step")} 04/05`} year="2018" era={ERAS[3]}
+                headline={t("timeline.milestones.3.title")}
+                lines={[t("timeline.milestones.3.line1"), t("timeline.milestones.3.line2")]}
+                stat={t("timeline.milestones.3.stat")} light />
               <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", paddingRight: 72 }}>
                 <EuropeSVG svgRef={europeRef} />
               </div>
@@ -513,23 +508,20 @@ export default function HorizontalTimeline() {
 
             {/* ════════════════════════════════════════ SLIDE 5 — TODAY */}
             <div style={{ width: "100vw", height: "100vh", flexShrink: 0, background: "#F5F0E8", display: "flex", alignItems: "center" }}>
-              <TextCol step="05/05" year="2026" era="AUJOURD'HUI"
-                headline="Identification 3D & 100 000 références"
-                lines={[
-                  "Abelec lance sa plateforme de seconde génération : identification des pièces par vue 3D interactive, helpdesk humain en temps réel, catalogue de 100 000 références.",
-                  "L'intelligence artificielle assiste les particuliers dans l'identification de la panne — sans connaître le numéro de modèle exact.",
-                ]}
-                stat="100 000 références · 80+ marques" light={false} />
+              <TextCol step={`${t("timeline.step")} 05/05`} year="2026" era={ERAS[4]}
+                headline={t("timeline.milestones.4.title")}
+                lines={[t("timeline.milestones.4.line1"), t("timeline.milestones.4.line2")]}
+                stat={t("timeline.milestones.4.stat")} light={false} />
               <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingRight: 72, gap: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "monospace", fontSize: 11, color: "rgba(26,58,92,0.5)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
                   <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 0 3px rgba(34,197,94,0.2)", display: "inline-block" }}/>
-                  En direct
+                  {t("timeline.live")}
                 </div>
                 <div ref={counterRef} style={{ fontFamily: "var(--font-slab), Georgia, serif", fontWeight: 800, fontSize: "clamp(52px, 7vw, 96px)", color: "#d97e3a", letterSpacing: "-0.04em", lineHeight: 1, fontVariantNumeric: "tabular-nums" }}>
                   287 590
                 </div>
                 <div style={{ fontFamily: "var(--font-sans), system-ui", fontSize: 14, color: "rgba(26,58,92,0.55)", textAlign: "center", maxWidth: 220, lineHeight: 1.5 }}>
-                  appareils réparés<br />depuis 1983
+                  {t("timeline.counterSub")}
                 </div>
               </div>
             </div>
@@ -547,7 +539,7 @@ export default function HorizontalTimeline() {
             pointerEvents: "none",
           }}>
             <span style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.7)" }}>
-              suivant →
+              {t("timeline.next")}
             </span>
           </div>
 
@@ -562,8 +554,8 @@ export default function HorizontalTimeline() {
           }}>
             {/* Era label */}
             <div style={{ textAlign: "center", paddingTop: 28, paddingBottom: 10 }}>
-              <span ref={eraRef} style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
-                Fondation
+              <span style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
+                {ERAS[active]}
               </span>
             </div>
 

@@ -66,6 +66,7 @@ const MEGA_COL_KEYS = [
 // ── Language switcher ─────────────────────────────────────────────────────
 function LangSwitcher({ scrolled }: { scrolled: boolean }) {
   const { locale, setLocale } = useI18n();
+  const t = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -89,7 +90,7 @@ function LangSwitcher({ scrolled }: { scrolled: boolean }) {
             ? "text-abelec-navy-ink hover:bg-abelec-navy/[0.06]"
             : "text-abelec-navy-ink hover:bg-abelec-navy/[0.06]"
         )}
-        aria-label="Changer de langue"
+        aria-label={t("nav.changeLang")}
       >
         <span>{current.code.toUpperCase()}</span>
         <ChevronDown size={11} className={cn("opacity-70 transition-transform", open && "rotate-180")} />
@@ -375,7 +376,7 @@ export default function Header() {
               <button
                 onClick={() => setSearchOpen((o) => !o)}
                 className="w-8 h-8 rounded-full grid place-items-center text-abelec-navy-ink hover:bg-abelec-navy/[0.06] transition-colors"
-                aria-label="Rechercher"
+                aria-label={t("nav.search")}
               >
                 {searchOpen ? <X size={15} strokeWidth={2} /> : <Search size={15} strokeWidth={1.8} />}
               </button>

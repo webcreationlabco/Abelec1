@@ -261,7 +261,7 @@ export default function ApplianceMorph() {
 
       const startMorph = (next: number) => {
         fromPos    = new Float32Array(posBuf.array as Float32Array);
-        toPos      = GENERATORS[next]();
+        toPos      = GENERATORS[next]() as Float32Array<ArrayBuffer>;
         morphT     = 0;
         isMorphing = true;
         currentShape = next;

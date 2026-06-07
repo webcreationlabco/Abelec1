@@ -19,7 +19,8 @@
     "searchPlaceholder": "Référence pièce ou appareil…",
     "myAccount": "Mon compte",
     "cart": "Panier",
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "changeLang": "Changer de langue"
   },
   "mega": {
     "washingMachine": "Lave-linge",
@@ -275,34 +276,54 @@
         "year": "1983",
         "label": "Fondation",
         "title": "Nicola Fiordaliso ouvre Abelec",
-        "desc": "Petit atelier de pièces détachées à Binche, Hainaut."
+        "desc": "Petit atelier de pièces détachées à Binche, Hainaut.",
+        "line1": "En 1983, Nicola Fiordaliso fonde Abelec dans un petit atelier du Hainaut avec une conviction simple : proposer aux réparateurs belges les pièces introuvables ailleurs.",
+        "line2": "L’activité démarre avec une centaine de références pour lave-linge et réfrigérateurs, vendues aux techniciens locaux et aux ménages du bassin de Charleroi.",
+        "stat": "500 références · Binche, Hainaut"
       },
       {
         "year": "1997",
         "label": "Catalogue",
         "title": "Premier catalogue papier référencé",
-        "desc": "5 000 références diffusées aux réparateurs belges."
+        "desc": "5 000 références diffusées aux réparateurs belges.",
+        "line1": "Après quatorze ans de croissance organique, Abelec publie son premier catalogue papier : 5 000 références classées par marque et par type d’appareil.",
+        "line2": "Distribué à plusieurs centaines de réparateurs, il devient la bible du technicien indépendant dans la région. Les commandes arrivent par fax et téléphone.",
+        "stat": "5 000 références · 600+ réparateurs"
       },
       {
         "year": "2008",
         "label": "E-commerce",
         "title": "Lancement du site Abelec.be",
-        "desc": "La maison bascule en ligne — 25 ans après sa création."
+        "desc": "La maison bascule en ligne — 25 ans après sa création.",
+        "line1": "En 2008, Abelec franchit le cap du numérique. Les particuliers peuvent désormais commander directement, sans passer par un technicien agréé.",
+        "line2": "Fiches techniques détaillées, guides d’installation, compatibilité par modèle. Le chiffre d’affaires double en trois ans grâce à la portée nationale du web.",
+        "stat": "×2 chiffre d’affaires · 18 000 références"
       },
       {
         "year": "2018",
         "label": "Europe",
         "title": "Ouverture à 6 pays d'Europe",
-        "desc": "FR, NL, DE, IT, LU rejoignent la Belgique."
+        "desc": "FR, NL, DE, IT, LU rejoignent la Belgique.",
+        "line1": "Forte d’un catalogue élargi à 60 000 références, Abelec ouvre ses frontières à cinq nouveaux marchés. Interfaces traduites, transporteurs locaux, délais adaptés.",
+        "line2": "Un stock centralisé en Belgique garantit l’expédition sous 48h vers toute l’Europe de l’Ouest. L’entreprise familiale devient une référence continentale.",
+        "stat": "6 pays · 60 000 références · Expédition 48h"
       },
       {
         "year": "2026",
         "label": "V2",
         "title": "Identification 3D · 100 000 réfs.",
-        "desc": "Nouvelle plateforme, helpdesk temps réel, vue 3D interactive."
+        "desc": "Nouvelle plateforme, helpdesk temps réel, vue 3D interactive.",
+        "line1": "Abelec lance sa plateforme de seconde génération : identification des pièces par vue 3D interactive, helpdesk humain en temps réel, catalogue de 100 000 références.",
+        "line2": "L’intelligence artificielle assiste les particuliers dans l’identification de la panne — sans connaître le numéro de modèle exact.",
+        "stat": "100 000 références · 80+ marques"
       }
     ],
-    "since": "Depuis 1983"
+    "since": "Depuis 1983",
+    "scrollHint": "Faites défiler pour explorer →",
+    "step": "ÉTAPE",
+    "next": "suivant →",
+    "live": "En direct",
+    "counterSub": "appareils réparés depuis 1983"
   },
   "trust": {
     "eyebrow": "Section 09 · Réassurance",
@@ -417,8 +438,12 @@
       "titleAccent": "référence pièce",
       "placeholder": "Ex : C00094128, 481281729632, ...",
       "examplesLabel": "Exemples de références",
-      "cta": "Rechercher cette pièce"
-    }
+      "cta": "Rechercher cette pièce",
+      "example1": "Joint hublot Whirlpool",
+      "example2": "Pompe vidange Beko",
+      "example3": "Courroie Miele / AEG"
+    },
+    "close": "Fermer"
   },
   "belgiumPopup": {
     "title": "Quelle est votre langue ?",

@@ -19,7 +19,8 @@
     "searchPlaceholder": "Onderdeel- of toestellereferentie…",
     "myAccount": "Mijn account",
     "cart": "Winkelwagen",
-    "search": "Zoeken"
+    "search": "Zoeken",
+    "changeLang": "Taal wijzigen"
   },
   "mega": {
     "washingMachine": "Wasmachine",
@@ -275,34 +276,54 @@
         "year": "1983",
         "label": "Oprichting",
         "title": "Nicola Fiordaliso opent Abelec",
-        "desc": "Klein atelier voor reserveonderdelen in Binche, Henegouwen."
+        "desc": "Klein atelier voor reserveonderdelen in Binche, Henegouwen.",
+        "line1": "In 1983 richtte Nicola Fiordaliso Abelec op in een kleine werkplaats in Henegouwen met een eenvoudige overtuiging: reparateurs in België de onderdelen bieden die elders niet te vinden zijn.",
+        "line2": "Het bedrijf startte met een honderdtal referenties voor wasmachines en koelkasten, verkocht aan lokale technici en huishoudens in het bekken van Charleroi.",
+        "stat": "500 referenties · Binche, Henegouwen"
       },
       {
         "year": "1997",
         "label": "Catalogus",
         "title": "Eerste gedrukte catalogus",
-        "desc": "5 000 referenties verspreid aan Belgische herstellers."
+        "desc": "5 000 referenties verspreid aan Belgische herstellers.",
+        "line1": "Na veertien jaar organische groei publiceerde Abelec zijn eerste gedrukte catalogus: 5.000 referenties ingedeeld per merk en apparaattype.",
+        "line2": "Verspreid onder honderden reparateurs werd het de bijbel van de zelfstandige technicus in de regio. Bestellingen kwamen per fax en telefoon.",
+        "stat": "5.000 referenties · 600+ reparateurs"
       },
       {
         "year": "2008",
         "label": "E-commerce",
         "title": "Lancering van Abelec.be",
-        "desc": "Het bedrijf gaat online — 25 jaar na de oprichting."
+        "desc": "Het bedrijf gaat online — 25 jaar na de oprichting.",
+        "line1": "In 2008 maakte Abelec de digitale stap. Particulieren konden voortaan rechtstreeks bestellen, zonder tussenkomst van een erkende technicus.",
+        "line2": "Gedetailleerde technische fiches, installatiehandleidingen, modelcompatibiliteit. De omzet verdubbelde in drie jaar dankzij het nationale bereik van het web.",
+        "stat": "×2 omzet · 18.000 referenties"
       },
       {
         "year": "2018",
         "label": "Europa",
         "title": "Uitbreiding naar 6 Europese landen",
-        "desc": "FR, NL, DE, IT, LU voegen zich bij België."
+        "desc": "FR, NL, DE, IT, LU voegen zich bij België.",
+        "line1": "Met een catalogus uitgebreid tot 60.000 referenties opende Abelec de grenzen naar vijf nieuwe markten. Vertaalde interfaces, lokale vervoerders, aangepaste levertijden.",
+        "line2": "Een gecentraliseerde voorraad in België garandeert verzending binnen 48u naar heel West-Europa. Het familiebedrijf groeide uit tot een continentale referentie.",
+        "stat": "6 landen · 60.000 referenties · Verzending 48u"
       },
       {
         "year": "2026",
         "label": "V2",
         "title": "3D-identificatie · 100 000 refs.",
-        "desc": "Nieuw platform, realtime helpdesk, interactieve 3D-weergave."
+        "desc": "Nieuw platform, realtime helpdesk, interactieve 3D-weergave.",
+        "line1": "Abelec lanceert zijn tweede-generatieplatform: 3D-identificatie van onderdelen, menselijke helpdesk in realtime, catalogus van 100.000 referenties.",
+        "line2": "Kunstmatige intelligentie helpt particulieren bij het identificeren van het defect — zonder het exacte modelnummer te kennen.",
+        "stat": "100.000 referenties · 80+ merken"
       }
     ],
-    "since": "Sinds 1983"
+    "since": "Sinds 1983",
+    "scrollHint": "Scroll om te verkennen →",
+    "step": "STAP",
+    "next": "volgende →",
+    "live": "Live",
+    "counterSub": "apparaten gerepareerd sinds 1983"
   },
   "trust": {
     "eyebrow": "Sectie 09 · Vertrouwen",
@@ -417,8 +438,12 @@
       "titleAccent": "onderdeelreferentie",
       "placeholder": "Bijv: C00094128, 481281729632, ...",
       "examplesLabel": "Voorbeeldreferenties",
-      "cta": "Dit onderdeel zoeken"
-    }
+      "cta": "Dit onderdeel zoeken",
+      "example1": "Whirlpool deurpakking",
+      "example2": "Beko afvoerpomp",
+      "example3": "Miele / AEG aandrijfriem"
+    },
+    "close": "Sluiten"
   },
   "belgiumPopup": {
     "title": "Wat is uw taal?",

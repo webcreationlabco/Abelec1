@@ -2,18 +2,38 @@ import type { Locale } from "@/lib/i18n";
 
 const COOKIE = "abelec_locale";
 const COOKIE_DAYS = 365;
+const LS_KEY = "abelec_locale";
+const VALID_LOCALES: Locale[] = ["fr", "nl", "en", "de", "it"];
 
 export function getLocaleCookie(): Locale | null {
   if (typeof document === "undefined") return null;
   const m = document.cookie.match(new RegExp(`(?:^|; )${COOKIE}=([^;]+)`));
   if (!m) return null;
   const v = decodeURIComponent(m[1]) as Locale;
-  return (["fr", "nl", "en", "de", "it"] as Locale[]).includes(v) ? v : null;
+  return VALID_LOCALES.includes(v) ? v : null;
 }
 
 export function setLocaleCookie(locale: Locale) {
   const expires = new Date(Date.now() + COOKIE_DAYS * 864e5).toUTCString();
   document.cookie = `${COOKIE}=${locale}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+export function getLocaleStorage(): Locale | null {
+  if (typeof localStorage === "undefined") return null;
+  try {
+    const v = localStorage.getItem(LS_KEY) as Locale | null;
+    return v && VALID_LOCALES.includes(v) ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+export function setLocaleStorage(locale: Locale) {
+  try {
+    localStorage.setItem(LS_KEY, locale);
+  } catch {
+    // ignore (private browsing etc.)
+  }
 }
 
 /** Country code → locale (returns null for Belgium so caller can show popup) */

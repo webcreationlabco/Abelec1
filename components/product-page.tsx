@@ -373,7 +373,7 @@ function PurchasePanel({ product }: { product: ProductData }) {
           <MessageCircle size={15} className="text-abelec-orange shrink-0" />
           <span className="text-[13px] text-abelec-muted leading-snug">{t("productPage.compatibilityDoubt")}</span>
         </div>
-        <a href="#" className="flex items-center gap-1 text-[13px] font-semibold text-abelec-orange hover:underline whitespace-nowrap shrink-0">
+        <a href="/contact" className="flex items-center gap-1 text-[13px] font-semibold text-abelec-orange hover:underline whitespace-nowrap shrink-0">
           {t("productPage.talkToExpert")} <ArrowRight size={13} strokeWidth={2.2} />
         </a>
       </div>
@@ -495,7 +495,7 @@ function CompatibilityChecker({ product }: { product: ProductData }) {
                     <strong>{t("productPage.compatFailPrefix")}</strong>{" "}
                     {t("productPage.compatFailWith")}{" "}
                     <span className="font-mono">{query.trim().toUpperCase()}</span>.{" "}
-                    <a href="#" className="underline hover:opacity-80">{t("productPage.compatFailLink")}</a>
+                    <a href="/catalogue" className="underline hover:opacity-80">{t("productPage.compatFailLink")}</a>
                   </span></>
                 )}
               </motion.div>
@@ -630,7 +630,7 @@ function DescriptionTabs({ product }: { product: ProductData }) {
                   <p className="font-slab text-abelec-navy font-bold text-[17px] mb-1">{t("productPage.installHelp")}</p>
                   <p className="text-[13.5px] text-abelec-muted">{t("productPage.installHelpSub")}</p>
                 </div>
-                <a href="#" className="flex items-center gap-2 bg-abelec-navy text-white font-semibold text-[14px] px-5 py-3 rounded-xl hover:bg-abelec-navy-ink transition-colors shrink-0">
+                <a href="/contact" className="flex items-center gap-2 bg-abelec-navy text-white font-semibold text-[14px] px-5 py-3 rounded-xl hover:bg-abelec-navy-ink transition-colors shrink-0">
                   <MessageCircle size={15} strokeWidth={2} /> {t("productPage.contactHelpdesk")}
                 </a>
               </div>
@@ -712,7 +712,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         <main className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-6">
           <p className="font-slab text-abelec-navy text-[28px]">{t("productPage.notFound")}</p>
           <p className="text-abelec-muted">{t("productPage.notFoundSub")}</p>
-          <Link href="/#produits" className="mt-4 inline-flex items-center gap-2 bg-abelec-orange text-white font-semibold px-6 py-3 rounded-xl hover:bg-abelec-orange-dark transition-colors">
+          <Link href="/catalogue" className="mt-4 inline-flex items-center gap-2 bg-abelec-orange text-white font-semibold px-6 py-3 rounded-xl hover:bg-abelec-orange-dark transition-colors">
             <ArrowRight size={16} /> {t("productPage.viewAllParts")}
           </Link>
         </main>
@@ -748,7 +748,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                   {t("productPage.relatedTitle")}
                 </h2>
               </div>
-              <Link href="/#produits" className="hidden sm:flex items-center gap-1.5 text-[14px] font-semibold text-abelec-navy hover:text-abelec-orange transition-colors">
+              <Link href="/catalogue" className="hidden sm:flex items-center gap-1.5 text-[14px] font-semibold text-abelec-navy hover:text-abelec-orange transition-colors">
                 {t("productPage.viewAll")} <ArrowRight size={15} strokeWidth={2.2} />
               </Link>
             </div>

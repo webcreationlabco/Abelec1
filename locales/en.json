@@ -19,7 +19,8 @@
     "searchPlaceholder": "Part or appliance reference…",
     "myAccount": "My account",
     "cart": "Cart",
-    "search": "Search"
+    "search": "Search",
+    "changeLang": "Change language"
   },
   "mega": {
     "washingMachine": "Washing machine",
@@ -275,34 +276,54 @@
         "year": "1983",
         "label": "Founded",
         "title": "Nicola Fiordaliso opens Abelec",
-        "desc": "Small spare parts workshop in Binche, Hainaut."
+        "desc": "Small spare parts workshop in Binche, Hainaut.",
+        "line1": "In 1983, Nicola Fiordaliso founded Abelec in a small workshop in Hainaut with a simple conviction: to offer Belgian repairers the parts unavailable elsewhere.",
+        "line2": "The business started with about a hundred references for washing machines and refrigerators, sold to local technicians and households in the Charleroi basin.",
+        "stat": "500 references · Binche, Hainaut"
       },
       {
         "year": "1997",
         "label": "Catalogue",
         "title": "First printed parts catalogue",
-        "desc": "5,000 references distributed to Belgian repairers."
+        "desc": "5,000 references distributed to Belgian repairers.",
+        "line1": "After fourteen years of organic growth, Abelec published its first printed catalogue: 5,000 references classified by brand and appliance type.",
+        "line2": "Distributed to hundreds of repairers, it became the independent technician’s bible in the region. Orders arrived by fax and phone.",
+        "stat": "5,000 references · 600+ repairers"
       },
       {
         "year": "2008",
         "label": "E-commerce",
         "title": "Launch of Abelec.be",
-        "desc": "The business goes online — 25 years after its founding."
+        "desc": "The business goes online — 25 years after its founding.",
+        "line1": "In 2008, Abelec took the digital leap. Private customers could now order directly, without going through an approved technician.",
+        "line2": "Detailed technical sheets, installation guides, model compatibility. Turnover doubled in three years thanks to the national reach of the web.",
+        "stat": "×2 turnover · 18,000 references"
       },
       {
         "year": "2018",
         "label": "Europe",
         "title": "Expansion to 6 European countries",
-        "desc": "FR, NL, DE, IT, LU join Belgium."
+        "desc": "FR, NL, DE, IT, LU join Belgium.",
+        "line1": "With a catalogue expanded to 60,000 references, Abelec opened its borders to five new markets. Translated interfaces, local carriers, adapted lead times.",
+        "line2": "A centralised stock in Belgium guarantees dispatch within 48h across Western Europe. The family business became a continental reference.",
+        "stat": "6 countries · 60,000 references · 48h dispatch"
       },
       {
         "year": "2026",
         "label": "V2",
         "title": "3D identification · 100,000 refs.",
-        "desc": "New platform, real-time helpdesk, interactive 3D view."
+        "desc": "New platform, real-time helpdesk, interactive 3D view.",
+        "line1": "Abelec launches its second-generation platform: 3D interactive part identification, real-time human helpdesk, catalogue of 100,000 references.",
+        "line2": "Artificial intelligence helps private customers identify the fault — without knowing the exact model number.",
+        "stat": "100,000 references · 80+ brands"
       }
     ],
-    "since": "Since 1983"
+    "since": "Since 1983",
+    "scrollHint": "Scroll to explore →",
+    "step": "STEP",
+    "next": "next →",
+    "live": "Live",
+    "counterSub": "appliances repaired since 1983"
   },
   "trust": {
     "eyebrow": "Section 09 · Trust",
@@ -417,8 +438,12 @@
       "titleAccent": "part reference",
       "placeholder": "E.g.: C00094128, 481281729632, ...",
       "examplesLabel": "Reference examples",
-      "cta": "Find this part"
-    }
+      "cta": "Find this part",
+      "example1": "Whirlpool door seal",
+      "example2": "Beko drain pump",
+      "example3": "Miele / AEG drive belt"
+    },
+    "close": "Close"
   },
   "belgiumPopup": {
     "title": "What is your language?",
