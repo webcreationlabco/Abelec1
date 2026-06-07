@@ -5,20 +5,26 @@ import { motion } from "framer-motion";
 import { Search, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import GridNeon from "@/components/grid-neon";
+import ApplianceReferenceModal from "@/components/modals/appliance-reference-modal";
+import BreakdownModal          from "@/components/modals/breakdown-modal";
+import PartReferenceModal      from "@/components/modals/part-reference-modal";
+
+type ModalId = "appliance" | "breakdown" | "part";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const LINE = "1px solid rgba(10,31,68,0.07)";
 
-const CTA_CARDS = [
-  { illustration: "/illustrations/frigo-panne.png",        title: "J'ai une panne",          sub: "Décrivez le problème"    },
-  { illustration: "/illustrations/piece-reference.png",    title: "J'ai une référence",      sub: "Entrez votre code pièce" },
-  { illustration: "/illustrations/appareil-reference.png", title: "Je cherche par appareil", sub: "Parcourez le catalogue"  },
+const CTA_CARDS: { illustration: string; title: string; sub: string; modal: ModalId }[] = [
+  { illustration: "/illustrations/appareil-reference.png", title: "Je cherche par appareil", sub: "Parcourez le catalogue",  modal: "appliance" },
+  { illustration: "/illustrations/frigo-panne.png",        title: "J'ai une panne",          sub: "Décrivez le problème",   modal: "breakdown" },
+  { illustration: "/illustrations/piece-reference.png",    title: "J'ai une référence",      sub: "Entrez votre code pièce", modal: "part"     },
 ];
 
 
 export default function HeroSection() {
-  const [query,   setQuery]   = useState("");
-  const [focused, setFocused] = useState(false);
+  const [query,       setQuery]       = useState("");
+  const [focused,     setFocused]     = useState(false);
+  const [activeModal, setActiveModal] = useState<ModalId | null>(null);
 
   const SERIF = "var(--font-playfair), Georgia, serif";
   const MONO  = "var(--font-mono), monospace";
@@ -202,9 +208,10 @@ export default function HeroSection() {
           display: "flex", gap: 16, justifyContent: "center",
           padding: "0 24px 32px", flexWrap: "wrap",
         }}>
-          {CTA_CARDS.map(({ illustration, title, sub }, i) => (
+          {CTA_CARDS.map(({ illustration, title, sub, modal }, i) => (
             <motion.button
               key={title}
+              onClick={() => setActiveModal(modal)}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.62 + i * 0.10, ease: EASE }}
@@ -266,6 +273,11 @@ export default function HeroSection() {
             50%       { opacity: 0.4; transform: scale(0.72); }
           }
         `}</style>
+
+        {/* ── Modals ──────────────────────────────────────────────────── */}
+        <ApplianceReferenceModal open={activeModal === "appliance"} onClose={() => setActiveModal(null)} />
+        <BreakdownModal          open={activeModal === "breakdown"} onClose={() => setActiveModal(null)} />
+        <PartReferenceModal      open={activeModal === "part"}      onClose={() => setActiveModal(null)} />
       </section>
 
     </>
