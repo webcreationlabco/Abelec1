@@ -60,10 +60,10 @@ export default function ExpertsSection() {
               {t("experts.sub")}
             </p>
 
-            <button className="inline-flex items-center gap-2.5 bg-abelec-orange hover:bg-[#b8612a] text-white px-7 py-3.5 rounded-xl font-semibold text-[15px] transition-colors shadow-[inset_0_-2px_0_rgba(0,0,0,.12)]">
+            <a href="/contact" className="inline-flex items-center gap-2.5 bg-abelec-orange hover:bg-[#b8612a] text-white px-7 py-3.5 rounded-xl font-semibold text-[15px] transition-colors shadow-[inset_0_-2px_0_rgba(0,0,0,.12)]">
               <MessageCircle size={18} strokeWidth={2} />
               {t("experts.cta")}
-            </button>
+            </a>
 
           </motion.div>
 

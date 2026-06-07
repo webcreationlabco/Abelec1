@@ -25,8 +25,8 @@ export default function Footer() {
 
   // Static href maps (index-aligned with locale arrays)
   const CATEGORY_HREFS = ["/#produits", "/#produits", "/#produits", "/#produits", "/#produits", "/#produits"];
-  const SERVICE_HREFS  = ["/compte", "/contact", "#pro", "#livraison", "#garantie"];
-  const COMPANY_HREFS  = ["#about", "#histoire", "#marques", "#cgv", "#mentions", "#confidentialite"];
+  const SERVICE_HREFS  = ["/suivi-commande", "/contact", "#pro", "/livraison-retours", "#garantie"];
+  const COMPANY_HREFS  = ["/a-propos", "/#timeline", "/marques", "/cgv", "/mentions-legales", "/politique-de-confidentialite"];
 
   return (
     <footer className="relative bg-abelec-navy text-white pt-20 pb-8">

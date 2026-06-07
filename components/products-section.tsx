@@ -287,7 +287,7 @@ export default function ProductsSection() {
         {/* View all CTA */}
         <div className="text-center mt-8">
           <a
-            href="#"
+            href="/catalogue"
             className="inline-flex items-center gap-2 font-semibold text-abelec-navy hover:text-abelec-orange transition-colors text-[15px]"
           >
             {t("products.viewAll")}

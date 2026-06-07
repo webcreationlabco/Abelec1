@@ -9,7 +9,7 @@ import { useI18n, useT, LOCALES, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 // ── Fallback for subcategories without a dedicated product page ──────────
-const CAT = "/#produits";
+const CAT = "/catalogue";
 
 // ── Mega-menu column keys ─────────────────────────────────────────────────
 const MEGA_COL_KEYS = [
