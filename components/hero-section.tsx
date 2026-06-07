@@ -92,7 +92,6 @@ export default function HeroSection() {
               fontWeight: 800, lineHeight: 0.95,
               letterSpacing: "-0.04em",
               fontFamily: SANS,
-              opacity: 0.20,
             }}>Électroménager</span>
           </motion.div>
 
@@ -240,11 +239,11 @@ export default function HeroSection() {
             >
               {/* Illustration area */}
               <div style={{
-                height: 150, background: "#F0EEEB",
+                height: 200, background: "#F0EEEB",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 borderBottom: "1px solid rgba(10,31,68,0.05)",
               }}>
-                <Image src={illustration} alt={title} width={106} height={106}
+                <Image src={illustration} alt={title} width={130} height={130}
                   style={{ objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.13))" }}
                 />
               </div>
