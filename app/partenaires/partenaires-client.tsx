@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { Wrench, Building2, Briefcase, ArrowRight, Check, Send, CheckCircle, ChevronDown } from "lucide-react";
@@ -21,28 +21,6 @@ function ScrollReveal({ children, className, delay = 0 }: { children: React.Reac
       {children}
     </motion.div>
   );
-}
-
-// ── Animated counter ─────────────────────────────────────────────────────────
-function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const steps = 60;
-    const increment = target / steps;
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      setCount(Math.min(Math.round(increment * step), target));
-      if (step >= steps) clearInterval(timer);
-    }, 1400 / steps);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-
-  return <span ref={ref}>{count.toLocaleString("fr-BE")}{suffix}</span>;
 }
 
 // ── Page ─────────────────────────────────────────────────────────────────────

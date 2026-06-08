@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingBag, MapPin, FileText, Heart, Settings, LogOut,
-  ChevronRight, Package, Truck, Clock, Check, Download,
+  ChevronRight, Truck, Clock, Check, Download,
   Edit2, Trash2, Plus, Star, Phone, Mail, Lock, Globe,
   Eye, EyeOff,
 } from "lucide-react";
