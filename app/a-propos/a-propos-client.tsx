@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { Wrench, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 // ── Animation helpers ────────────────────────────────────────────────────────
 const fadeUp = {
@@ -63,65 +64,30 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   );
 }
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-const VALEURS = [
-  {
-    icon: Wrench,
-    title: "Expertise humaine",
-    desc: "Chaque demande est traitée par un technicien formé. Nos équipes connaissent les pièces et les machines qu'elles alimentent.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Engagement qualité",
-    desc: "Toutes nos pièces sont contrôlées avant expédition. Nous ne proposons que des références d'origine ou de qualité équivalente.",
-  },
-  {
-    icon: Leaf,
-    title: "Réparation durable",
-    desc: "Réparer plutôt que remplacer, c'est notre conviction depuis 1983. Chaque pièce vendue évite un appareil de plus en décharge.",
-  },
-];
-
-const TEAM = [
-  {
-    name: "Robert Delcourt",
-    role: "Fondateur",
-    bio: "A fondé Abelec en 1983 avec la conviction que réparer vaut toujours mieux que jeter.",
-    initials: "RD",
-    color: "#1A3A5C",
-  },
-  {
-    name: "Marc Delcourt",
-    role: "Responsable technique",
-    bio: "40 ans d'expérience dans le diagnostic et la réparation d'électroménager toutes marques.",
-    initials: "MD",
-    color: "#D97E3A",
-  },
-  {
-    name: "Sophie Maes",
-    role: "Service client",
-    bio: "Première de contact, elle accompagne chaque client de la recherche de pièce à la livraison.",
-    initials: "SM",
-    color: "#2563EB",
-  },
-  {
-    name: "Julien Pirard",
-    role: "Logistique",
-    bio: "Garant que chaque commande quitte l'entrepôt correctement emballée et dans les délais.",
-    initials: "JP",
-    color: "#059669",
-  },
-];
-
-const STATS = [
-  { value: 43,     suffix: " ans",  label: "d'expertise" },
-  { value: 100000, suffix: "",       label: "références en stock" },
-  { value: 6,      suffix: " pays",  label: "livrés en Europe" },
-  { value: 1214,   suffix: "",       label: "avis vérifiés" },
-];
-
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function AProposClient() {
+  const t = useT();
+
+  const VALEURS = [
+    { icon: Wrench,      title: t("aPropos.val1Title"), desc: t("aPropos.val1Desc") },
+    { icon: ShieldCheck, title: t("aPropos.val2Title"), desc: t("aPropos.val2Desc") },
+    { icon: Leaf,        title: t("aPropos.val3Title"), desc: t("aPropos.val3Desc") },
+  ];
+
+  const TEAM = [
+    { name: "Robert Delcourt", role: t("aPropos.team1Role"), bio: t("aPropos.team1Bio"), initials: "RD", color: "#1A3A5C" },
+    { name: "Marc Delcourt",   role: t("aPropos.team2Role"), bio: t("aPropos.team2Bio"), initials: "MD", color: "#D97E3A" },
+    { name: "Sophie Maes",     role: t("aPropos.team3Role"), bio: t("aPropos.team3Bio"), initials: "SM", color: "#2563EB" },
+    { name: "Julien Pirard",   role: t("aPropos.team4Role"), bio: t("aPropos.team4Bio"), initials: "JP", color: "#059669" },
+  ];
+
+  const STATS = [
+    { value: 43,     suffix: t("aPropos.stat1Suffix"), label: t("aPropos.stat1Label") },
+    { value: 100000, suffix: "",                        label: t("aPropos.stat2Label") },
+    { value: 6,      suffix: t("aPropos.stat3Suffix"), label: t("aPropos.stat3Label") },
+    { value: 1214,   suffix: "",                        label: t("aPropos.stat4Label") },
+  ];
+
   return (
     <main>
 
@@ -137,7 +103,7 @@ export default function AProposClient() {
             transition={{ duration: 0.5 }}
             className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-4"
           >
-            Depuis 1983 · Péronnes-lez-Binche, Belgique
+            {t("aPropos.heroBreadcrumb")}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -146,7 +112,7 @@ export default function AProposClient() {
             className="font-slab text-abelec-navy-ink leading-[1.05]"
             style={{ fontSize: "clamp(34px, 5vw, 60px)", letterSpacing: "-0.025em" }}
           >
-            À propos d&rsquo;Abelec
+            {t("aPropos.heroTitle")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -154,7 +120,7 @@ export default function AProposClient() {
             transition={{ duration: 0.55, delay: 0.14 }}
             className="mt-4 text-[17px] text-abelec-muted leading-relaxed font-slab italic"
           >
-            Une entreprise familiale belge, une passion pour la réparation
+            {t("aPropos.heroSub")}
           </motion.p>
         </div>
       </section>
@@ -166,24 +132,18 @@ export default function AProposClient() {
           {/* Left — text */}
           <ScrollReveal>
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-4">
-              01 · L&rsquo;entreprise
+              {t("aPropos.s1Eyebrow")}
             </p>
             <h2
               className="font-slab text-abelec-navy leading-tight mb-8"
               style={{ fontSize: "clamp(24px, 3.2vw, 38px)", letterSpacing: "-0.02em" }}
             >
-              Depuis 1983, nous aidons les Belges à réparer leur électroménager
+              {t("aPropos.s1Title")}
             </h2>
             <div className="flex flex-col gap-5 text-[15.5px] text-abelec-muted leading-relaxed">
-              <p>
-                Abelec est née d&rsquo;une conviction simple : un appareil en panne mérite une seconde chance. Fondée en 1983 à Péronnes-lez-Binche par Robert Delcourt, notre entreprise familiale a construit au fil des décennies l&rsquo;un des stocks de pièces détachées les plus complets de Belgique — plus de 100 000 références disponibles pour tous les grands appareils électroménagers.
-              </p>
-              <p>
-                Là où d&rsquo;autres proposent le remplacement immédiat, nous choisissons la réparation. Cette philosophie guide chacune de nos décisions, de la sélection des fournisseurs à la formation de nos techniciens. Nos clients nous font confiance depuis quarante ans parce qu&rsquo;ils savent qu&rsquo;ils trouveront chez nous la bonne pièce, au bon prix, livrée rapidement.
-              </p>
-              <p>
-                Aujourd&rsquo;hui, Abelec expédie dans six pays européens et continue de grandir — sans jamais perdre l&rsquo;ADN familial et artisanal qui fait notre force depuis le premier jour.
-              </p>
+              <p>{t("aPropos.s1p1")}</p>
+              <p>{t("aPropos.s1p2")}</p>
+              <p>{t("aPropos.s1p3")}</p>
             </div>
           </ScrollReveal>
 
@@ -192,7 +152,7 @@ export default function AProposClient() {
             <div className="relative rounded-2xl overflow-hidden border border-abelec-cream-line shadow-card-sm" style={{ height: "clamp(280px,40vh,440px)" }}>
               <Image
                 src="/images/team/travail.jpg"
-                alt="Équipe Abelec en entrepôt"
+                alt={t("aPropos.imgAlt")}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -215,13 +175,13 @@ export default function AProposClient() {
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal className="text-center mb-14">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              02 · Nos valeurs
+              {t("aPropos.s2Eyebrow")}
             </p>
             <h2
               className="font-slab text-abelec-navy"
               style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Ce qui nous anime chaque jour
+              {t("aPropos.s2Title")}
             </h2>
           </ScrollReveal>
 
@@ -260,13 +220,13 @@ export default function AProposClient() {
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal className="text-center mb-14">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              03 · L&rsquo;équipe
+              {t("aPropos.s3Eyebrow")}
             </p>
             <h2
               className="font-slab text-abelec-navy"
               style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Une équipe à votre service
+              {t("aPropos.s3Title")}
             </h2>
           </ScrollReveal>
 
@@ -306,13 +266,13 @@ export default function AProposClient() {
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal className="text-center mb-14">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              04 · Chiffres clés
+              {t("aPropos.s4Eyebrow")}
             </p>
             <h2
               className="font-slab text-abelec-navy"
               style={{ fontSize: "clamp(24px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Abelec en quelques chiffres
+              {t("aPropos.s4Title")}
             </h2>
           </ScrollReveal>
 
@@ -343,14 +303,14 @@ export default function AProposClient() {
         <ScrollReveal className="max-w-[720px] mx-auto text-center flex flex-col items-center gap-8">
           <div>
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-4">
-              Contactez-nous
+              {t("aPropos.ctaEyebrow")}
             </p>
             <h2
               className="font-slab text-white leading-tight"
               style={{ fontSize: "clamp(26px, 3.5vw, 42px)", letterSpacing: "-0.02em" }}
             >
-              Une question ?{" "}
-              <span className="text-abelec-orange italic">Notre équipe vous répond.</span>
+              {t("aPropos.ctaTitle")}{" "}
+              <span className="text-abelec-orange italic">{t("aPropos.ctaTitleAccent")}</span>
             </h2>
           </div>
           <Link
@@ -358,7 +318,7 @@ export default function AProposClient() {
             className="inline-flex items-center gap-2.5 bg-abelec-orange hover:bg-[#b8612a] text-white px-8 py-4 rounded-xl font-bold text-[15px] transition-colors"
             style={{ boxShadow: "inset 0 -3px 0 rgba(0,0,0,0.14), 0 8px 28px rgba(217,126,58,0.35)" }}
           >
-            Nous contacter
+            {t("aPropos.ctaBtn")}
             <ArrowRight size={17} strokeWidth={2.2} />
           </Link>
         </ScrollReveal>

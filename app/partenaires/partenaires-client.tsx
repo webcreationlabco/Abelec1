@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { Wrench, Building2, Briefcase, ArrowRight, Check, Send, CheckCircle, ChevronDown } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 // ── Animation helpers ────────────────────────────────────────────────────────
 function ScrollReveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -44,60 +45,71 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   return <span ref={ref}>{count.toLocaleString("fr-BE")}{suffix}</span>;
 }
 
-// ── Data ─────────────────────────────────────────────────────────────────────
-const PARTNER_TYPES = [
-  {
-    icon: Wrench,
-    title: "Repair Cafés & Associations",
-    desc: "Vous réparez gratuitement pour votre communauté. Nous vous aidons à trouver les pièces au meilleur prix. Abelec soutient les initiatives de réparation citoyenne en Belgique et en Europe.",
-    benefits: ["Tarifs préférentiels", "Catalogue de 100 000 références", "Livraison 48h", "Support technique dédié"],
-    badge: "Engagement solidaire",
-    badgeColor: "#2563EB",
-    badgeBg: "#EFF6FF",
-    reverse: false,
-  },
-  {
-    icon: Building2,
-    title: "Foyers & Institutions",
-    desc: "Résidences, maisons de repos, foyers sociaux — gérez l'entretien de vos appareils en toute autonomie. Compte pro avec facturation mensuelle et suivi de commandes centralisé.",
-    benefits: ["Compte pro dédié", "Facturation mensuelle", "Interlocuteur unique", "Commandes en volume"],
-    badge: "Compte institutionnel",
-    badgeColor: "#059669",
-    badgeBg: "#ECFDF5",
-    reverse: true,
-  },
-  {
-    icon: Briefcase,
-    title: "Professionnels & Grandes Enseignes",
-    desc: "Techniciens indépendants, chaînes de distribution, revendeurs — approvisionnez-vous directement auprès d'Abelec. Stock permanent, catalogue complet, conditions commerciales négociables.",
-    benefits: ["Conditions tarifaires négociables", "Stock de 100 000 pièces", "API catalogue disponible", "Livraison B2B Europe"],
-    badge: "Partenaire commercial",
-    badgeColor: "#D97E3A",
-    badgeBg: "#FFF7ED",
-    reverse: false,
-  },
-];
-
-const STATS = [
-  { value: 43,     suffix: " ans",  label: "d'expertise" },
-  { value: 100000, suffix: "",       label: "références en stock" },
-  { value: 6,      suffix: " pays",  label: "livrés en Europe" },
-  { value: 80,     suffix: "+",      label: "marques référencées" },
-];
-
-const LOGO_PLACEHOLDERS = [
-  "Repair Café BXL", "Résidence Les Pins", "TechFix Pro", "Foyer St-Joseph", "ElectroShop", "Repair Café Gand",
-];
-
-const VOLUMES = ["Moins de 10 commandes/mois", "10 à 50 commandes/mois", "50 à 200 commandes/mois", "Plus de 200 commandes/mois"];
-const TYPES   = ["Repair Café / ASBL", "Foyer / Institution", "Professionnel / Enseigne", "Autre"];
-
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function PartenairesClient() {
+  const t = useT();
   const formRef = useRef<HTMLElement>(null);
-  const [form, setForm]     = useState({ nom: "", prenom: "", orga: "", type: "", email: "", tel: "", message: "", volume: "" });
-  const [sent, setSent]     = useState(false);
+  const [form, setForm]       = useState({ nom: "", prenom: "", orga: "", type: "", email: "", tel: "", message: "", volume: "" });
+  const [sent, setSent]       = useState(false);
   const [sending, setSending] = useState(false);
+
+  const PARTNER_TYPES = [
+    {
+      icon: Wrench,
+      title: t("partenaires.p1Title"),
+      desc: t("partenaires.p1Desc"),
+      benefits: [t("partenaires.p1b1"), t("partenaires.p1b2"), t("partenaires.p1b3"), t("partenaires.p1b4")],
+      badge: t("partenaires.p1Badge"),
+      badgeColor: "#2563EB",
+      badgeBg: "#EFF6FF",
+      reverse: false,
+    },
+    {
+      icon: Building2,
+      title: t("partenaires.p2Title"),
+      desc: t("partenaires.p2Desc"),
+      benefits: [t("partenaires.p2b1"), t("partenaires.p2b2"), t("partenaires.p2b3"), t("partenaires.p2b4")],
+      badge: t("partenaires.p2Badge"),
+      badgeColor: "#059669",
+      badgeBg: "#ECFDF5",
+      reverse: true,
+    },
+    {
+      icon: Briefcase,
+      title: t("partenaires.p3Title"),
+      desc: t("partenaires.p3Desc"),
+      benefits: [t("partenaires.p3b1"), t("partenaires.p3b2"), t("partenaires.p3b3"), t("partenaires.p3b4")],
+      badge: t("partenaires.p3Badge"),
+      badgeColor: "#D97E3A",
+      badgeBg: "#FFF7ED",
+      reverse: false,
+    },
+  ];
+
+  const STATS = [
+    { value: 43,     suffix: t("partenaires.statSuffix1"), label: t("partenaires.statLabel1") },
+    { value: 100000, suffix: "",                            label: t("partenaires.statLabel2") },
+    { value: 6,      suffix: t("partenaires.statSuffix3"), label: t("partenaires.statLabel3") },
+    { value: 80,     suffix: t("partenaires.statSuffix4"), label: t("partenaires.statLabel4") },
+  ];
+
+  const LOGO_PLACEHOLDERS = [
+    "Repair Café BXL", "Résidence Les Pins", "TechFix Pro", "Foyer St-Joseph", "ElectroShop", "Repair Café Gand",
+  ];
+
+  const VOLUMES = [
+    t("partenaires.vol1"),
+    t("partenaires.vol2"),
+    t("partenaires.vol3"),
+    t("partenaires.vol4"),
+  ];
+
+  const TYPES = [
+    t("partenaires.type1"),
+    t("partenaires.type2"),
+    t("partenaires.type3"),
+    t("partenaires.type4"),
+  ];
 
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -126,7 +138,7 @@ export default function PartenairesClient() {
             transition={{ duration: 0.5 }}
             className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-5"
           >
-            Programme partenaires · Abelec
+            {t("partenaires.heroBreadcrumb")}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -135,8 +147,8 @@ export default function PartenairesClient() {
             className="font-slab text-white leading-[1.05] mb-6"
             style={{ fontSize: "clamp(32px, 5vw, 60px)", letterSpacing: "-0.025em" }}
           >
-            Devenez partenaire{" "}
-            <span className="text-abelec-orange italic">Abelec</span>
+            {t("partenaires.heroTitle")}{" "}
+            <span className="text-abelec-orange italic">{t("partenaires.heroTitleAccent")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -144,7 +156,7 @@ export default function PartenairesClient() {
             transition={{ duration: 0.6, delay: 0.14 }}
             className="text-[17px] text-white/70 leading-relaxed mb-10"
           >
-            Nous accompagnons les repair cafés, les foyers et les professionnels dans leur approvisionnement en pièces détachées
+            {t("partenaires.heroSub")}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -157,14 +169,14 @@ export default function PartenairesClient() {
               className="inline-flex items-center gap-2.5 bg-abelec-orange hover:bg-[#b8612a] text-white px-7 py-3.5 rounded-xl font-bold text-[15px] transition-colors"
               style={{ boxShadow: "inset 0 -3px 0 rgba(0,0,0,0.14), 0 8px 28px rgba(217,126,58,0.35)" }}
             >
-              Devenir partenaire
+              {t("partenaires.heroBtn1")}
               <ArrowRight size={16} strokeWidth={2.2} />
             </button>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2.5 border border-white/30 hover:border-white/60 text-white px-7 py-3.5 rounded-xl font-semibold text-[15px] transition-colors"
             >
-              Nous contacter
+              {t("partenaires.heroBtn2")}
             </Link>
           </motion.div>
         </div>
@@ -190,7 +202,7 @@ export default function PartenairesClient() {
               </span>
 
               <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-                {String(i + 1).padStart(2, "0")} · Type de partenaire
+                {String(i + 1).padStart(2, "0")} · {t("partenaires.partnerTypeEyebrow")}
               </p>
               <h2
                 className="font-slab text-abelec-navy leading-tight mb-5"
@@ -218,7 +230,7 @@ export default function PartenairesClient() {
                 onClick={scrollToForm}
                 className="mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-abelec-orange hover:text-[#b8612a] transition-colors"
               >
-                Faire une demande <ArrowRight size={15} strokeWidth={2.2} />
+                {t("partenaires.makeRequest")} <ArrowRight size={15} strokeWidth={2.2} />
               </button>
             </ScrollReveal>
 
@@ -248,13 +260,13 @@ export default function PartenairesClient() {
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal className="text-center mb-14">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              Pourquoi Abelec
+              {t("partenaires.whyTitle")}
             </p>
             <h2
               className="font-slab text-white"
               style={{ fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Un partenaire de confiance depuis 1983
+              {t("partenaires.whySub")}
             </h2>
           </ScrollReveal>
 
@@ -269,7 +281,7 @@ export default function PartenairesClient() {
                   className="font-slab text-white font-bold leading-none"
                   style={{ fontSize: "clamp(36px, 4.5vw, 54px)", letterSpacing: "-0.03em" }}
                 >
-                  <Counter target={value} suffix={suffix} />
+                  {value.toLocaleString("fr-BE")}{suffix}
                 </p>
                 <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-white/50">{label}</p>
               </ScrollReveal>
@@ -283,13 +295,13 @@ export default function PartenairesClient() {
         <div className="max-w-[1240px] mx-auto">
           <ScrollReveal className="text-center mb-12">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              Ils nous font confiance
+              {t("partenaires.trustTitle")}
             </p>
             <h2
               className="font-slab text-abelec-navy"
               style={{ fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Nos partenaires actuels
+              {t("partenaires.trustSub")}
             </h2>
           </ScrollReveal>
 
@@ -316,7 +328,7 @@ export default function PartenairesClient() {
 
           <ScrollReveal className="text-center mt-8">
             <p className="text-[14px] text-abelec-muted italic">
-              Et de nombreux repair cafés en Belgique et aux Pays-Bas
+              {t("partenaires.trustMention")}
             </p>
           </ScrollReveal>
         </div>
@@ -331,13 +343,13 @@ export default function PartenairesClient() {
         <div className="max-w-[680px] mx-auto">
           <ScrollReveal className="text-center mb-10">
             <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-orange mb-3">
-              Formulaire de partenariat
+              {t("partenaires.formEyebrow")}
             </p>
             <h2
               className="font-slab text-abelec-navy"
               style={{ fontSize: "clamp(22px, 3vw, 36px)", letterSpacing: "-0.02em" }}
             >
-              Faites votre demande
+              {t("partenaires.formTitle")}
             </h2>
           </ScrollReveal>
 
@@ -352,8 +364,8 @@ export default function PartenairesClient() {
                   <CheckCircle size={28} strokeWidth={1.8} className="text-[#2d6a4f]" />
                 </div>
                 <div>
-                  <h3 className="font-slab text-abelec-navy text-[22px] mb-1">Demande envoyée !</h3>
-                  <p className="text-abelec-muted text-[15px]">Nous vous répondrons sous 48h à l&rsquo;adresse indiquée.</p>
+                  <h3 className="font-slab text-abelec-navy text-[22px] mb-1">{t("partenaires.successTitle")}</h3>
+                  <p className="text-abelec-muted text-[15px]">{t("partenaires.successSub")}</p>
                 </div>
               </motion.div>
             ) : (
@@ -365,28 +377,28 @@ export default function PartenairesClient() {
                 {/* Nom / Prénom */}
                 <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Nom</label>
+                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelNom")}</label>
                     <input type="text" required value={form.nom} onChange={set("nom")} placeholder="Dupont" className={inputCls} />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Prénom</label>
+                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelPrenom")}</label>
                     <input type="text" required value={form.prenom} onChange={set("prenom")} placeholder="Jean" className={inputCls} />
                   </div>
                 </div>
 
                 {/* Organisation */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Organisation</label>
-                  <input type="text" required value={form.orga} onChange={set("orga")} placeholder="Nom de votre organisation" className={inputCls} />
+                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelOrga")}</label>
+                  <input type="text" required value={form.orga} onChange={set("orga")} placeholder={t("partenaires.placeholderOrga")} className={inputCls} />
                 </div>
 
                 {/* Type de partenariat */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Type de partenariat</label>
+                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelType")}</label>
                   <div className="relative">
                     <select required value={form.type} onChange={set("type")} className={selectCls} style={{ color: form.type ? "#0f2340" : "#8a8a8a" }}>
-                      <option value="">Sélectionner...</option>
-                      {TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                      <option value="">{t("partenaires.selectDefault")}</option>
+                      {TYPES.map((type) => <option key={type} value={type}>{type}</option>)}
                     </select>
                     <ChevronDown size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-abelec-muted-2 pointer-events-none" />
                   </div>
@@ -395,21 +407,21 @@ export default function PartenairesClient() {
                 {/* Email / Téléphone */}
                 <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Email</label>
+                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelEmail")}</label>
                     <input type="email" required value={form.email} onChange={set("email")} placeholder="jean@exemple.be" className={inputCls} />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Téléphone</label>
+                    <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelTel")}</label>
                     <input type="tel" value={form.tel} onChange={set("tel")} placeholder="+32 ..." className={inputCls} />
                   </div>
                 </div>
 
                 {/* Volume */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Volume estimé de commandes par mois</label>
+                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelVolume")}</label>
                   <div className="relative">
                     <select value={form.volume} onChange={set("volume")} className={selectCls} style={{ color: form.volume ? "#0f2340" : "#8a8a8a" }}>
-                      <option value="">Sélectionner...</option>
+                      <option value="">{t("partenaires.selectDefault")}</option>
                       {VOLUMES.map((v) => <option key={v} value={v}>{v}</option>)}
                     </select>
                     <ChevronDown size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-abelec-muted-2 pointer-events-none" />
@@ -418,12 +430,12 @@ export default function PartenairesClient() {
 
                 {/* Message */}
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">Message</label>
+                  <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted-2">{t("partenaires.labelMessage")}</label>
                   <textarea
                     rows={4}
                     value={form.message}
                     onChange={set("message")}
-                    placeholder="Décrivez votre projet ou vos besoins..."
+                    placeholder={t("partenaires.placeholderMessage")}
                     className="px-4 py-3 rounded-xl bg-white border border-[#E8E0D5] text-[14px] text-abelec-navy-ink placeholder:text-abelec-muted-2 outline-none focus:border-abelec-orange transition-colors resize-none"
                   />
                 </div>
@@ -435,11 +447,11 @@ export default function PartenairesClient() {
                   style={{ boxShadow: "inset 0 -3px 0 rgba(0,0,0,0.14)" }}
                 >
                   <Send size={15} strokeWidth={2} />
-                  {sending ? "Envoi en cours..." : "Envoyer ma demande"}
+                  {sending ? t("partenaires.sending") : t("partenaires.submitBtn")}
                 </button>
 
                 <div className="text-center flex flex-col gap-1">
-                  <p className="text-[12.5px] text-abelec-muted font-mono">Nous vous répondons sous 48h</p>
+                  <p className="text-[12.5px] text-abelec-muted font-mono">{t("partenaires.replyTime")}</p>
                   <a href="mailto:helpdesk@abelec.be" className="text-[12.5px] text-abelec-orange hover:underline font-mono">
                     helpdesk@abelec.be
                   </a>

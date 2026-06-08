@@ -1,15 +1,7 @@
 "use client";
 
 import LegalPage, { Section } from "@/components/legal/LegalPage";
-
-const SECTIONS = [
-  { id: "collecte",      title: "Données collectées" },
-  { id: "utilisation",   title: "Utilisation des données" },
-  { id: "conservation",  title: "Conservation" },
-  { id: "droits",        title: "Vos droits" },
-  { id: "cookies",       title: "Cookies" },
-  { id: "dpo",           title: "Contact DPO" },
-];
+import { useT } from "@/lib/i18n";
 
 function DataCard({ icon, title, items }: { icon: React.ReactNode; title: string; items: string[] }) {
   return (
@@ -44,7 +36,10 @@ function RightCard({ right, desc }: { right: string; desc: string }) {
   );
 }
 
-function CookieRow({ name, purpose, duration, optional }: { name: string; purpose: string; duration: string; optional: boolean }) {
+function CookieRow({ name, purpose, duration, optional, labelRequired, labelOptional }: {
+  name: string; purpose: string; duration: string; optional: boolean;
+  labelRequired: string; labelOptional: string;
+}) {
   return (
     <div className="grid grid-cols-[1fr_2fr_auto_auto] gap-4 items-center py-3 border-b border-abelec-cream-line last:border-none text-[13px]">
       <span className="font-mono text-abelec-navy font-semibold">{name}</span>
@@ -55,18 +50,32 @@ function CookieRow({ name, purpose, duration, optional }: { name: string; purpos
           ? "bg-abelec-orange/10 text-abelec-orange"
           : "bg-abelec-navy/8 text-abelec-navy"
       }`}>
-        {optional ? "Optionnel" : "Requis"}
+        {optional ? labelOptional : labelRequired}
       </span>
     </div>
   );
 }
 
 export default function PolitiqueConfidentialitePage() {
+  const t = useT();
+
+  const SECTIONS = [
+    { id: "collecte",     title: t("privacy.s1") },
+    { id: "utilisation",  title: t("privacy.s2") },
+    { id: "conservation", title: t("privacy.s3") },
+    { id: "droits",       title: t("privacy.s4") },
+    { id: "cookies",      title: t("privacy.s5") },
+    { id: "dpo",          title: t("privacy.s6") },
+  ];
+
+  const labelRequired = t("privacy.s5Required");
+  const labelOptional = t("privacy.s5Optional");
+
   return (
     <LegalPage
-      eyebrow="Légal"
-      title="Politique de Confidentialité"
-      subtitle="Comment Abelec collecte, utilise et protège vos données personnelles, conformément au RGPD."
+      eyebrow={t("privacy.eyebrow")}
+      title={t("privacy.title")}
+      subtitle={t("privacy.subtitle")}
       lastUpdated="1er mai 2025"
       sections={SECTIONS}
     >
@@ -75,59 +84,55 @@ export default function PolitiqueConfidentialitePage() {
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
         <p className="text-[13.5px] text-abelec-navy/80 leading-relaxed">
-          Abelec s&apos;engage à protéger votre vie privée. Cette politique est conforme au Règlement Général sur la Protection des Données (RGPD – Règlement UE 2016/679) et à la législation belge en vigueur.
+          {t("privacy.gdprDisclaimer")}
         </p>
       </div>
 
-      <Section id="collecte" title="Données collectées">
-        <p>
-          Dans le cadre de votre utilisation du site et de vos achats, Abelec collecte les catégories de données suivantes :
-        </p>
+      <Section id="collecte" title={t("privacy.s1")}>
+        <p>{t("privacy.s1Intro")}</p>
         <div className="grid sm:grid-cols-2 gap-4 mt-4">
           <DataCard
             icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>}
-            title="Données d'identification"
-            items={["Nom et prénom", "Adresse email", "Numéro de téléphone", "Adresse de livraison et facturation"]}
+            title={t("privacy.s1Card1Title")}
+            items={[t("privacy.s1Card1Item1"), t("privacy.s1Card1Item2"), t("privacy.s1Card1Item3"), t("privacy.s1Card1Item4")]}
           />
           <DataCard
             icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>}
-            title="Données de commande"
-            items={["Historique des commandes", "Produits consultés", "Pièces compatibles recherchées", "Statut et suivi de livraison"]}
+            title={t("privacy.s1Card2Title")}
+            items={[t("privacy.s1Card2Item1"), t("privacy.s1Card2Item2"), t("privacy.s1Card2Item3"), t("privacy.s1Card2Item4")]}
           />
           <DataCard
             icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
-            title="Données de navigation"
-            items={["Adresse IP", "Type de navigateur et système d'exploitation", "Pages visitées et durée de session", "Cookies techniques et analytiques"]}
+            title={t("privacy.s1Card3Title")}
+            items={[t("privacy.s1Card3Item1"), t("privacy.s1Card3Item2"), t("privacy.s1Card3Item3"), t("privacy.s1Card3Item4")]}
           />
           <DataCard
             icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>}
-            title="Communications"
-            items={["Demandes via le formulaire de contact", "Échanges avec le service client", "Préférences de communication", "Langue préférée"]}
+            title={t("privacy.s1Card4Title")}
+            items={[t("privacy.s1Card4Item1"), t("privacy.s1Card4Item2"), t("privacy.s1Card4Item3"), t("privacy.s1Card4Item4")]}
           />
         </div>
-        <p className="mt-4">
-          Abelec ne collecte aucune donnée sensible au sens de l&apos;article 9 du RGPD (données de santé, opinion politique, religion, etc.). Les données de paiement sont gérées exclusivement par nos prestataires de paiement certifiés PCI-DSS et ne transitent pas par nos serveurs.
-        </p>
+        <p className="mt-4">{t("privacy.s1Closing")}</p>
       </Section>
 
-      <Section id="utilisation" title="Utilisation des données">
-        <p>Les données collectées sont utilisées aux fins suivantes, sur la base des fondements juridiques correspondants :</p>
+      <Section id="utilisation" title={t("privacy.s2")}>
+        <p>{t("privacy.s2Intro")}</p>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-[13px]">
             <thead>
               <tr className="bg-abelec-navy text-white">
-                <th className="text-left px-4 py-3 rounded-tl-lg font-mono font-normal text-[11px] uppercase tracking-wide">Finalité</th>
-                <th className="text-left px-4 py-3 font-mono font-normal text-[11px] uppercase tracking-wide">Base juridique</th>
-                <th className="text-left px-4 py-3 rounded-tr-lg font-mono font-normal text-[11px] uppercase tracking-wide">Données concernées</th>
+                <th className="text-left px-4 py-3 rounded-tl-lg font-mono font-normal text-[11px] uppercase tracking-wide">{t("privacy.s2ColPurpose")}</th>
+                <th className="text-left px-4 py-3 font-mono font-normal text-[11px] uppercase tracking-wide">{t("privacy.s2ColBase")}</th>
+                <th className="text-left px-4 py-3 rounded-tr-lg font-mono font-normal text-[11px] uppercase tracking-wide">{t("privacy.s2ColData")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-abelec-cream-line">
               {[
-                ["Traitement et gestion des commandes", "Exécution du contrat", "Identification, commande, livraison"],
-                ["Gestion du service client et litiges", "Intérêt légitime / obligation légale", "Identification, communications"],
-                ["Amélioration du site et statistiques", "Intérêt légitime", "Navigation, cookies analytiques"],
-                ["Envoi de newsletters (opt-in)", "Consentement", "Email, préférences"],
-                ["Obligations comptables et fiscales", "Obligation légale", "Facturation, commandes"],
+                [t("privacy.s2Row1Purpose"), t("privacy.s2Row1Base"), t("privacy.s2Row1Data")],
+                [t("privacy.s2Row2Purpose"), t("privacy.s2Row2Base"), t("privacy.s2Row2Data")],
+                [t("privacy.s2Row3Purpose"), t("privacy.s2Row3Base"), t("privacy.s2Row3Data")],
+                [t("privacy.s2Row4Purpose"), t("privacy.s2Row4Base"), t("privacy.s2Row4Data")],
+                [t("privacy.s2Row5Purpose"), t("privacy.s2Row5Base"), t("privacy.s2Row5Data")],
               ].map(([fin, base, data], i) => (
                 <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-abelec-cream-light/50"}>
                   <td className="px-4 py-3 text-abelec-navy-ink font-medium">{fin}</td>
@@ -138,21 +143,19 @@ export default function PolitiqueConfidentialitePage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4">
-          Abelec ne revend ni ne partage vos données personnelles à des tiers à des fins commerciales. Vos données peuvent être partagées avec des sous-traitants strictement nécessaires à l&apos;exécution de nos services (transporteurs, prestataires de paiement, hébergeur), liés par des accords de confidentialité conformes au RGPD.
-        </p>
+        <p className="mt-4">{t("privacy.s2Closing")}</p>
       </Section>
 
-      <Section id="conservation" title="Conservation des données">
-        <p>Vos données sont conservées pour des durées déterminées selon leur nature :</p>
+      <Section id="conservation" title={t("privacy.s3")}>
+        <p>{t("privacy.s3Intro")}</p>
         <div className="mt-4 space-y-2.5">
           {[
-            { cat: "Données de compte client", dur: "3 ans après la dernière commande ou connexion", detail: "Puis suppression automatique ou anonymisation" },
-            { cat: "Données de commandes et factures", dur: "10 ans", detail: "Conformément aux obligations comptables belges (art. III.86 CDE)" },
-            { cat: "Logs de navigation", dur: "13 mois maximum", detail: "Conformément aux recommandations de l'APD" },
-            { cat: "Cookies analytiques", dur: "13 mois", detail: "Renouvelés uniquement après nouveau consentement" },
-            { cat: "Données de contact (formulaire)", dur: "3 ans après la dernière interaction", detail: "Ou jusqu'à exercice du droit à l'effacement" },
-            { cat: "Listes de diffusion newsletter", dur: "Jusqu'au retrait du consentement + 1 an", detail: "Preuve de consentement conservée 5 ans" },
+            { cat: t("privacy.s3Cat1"), dur: t("privacy.s3Dur1"), detail: t("privacy.s3Detail1") },
+            { cat: t("privacy.s3Cat2"), dur: t("privacy.s3Dur2"), detail: t("privacy.s3Detail2") },
+            { cat: t("privacy.s3Cat3"), dur: t("privacy.s3Dur3"), detail: t("privacy.s3Detail3") },
+            { cat: t("privacy.s3Cat4"), dur: t("privacy.s3Dur4"), detail: t("privacy.s3Detail4") },
+            { cat: t("privacy.s3Cat5"), dur: t("privacy.s3Dur5"), detail: t("privacy.s3Detail5") },
+            { cat: t("privacy.s3Cat6"), dur: t("privacy.s3Dur6"), detail: t("privacy.s3Detail6") },
           ].map(({ cat, dur, detail }, i) => (
             <div key={i} className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 py-3 border-b border-abelec-cream-line last:border-none">
               <div className="sm:w-56 shrink-0">
@@ -165,74 +168,48 @@ export default function PolitiqueConfidentialitePage() {
             </div>
           ))}
         </div>
-        <p className="mt-4">
-          À l&apos;expiration des délais de conservation, les données sont supprimées de manière sécurisée ou anonymisées de façon irréversible. Aucune donnée n&apos;est conservée au-delà de ces durées sans fondement légal.
-        </p>
+        <p className="mt-4">{t("privacy.s3Closing")}</p>
       </Section>
 
-      <Section id="droits" title="Vos droits">
-        <p>
-          Conformément au RGPD, vous disposez des droits suivants concernant vos données personnelles. Chaque demande sera traitée dans un délai maximum d&apos;un mois.
-        </p>
+      <Section id="droits" title={t("privacy.s4")}>
+        <p>{t("privacy.s4Intro")}</p>
         <div className="grid sm:grid-cols-2 gap-3 mt-4">
-          <RightCard
-            right="Droit d'accès"
-            desc="Vous pouvez obtenir une copie de toutes les données personnelles que nous détenons vous concernant."
-          />
-          <RightCard
-            right="Droit de rectification"
-            desc="Vous pouvez demander la correction de données inexactes ou incomplètes."
-          />
-          <RightCard
-            right="Droit à l'effacement"
-            desc="Vous pouvez demander la suppression de vos données dans certaines conditions (« droit à l'oubli »)."
-          />
-          <RightCard
-            right="Droit à la portabilité"
-            desc="Vous pouvez recevoir vos données dans un format structuré, lisible par machine, pour les transférer à un autre responsable."
-          />
-          <RightCard
-            right="Droit d'opposition"
-            desc="Vous pouvez vous opposer à certains traitements, notamment à des fins de prospection commerciale."
-          />
-          <RightCard
-            right="Droit de limitation"
-            desc="Vous pouvez demander la restriction du traitement de vos données dans des cas spécifiques prévus par le RGPD."
-          />
+          <RightCard right={t("privacy.s4Right1Title")} desc={t("privacy.s4Right1Desc")} />
+          <RightCard right={t("privacy.s4Right2Title")} desc={t("privacy.s4Right2Desc")} />
+          <RightCard right={t("privacy.s4Right3Title")} desc={t("privacy.s4Right3Desc")} />
+          <RightCard right={t("privacy.s4Right4Title")} desc={t("privacy.s4Right4Desc")} />
+          <RightCard right={t("privacy.s4Right5Title")} desc={t("privacy.s4Right5Desc")} />
+          <RightCard right={t("privacy.s4Right6Title")} desc={t("privacy.s4Right6Desc")} />
         </div>
         <p className="mt-4">
-          Pour exercer l&apos;un de ces droits, contactez notre DPO à <a href="mailto:dpo@abelec.be" className="text-abelec-orange hover:underline">dpo@abelec.be</a> en joignant une copie de votre pièce d&apos;identité. Vous disposez également du droit d&apos;introduire une réclamation auprès de l&apos;Autorité de Protection des Données belge :<br />
+          {t("privacy.s4Closing")}{" "}
+          <a href="mailto:dpo@abelec.be" className="text-abelec-orange hover:underline">dpo@abelec.be</a>{" "}
+          {t("privacy.s4ClosingMid")}<br />
           <a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener noreferrer" className="text-abelec-orange hover:underline">www.autoriteprotectiondonnees.be</a>
         </p>
       </Section>
 
-      <Section id="cookies" title="Cookies">
-        <p>
-          Le site abelec.be utilise des cookies et technologies similaires. Un cookie est un petit fichier texte déposé sur votre terminal lors de votre visite. Vous pouvez configurer votre navigateur pour refuser les cookies, mais certaines fonctionnalités du site pourraient ne plus être disponibles.
-        </p>
+      <Section id="cookies" title={t("privacy.s5")}>
+        <p>{t("privacy.s5Intro")}</p>
         <div className="mt-4 overflow-x-auto bg-abelec-cream-light rounded-xl border border-abelec-cream-line p-4">
           <div className="grid grid-cols-[1fr_2fr_auto_auto] gap-4 pb-2 border-b border-abelec-cream-line mb-1">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">Cookie</span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">Finalité</span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">Durée</span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">Type</span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">{t("privacy.s5ColCookie")}</span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">{t("privacy.s5ColPurpose")}</span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">{t("privacy.s5ColDuration")}</span>
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-abelec-muted-2">{t("privacy.s5ColType")}</span>
           </div>
-          <CookieRow name="abelec_session"  purpose="Gestion du panier et de la session utilisateur" duration="Session" optional={false} />
-          <CookieRow name="abelec_locale"   purpose="Mémorisation de la langue préférée" duration="365 jours" optional={false} />
-          <CookieRow name="abelec_auth"     purpose="Maintien de la connexion au compte client" duration="30 jours" optional={false} />
-          <CookieRow name="_ga, _gid"       purpose="Google Analytics — mesure d'audience anonymisée" duration="13 mois" optional={true} />
-          <CookieRow name="_fbp"            purpose="Facebook Pixel — mesure de conversions publicitaires" duration="90 jours" optional={true} />
-          <CookieRow name="consent_v2"      purpose="Mémorisation de vos préférences de cookies" duration="12 mois" optional={false} />
+          <CookieRow name="abelec_session"  purpose={t("privacy.s5Cookie1Purpose")} duration={t("privacy.s5Cookie1Duration")} optional={false} labelRequired={labelRequired} labelOptional={labelOptional} />
+          <CookieRow name="abelec_locale"   purpose={t("privacy.s5Cookie2Purpose")} duration={t("privacy.s5Cookie2Duration")} optional={false} labelRequired={labelRequired} labelOptional={labelOptional} />
+          <CookieRow name="abelec_auth"     purpose={t("privacy.s5Cookie3Purpose")} duration={t("privacy.s5Cookie3Duration")} optional={false} labelRequired={labelRequired} labelOptional={labelOptional} />
+          <CookieRow name="_ga, _gid"       purpose={t("privacy.s5Cookie4Purpose")} duration={t("privacy.s5Cookie4Duration")} optional={true}  labelRequired={labelRequired} labelOptional={labelOptional} />
+          <CookieRow name="_fbp"            purpose={t("privacy.s5Cookie5Purpose")} duration={t("privacy.s5Cookie5Duration")} optional={true}  labelRequired={labelRequired} labelOptional={labelOptional} />
+          <CookieRow name="consent_v2"      purpose={t("privacy.s5Cookie6Purpose")} duration={t("privacy.s5Cookie6Duration")} optional={false} labelRequired={labelRequired} labelOptional={labelOptional} />
         </div>
-        <p className="mt-4">
-          Vous pouvez modifier vos préférences de cookies à tout moment via notre bandeau de gestion des cookies accessible en bas de page, ou via les paramètres de votre navigateur.
-        </p>
+        <p className="mt-4">{t("privacy.s5Closing")}</p>
       </Section>
 
-      <Section id="dpo" title="Contact DPO">
-        <p>
-          Abelec a désigné un Délégué à la Protection des Données (DPO) chargé de veiller au respect du RGPD et de répondre à vos questions concernant la protection de vos données.
-        </p>
+      <Section id="dpo" title={t("privacy.s6")}>
+        <p>{t("privacy.s6Intro")}</p>
         <div className="mt-4 bg-abelec-cream-light border border-abelec-cream-line rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-xl bg-abelec-orange/10 flex items-center justify-center text-abelec-orange shrink-0">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -240,14 +217,14 @@ export default function PolitiqueConfidentialitePage() {
             </svg>
           </div>
           <div className="space-y-2">
-            <p className="font-slab text-abelec-navy text-[16px] font-semibold">Délégué à la Protection des Données</p>
-            <p className="text-[13.5px] text-abelec-muted">Abelec — Fiordaliso Nicola<br />Avenue Léopold III 38B, 7134 Péronnes-lez-Binche, Belgique</p>
+            <p className="font-slab text-abelec-navy text-[16px] font-semibold">{t("privacy.s6DPOTitle")}</p>
+            <p className="text-[13.5px] text-abelec-muted" dangerouslySetInnerHTML={{ __html: t("privacy.s6DPOAddress") }} />
             <p className="text-[13.5px]">
-              <span className="text-abelec-muted-2">Email :</span>{" "}
+              <span className="text-abelec-muted-2">{t("privacy.s6DPOEmail")}</span>{" "}
               <a href="mailto:dpo@abelec.be" className="text-abelec-orange hover:underline font-medium">dpo@abelec.be</a>
             </p>
             <p className="text-[13px] text-abelec-muted-2 mt-2">
-              Délai de réponse : 30 jours maximum à compter de la réception de votre demande.
+              {t("privacy.s6DPODelay")}
             </p>
           </div>
         </div>

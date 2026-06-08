@@ -10,6 +10,7 @@ import {
   Download, MessageCircle, ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Mock data
@@ -34,40 +35,14 @@ interface OrderItem {
   unitPrice: number;
 }
 
-const MOCK_STEPS: TrackingStep[] = [
-  {
-    label:    "Commande reçue",
-    sublabel: "Paiement confirmé",
-    date:     "06 mai 2025",
-    time:     "14:32",
-    status:   "done",
-    Icon:     Package,
-  },
-  {
-    label:    "Préparation",
-    sublabel: "En cours d'emballage",
-    date:     "07 mai 2025",
-    time:     "09:15",
-    status:   "done",
-    Icon:     Wrench,
-  },
-  {
-    label:    "Expédiée",
-    sublabel: "Prise en charge DPD",
-    date:     "08 mai 2025",
-    time:     "11:48",
-    status:   "current",
-    Icon:     Truck,
-  },
-  {
-    label:    "Livrée",
-    sublabel: "Livraison estimée",
-    date:     "09 mai 2025",
-    time:     null,
-    status:   "upcoming",
-    Icon:     CheckCircle2,
-  },
-];
+function getMockSteps(t: (k: string) => string): TrackingStep[] {
+  return [
+    { label: t("suivi.step1Label"), sublabel: t("suivi.step1Sub"), date: "06 mai 2025", time: "14:32",  status: "done",     Icon: Package },
+    { label: t("suivi.step2Label"), sublabel: t("suivi.step2Sub"), date: "07 mai 2025", time: "09:15",  status: "done",     Icon: Wrench },
+    { label: t("suivi.step3Label"), sublabel: t("suivi.step3Sub"), date: "08 mai 2025", time: "11:48",  status: "current",  Icon: Truck },
+    { label: t("suivi.step4Label"), sublabel: t("suivi.step4Sub"), date: "09 mai 2025", time: null,     status: "upcoming", Icon: CheckCircle2 },
+  ];
+}
 
 const MOCK_ORDER = {
   id:      "ABL-2024-0892",
@@ -134,12 +109,14 @@ function StepCircle({ status, Icon }: { status: StepStatus; Icon: React.ElementT
 /* ═══════════════════════════════════════════════════════════════════════════
    Tracking stepper
    ═══════════════════════════════════════════════════════════════════════════ */
-function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
+function TrackingStepper({ carrierName, trackingNum, trackUrl, steps }: {
   carrierName: string;
   trackingNum: string;
   trackUrl: string;
+  steps: TrackingStep[];
 }) {
-  const currentIdx = MOCK_STEPS.findIndex((s) => s.status === "current");
+  const t = useT();
+  const currentIdx = steps.findIndex((s) => s.status === "current");
 
   return (
     <div>
@@ -147,7 +124,7 @@ function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
       <div className="relative flex items-start justify-between">
         {/* Connecting lines (behind circles) */}
         <div className="absolute top-[21px] left-[22px] right-[22px] flex pointer-events-none">
-          {MOCK_STEPS.slice(0, -1).map((_, i) => {
+          {steps.slice(0, -1).map((_, i) => {
             const filled = i < currentIdx;
             const isCurrentConnector = i === currentIdx - 1;
             return (
@@ -166,7 +143,7 @@ function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
         </div>
 
         {/* Step nodes */}
-        {MOCK_STEPS.map((step, i) => (
+        {steps.map((step, i) => (
           <motion.div
             key={step.label}
             className="flex flex-col items-center gap-2 flex-1 min-w-0"
@@ -212,7 +189,7 @@ function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
         className="mt-6 pt-5 border-t border-[rgba(26,58,92,0.07)] flex flex-wrap items-center justify-between gap-3"
       >
         <div>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">Transporteur</p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">{t("suivi.carrier")}</p>
           <p className="text-[13.5px] font-semibold text-abelec-navy-ink">{carrierName}</p>
           <p className="font-mono text-[11.5px] text-abelec-muted mt-0.5">{trackingNum}</p>
         </div>
@@ -222,7 +199,7 @@ function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 h-9 px-4 rounded-xl bg-abelec-navy hover:bg-abelec-navy-ink text-white text-[13px] font-semibold transition-colors"
         >
-          Suivre sur DPD <ExternalLink size={13} strokeWidth={2} />
+          {t("suivi.trackOnDPD")} <ExternalLink size={13} strokeWidth={2} />
         </a>
       </motion.div>
     </div>
@@ -232,7 +209,8 @@ function TrackingStepper({ carrierName, trackingNum, trackUrl }: {
 /* ═══════════════════════════════════════════════════════════════════════════
    Order results
    ═══════════════════════════════════════════════════════════════════════════ */
-function OrderResults() {
+function OrderResults({ steps }: { steps: TrackingStep[] }) {
+  const t = useT();
   const subtotal = MOCK_ORDER.items.reduce((s, i) => s + i.qty * i.unitPrice, 0);
 
   return (
@@ -249,13 +227,13 @@ function OrderResults() {
         <div className="p-6">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-abelec-muted mb-1">Numéro de commande</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-abelec-muted mb-1">{t("suivi.orderNumber")}</p>
               <h2 className="font-slab text-[22px] font-bold text-abelec-navy-ink">#{MOCK_ORDER.id}</h2>
             </div>
             {/* Status badge large */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-abelec-orange/10 border border-abelec-orange/20">
               <Truck size={15} strokeWidth={2} className="text-abelec-orange" />
-              <span className="text-[13.5px] font-semibold text-abelec-orange">En cours de livraison</span>
+              <span className="text-[13.5px] font-semibold text-abelec-orange">{t("suivi.inDelivery")}</span>
             </div>
           </div>
 
@@ -263,21 +241,21 @@ function OrderResults() {
             <div className="flex items-start gap-2.5">
               <Calendar size={14} className="text-abelec-muted mt-0.5 flex-shrink-0" strokeWidth={1.8} />
               <div>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">Date</p>
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">{t("suivi.date")}</p>
                 <p className="text-[13.5px] font-medium text-abelec-navy-ink">{MOCK_ORDER.date}</p>
               </div>
             </div>
             <div className="flex items-start gap-2.5">
               <MapPin size={14} className="text-abelec-muted mt-0.5 flex-shrink-0" strokeWidth={1.8} />
               <div>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">Adresse de livraison</p>
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">{t("suivi.deliveryAddress")}</p>
                 <p className="text-[13.5px] font-medium text-abelec-navy-ink leading-snug">{MOCK_ORDER.address}</p>
               </div>
             </div>
             <div className="flex items-start gap-2.5">
               <CreditCard size={14} className="text-abelec-muted mt-0.5 flex-shrink-0" strokeWidth={1.8} />
               <div>
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">Montant total</p>
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-0.5">{t("suivi.totalAmount")}</p>
                 <p className="text-[13.5px] font-bold text-abelec-navy-ink">{MOCK_ORDER.total.toFixed(2)} €</p>
               </div>
             </div>
@@ -287,18 +265,19 @@ function OrderResults() {
 
       {/* ── Stepper card ──────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-[rgba(26,58,92,0.07)] p-6">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-6">Suivi de livraison</p>
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-6">{t("suivi.trackingTitle")}</p>
         <TrackingStepper
           carrierName={MOCK_ORDER.carrier}
           trackingNum={MOCK_ORDER.tracking}
           trackUrl={MOCK_ORDER.trackUrl}
+          steps={steps}
         />
       </div>
 
       {/* ── Order items card ──────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-[rgba(26,58,92,0.07)] overflow-hidden">
         <div className="px-6 py-4 border-b border-[rgba(26,58,92,0.06)]">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted">Articles commandés</p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted">{t("suivi.orderedItems")}</p>
         </div>
 
         <div className="divide-y divide-[rgba(26,58,92,0.05)]">
@@ -310,7 +289,7 @@ function OrderResults() {
               <div className="flex-1 min-w-0">
                 <p className="font-mono text-[10.5px] text-abelec-muted mb-0.5">{item.ref}</p>
                 <p className="text-[13.5px] font-semibold text-abelec-navy-ink leading-snug">{item.name}</p>
-                <p className="text-[12px] text-abelec-muted mt-0.5">Qté : {item.qty}</p>
+                <p className="text-[12px] text-abelec-muted mt-0.5">{t("suivi.qty")} {item.qty}</p>
               </div>
               <p className="text-[14px] font-bold text-abelec-navy-ink flex-shrink-0">
                 {(item.qty * item.unitPrice).toFixed(2)} €
@@ -323,15 +302,15 @@ function OrderResults() {
         <div className="px-6 py-4 border-t border-[rgba(26,58,92,0.07)] bg-[rgba(26,58,92,0.02)]">
           <div className="flex flex-col gap-1.5 max-w-[280px] ml-auto">
             <div className="flex justify-between text-[13px] text-abelec-muted">
-              <span>Sous-total</span>
+              <span>{t("suivi.subtotal")}</span>
               <span>{subtotal.toFixed(2)} €</span>
             </div>
             <div className="flex justify-between text-[13px] text-abelec-muted">
-              <span>Livraison</span>
+              <span>{t("suivi.shipping")}</span>
               <span>{MOCK_ORDER.shipping.toFixed(2)} €</span>
             </div>
             <div className="flex justify-between text-[15px] font-bold text-abelec-navy-ink mt-1.5 pt-2 border-t border-[rgba(26,58,92,0.08)]">
-              <span>Total TTC</span>
+              <span>{t("suivi.totalTTC")}</span>
               <span>{MOCK_ORDER.total.toFixed(2)} €</span>
             </div>
           </div>
@@ -345,12 +324,12 @@ function OrderResults() {
           className="inline-flex items-center gap-2 h-11 px-5 rounded-2xl border border-[rgba(26,58,92,0.14)] text-[13.5px] font-semibold text-abelec-navy hover:border-abelec-orange hover:text-abelec-orange transition-colors"
         >
           <MessageCircle size={15} strokeWidth={1.8} />
-          Un problème avec ma commande ?
+          {t("suivi.problem")}
           <ChevronRight size={13} strokeWidth={2.5} className="ml-0.5" />
         </Link>
         <button className="inline-flex items-center gap-2 h-11 px-5 rounded-2xl bg-abelec-navy hover:bg-abelec-navy-ink text-white text-[13.5px] font-semibold transition-colors">
           <Download size={15} strokeWidth={2} />
-          Télécharger la facture
+          {t("suivi.downloadInvoice")}
         </button>
       </div>
     </motion.div>
@@ -361,8 +340,11 @@ function OrderResults() {
    Main page
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function SuiviCommandeClient() {
+  const t = useT();
   const [query, setQuery]     = useState("");
   const [showResults, setShowResults] = useState(true); // show mock by default
+
+  const steps = getMockSteps(t);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -382,12 +364,12 @@ export default function SuiviCommandeClient() {
           className="text-center"
         >
           {/* Eyebrow */}
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-abelec-muted mb-3">Abelec — Livraison</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-abelec-muted mb-3">{t("suivi.eyebrow")}</p>
           <h1 className="font-slab text-[32px] sm:text-[40px] font-bold text-abelec-navy-ink leading-tight mb-2">
-            Suivre ma commande
+            {t("suivi.title")}
           </h1>
           <p className="text-[14px] text-abelec-muted mb-8">
-            Saisissez votre numéro de commande pour suivre votre livraison en temps réel.
+            {t("suivi.sub")}
           </p>
 
           {/* Search bar */}
@@ -398,7 +380,7 @@ export default function SuiviCommandeClient() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ex : ABL-2024-0892"
+                placeholder={t("suivi.placeholder")}
                 className="w-full h-[52px] pl-11 pr-4 rounded-2xl bg-white border border-[rgba(26,58,92,0.12)] text-[14.5px] text-abelec-navy-ink placeholder:text-abelec-muted/60 outline-none focus:border-abelec-orange transition-colors shadow-sm font-mono"
               />
             </div>
@@ -408,18 +390,18 @@ export default function SuiviCommandeClient() {
               whileTap={{ scale: 0.98 }}
               className="h-[52px] px-6 rounded-2xl bg-abelec-orange hover:bg-abelec-orange-dark text-white font-bold text-[14.5px] shadow-[inset_0_-3px_0_rgba(0,0,0,.12)] transition-colors flex-shrink-0"
             >
-              Suivre
+              {t("suivi.trackBtn")}
             </motion.button>
           </form>
 
           <p className="text-[12px] text-abelec-muted/70 mt-3">
-            Vous trouverez votre numéro de commande dans votre email de confirmation.
+            {t("suivi.hint")}
           </p>
         </motion.div>
 
         {/* ── Results ─────────────────────────────────────── */}
         <AnimatePresence>
-          {showResults && <OrderResults />}
+          {showResults && <OrderResults steps={steps} />}
         </AnimatePresence>
 
       </div>

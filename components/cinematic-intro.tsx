@@ -229,21 +229,21 @@ function CinematicIntroContent() {
             className="block font-slab text-abelec-navy-ink font-bold leading-[1.1] text-center"
             style={{ fontSize: "clamp(26px, 4vw, 58px)", opacity: 0, willChange: "opacity, transform" }}
           >
-            La pièce détachée
+            {t("hero.cinematicLine1")}
           </span>
           <span
             ref={line2Ref}
             className="block font-slab text-abelec-navy-ink font-bold leading-[1.1] text-center"
             style={{ fontSize: "clamp(26px, 4vw, 58px)", opacity: 0, willChange: "opacity, transform" }}
           >
-            électroménager
+            {t("hero.cinematicLine2")}
           </span>
           <span
             ref={line3Ref}
             className="block font-slab text-abelec-orange italic font-bold leading-[1.2] text-center mt-1"
             style={{ fontSize: "clamp(26px, 4vw, 58px)", opacity: 0, willChange: "opacity, transform" }}
           >
-            depuis 1983.
+            {t("hero.cinematicLine3")}
           </span>
         </div>
 
@@ -284,7 +284,7 @@ function CinematicIntroContent() {
             <div className="flex items-center flex-1 px-5 min-w-0">
               <Search size={17} strokeWidth={2} className="text-abelec-muted-2 shrink-0 mr-3" />
               <span className="text-abelec-muted-2 text-[15px]">
-                Référence, marque, modèle...
+                {t("hero.searchHint")}
               </span>
             </div>
             <div className="pr-2 shrink-0">

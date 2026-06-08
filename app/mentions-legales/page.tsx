@@ -1,13 +1,7 @@
 "use client";
 
 import LegalPage, { Section } from "@/components/legal/LegalPage";
-
-const SECTIONS = [
-  { id: "editeur",       title: "Éditeur du site" },
-  { id: "hebergement",   title: "Hébergement" },
-  { id: "propriete",     title: "Propriété intellectuelle" },
-  { id: "donnees",       title: "Données personnelles" },
-];
+import { useT } from "@/lib/i18n";
 
 function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -21,30 +15,39 @@ function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export default function MentionsLegalesPage() {
+  const t = useT();
+
+  const SECTIONS = [
+    { id: "editeur",     title: t("mentions.s1") },
+    { id: "hebergement", title: t("mentions.s2") },
+    { id: "propriete",   title: t("mentions.s3") },
+    { id: "donnees",     title: t("mentions.s4") },
+  ];
+
   return (
     <LegalPage
-      eyebrow="Légal"
-      title="Mentions Légales"
-      subtitle="Informations légales relatives à l'éditeur et à l'exploitation du site abelec.be."
+      eyebrow={t("mentions.eyebrow")}
+      title={t("mentions.title")}
+      subtitle={t("mentions.subtitle")}
       lastUpdated="1er mai 2025"
       sections={SECTIONS}
     >
-      <Section id="editeur" title="Éditeur du site">
+      <Section id="editeur" title={t("mentions.s1")}>
         <p>
           Le site <strong>www.abelec.be</strong> est édité par :
         </p>
         <div className="mt-4 bg-abelec-cream-light rounded-xl p-5 border border-abelec-cream-line">
-          <InfoRow label="Raison sociale"  value="Abelec" />
-          <InfoRow label="Responsable"     value="Fiordaliso Nicola" />
-          <InfoRow label="Forme juridique" value="Entreprise individuelle / Indépendant" />
-          <InfoRow label="Adresse"         value="Avenue Léopold III 38B, 7134 Péronnes-lez-Binche, Belgique" />
-          <InfoRow label="N° TVA"          value="BE0653292921" />
-          <InfoRow label="Email"           value={
+          <InfoRow label={t("mentions.labelRaison")}      value="Abelec" />
+          <InfoRow label={t("mentions.labelResponsable")} value="Fiordaliso Nicola" />
+          <InfoRow label={t("mentions.labelForme")}       value="Entreprise individuelle / Indépendant" />
+          <InfoRow label={t("mentions.labelAdresse")}     value="Avenue Léopold III 38B, 7134 Péronnes-lez-Binche, Belgique" />
+          <InfoRow label={t("mentions.labelTva")}         value="BE0653292921" />
+          <InfoRow label={t("mentions.labelEmail")}       value={
             <a href="mailto:contact@abelec.be" className="text-abelec-orange hover:underline">
               contact@abelec.be
             </a>
           } />
-          <InfoRow label="Téléphone"       value={
+          <InfoRow label={t("mentions.labelTel")}         value={
             <a href="tel:+3264000000" className="text-abelec-orange hover:underline">
               +32 (0)64 00 00 00
             </a>
@@ -55,14 +58,14 @@ export default function MentionsLegalesPage() {
         </p>
       </Section>
 
-      <Section id="hebergement" title="Hébergement">
+      <Section id="hebergement" title={t("mentions.s2")}>
         <p>
           Le site <strong>www.abelec.be</strong> est hébergé par :
         </p>
         <div className="mt-4 bg-abelec-cream-light rounded-xl p-5 border border-abelec-cream-line">
-          <InfoRow label="Hébergeur"  value="Vercel Inc." />
-          <InfoRow label="Adresse"    value="440 N Barranca Ave #4133, Covina, CA 91723, États-Unis" />
-          <InfoRow label="Site web"   value={
+          <InfoRow label={t("mentions.labelHebNom")} value="Vercel Inc." />
+          <InfoRow label={t("mentions.labelAdresse")} value="440 N Barranca Ave #4133, Covina, CA 91723, États-Unis" />
+          <InfoRow label={t("mentions.labelHebUrl")} value={
             <a href="https://vercel.com" target="_blank" rel="noopener noreferrer"
               className="text-abelec-orange hover:underline">
               www.vercel.com
@@ -74,7 +77,7 @@ export default function MentionsLegalesPage() {
         </p>
       </Section>
 
-      <Section id="propriete" title="Propriété intellectuelle">
+      <Section id="propriete" title={t("mentions.s3")}>
         <p>
           L&apos;ensemble du contenu du site <strong>www.abelec.be</strong> — incluant, de manière non exhaustive, les textes, images, photographies, illustrations, logos, marques, icônes, vidéos, schémas techniques, et la structure générale du site — est la propriété exclusive d&apos;Abelec ou de ses partenaires et est protégé par les lois belges et internationales relatives à la propriété intellectuelle.
         </p>
@@ -89,7 +92,7 @@ export default function MentionsLegalesPage() {
         </p>
       </Section>
 
-      <Section id="donnees" title="Données personnelles">
+      <Section id="donnees" title={t("mentions.s4")}>
         <p>
           Dans le cadre de l&apos;utilisation du site <strong>www.abelec.be</strong>, Abelec est amené à collecter et traiter des données à caractère personnel vous concernant, en qualité de responsable du traitement.
         </p>

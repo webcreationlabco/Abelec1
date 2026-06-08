@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import RAW_PRODUCTS from "@/data/products";
+import { useT } from "@/lib/i18n";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Types & data
@@ -62,24 +63,19 @@ const PRODUCTS: Product[] = RAW_PRODUCTS
     img:      p.images[0],
   }));
 
-const CATEGORY_LABELS: Record<Category, string> = {
-  "lave-linge":     "Lave-linge",
-  "lave-vaisselle": "Lave-vaisselle",
-  "refrigerateur":  "Réfrigérateur",
-  "four":           "Four",
-  "seche-linge":    "Sèche-linge",
-  "aspirateur":     "Aspirateur",
-};
-
-const CATEGORY_OPTIONS = Object.entries(CATEGORY_LABELS) as [Category, string][];
 const ALL_BRANDS = ["Whirlpool", "Bosch", "Miele", "AEG", "Beko", "Siemens", "Liebherr", "Dyson", "Indesit", "Brandt"];
-const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: "pertinence",  label: "Pertinence" },
-  { value: "prix-asc",    label: "Prix croissant" },
-  { value: "prix-desc",   label: "Prix décroissant" },
-  { value: "ventes",      label: "Meilleures ventes" },
-  { value: "nouveautes",  label: "Nouveautés" },
-];
+
+function useCategoryLabels() {
+  const t = useT();
+  return {
+    "lave-linge":     t("catalogue.catWashingMachine"),
+    "lave-vaisselle": t("catalogue.catDishwasher"),
+    "refrigerateur":  t("catalogue.catFridge"),
+    "four":           t("catalogue.catOven"),
+    "seche-linge":    t("catalogue.catDryer"),
+    "aspirateur":     t("catalogue.catVacuum"),
+  } as Record<Category, string>;
+}
 const PER_PAGE = 9;
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -193,6 +189,9 @@ interface SidebarProps {
 }
 
 function SidebarPanel(props: SidebarProps) {
+  const t = useT();
+  const CATEGORY_LABELS = useCategoryLabels();
+  const CATEGORY_OPTIONS = Object.entries(CATEGORY_LABELS) as [Category, string][];
   const {
     selectedCategories, selectedBrands, priceRange, inStockOnly, minRating,
     onToggleCategory, onToggleBrand, onPriceChange, onStockToggle, onRatingChange, onReset,
@@ -208,20 +207,20 @@ function SidebarPanel(props: SidebarProps) {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-1 pb-3 border-b border-abelec-cream-line">
-        <span className="text-[15px] font-semibold text-abelec-navy-ink">Filtrer</span>
+        <span className="text-[15px] font-semibold text-abelec-navy-ink">{t("catalogue.filterTitle")}</span>
         {activeCount > 0 && (
           <button
             type="button"
             onClick={onReset}
             className="text-[11px] font-mono font-medium text-abelec-orange hover:text-abelec-orange-dark transition-colors tracking-wide"
           >
-            Réinitialiser
+            {t("catalogue.filterReset")}
           </button>
         )}
       </div>
 
       {/* Type d'appareil */}
-      <FilterSection title="Type d'appareil">
+      <FilterSection title={t("catalogue.filterDevice")}>
         <div className="flex flex-col gap-2.5">
           {CATEGORY_OPTIONS.map(([value, label]) => (
             <label key={value} className="flex items-center gap-2.5 cursor-pointer group">
@@ -250,7 +249,7 @@ function SidebarPanel(props: SidebarProps) {
       </FilterSection>
 
       {/* Marque */}
-      <FilterSection title="Marque">
+      <FilterSection title={t("catalogue.filterBrand")}>
         <div className="flex flex-col gap-2.5">
           {visibleBrands.map((brand) => (
             <label key={brand} className="flex items-center gap-2.5 cursor-pointer group">
@@ -282,13 +281,13 @@ function SidebarPanel(props: SidebarProps) {
             onClick={() => setShowAllBrands(true)}
             className="mt-2.5 text-[12px] font-medium text-abelec-orange hover:text-abelec-orange-dark transition-colors"
           >
-            + voir plus
+            {t("catalogue.seeMore")}
           </button>
         )}
       </FilterSection>
 
       {/* Prix */}
-      <FilterSection title="Prix">
+      <FilterSection title={t("catalogue.filterPrice")}>
         <PriceRangeSlider
           minVal={priceRange[0]}
           maxVal={priceRange[1]}
@@ -297,9 +296,9 @@ function SidebarPanel(props: SidebarProps) {
       </FilterSection>
 
       {/* Disponibilité */}
-      <FilterSection title="Disponibilité">
+      <FilterSection title={t("catalogue.filterStock")}>
         <label className="flex items-center justify-between cursor-pointer">
-          <span className="text-[13px] text-abelec-muted">En stock uniquement</span>
+          <span className="text-[13px] text-abelec-muted">{t("catalogue.filterInStock")}</span>
           <button
             type="button"
             onClick={onStockToggle}
@@ -319,7 +318,7 @@ function SidebarPanel(props: SidebarProps) {
       </FilterSection>
 
       {/* Note client */}
-      <FilterSection title="Note client" defaultOpen={false}>
+      <FilterSection title={t("catalogue.filterRating")} defaultOpen={false}>
         <div className="flex flex-col gap-2">
           {[4, 3, 2].map((n) => (
             <button
@@ -342,7 +341,7 @@ function SidebarPanel(props: SidebarProps) {
                   />
                 ))}
               </span>
-              <span className="text-[12px] text-abelec-muted">et plus</span>
+              <span className="text-[12px] text-abelec-muted">{t("catalogue.andMore")}</span>
             </button>
           ))}
         </div>
@@ -355,6 +354,7 @@ function SidebarPanel(props: SidebarProps) {
    Product card
    ═══════════════════════════════════════════════════════════════════════════ */
 function CatalogProductCard({ product, listMode }: { product: Product; listMode: boolean }) {
+  const t = useT();
   const [added, setAdded] = useState(false);
   const [pulse, setPulse] = useState(false);
 
@@ -390,7 +390,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
               <div>
                 <p className="font-mono text-[10px] text-abelec-muted mb-0.5">{product.ref}</p>
                 <h3 className="text-[14px] font-semibold text-abelec-navy-ink leading-snug">{product.name}</h3>
-                <p className="text-[12px] text-abelec-muted mt-0.5">Compatible : {product.brands.slice(0, 4).join(", ")}</p>
+                <p className="text-[12px] text-abelec-muted mt-0.5">{t("catalogue.compatible")} {product.brands.slice(0, 4).join(", ")}</p>
                 <div className="flex items-center gap-1 mt-1">
                   {[1,2,3,4,5].map((s) => (
                     <Star key={s} size={10} className={s <= Math.round(product.rating) ? "text-amber-400 fill-amber-400" : "text-[rgba(26,58,92,0.15)] fill-[rgba(26,58,92,0.15)]"} />
@@ -409,7 +409,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
                     ? "bg-emerald-50 text-emerald-700"
                     : "bg-amber-50 text-amber-700"
                 )}>
-                  {product.stock === "in" ? "En stock" : "Sur commande"}
+                  {product.stock === "in" ? t("catalogue.inStock") : t("catalogue.onOrder")}
                 </span>
               </div>
             </div>
@@ -426,7 +426,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
                   : "bg-abelec-orange/10 text-abelec-orange hover:bg-abelec-orange hover:text-white",
                 pulse && "scale-110"
               )}
-              aria-label="Ajouter au panier"
+              aria-label={t("catalogue.addToCartAria")}
             >
               {added ? <Check size={16} strokeWidth={2.5} /> : <ShoppingCart size={16} />}
               {pulse && (
@@ -456,7 +456,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
           <div className="absolute top-2.5 left-2.5 flex gap-1.5">
             {product.oldPrice && (
               <span className="bg-abelec-orange text-white text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
-                Promo
+                {t("catalogue.promo")}
               </span>
             )}
             <span className={cn(
@@ -465,7 +465,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
                 ? "bg-emerald-100 text-emerald-700"
                 : "bg-amber-100 text-amber-700"
             )}>
-              {product.stock === "in" ? "En stock" : "Commande"}
+              {product.stock === "in" ? t("catalogue.inStock") : t("catalogue.orderShort")}
             </span>
           </div>
         </div>
@@ -474,7 +474,7 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
         <div className="flex flex-col flex-1 p-4">
           {/* Ref */}
           <p className="font-mono text-[9px] text-abelec-muted-2 tracking-wide mb-1">
-            Réf. {product.ref.slice(0, 14)}
+            {t("catalogue.ref")} {product.ref.slice(0, 14)}
           </p>
 
           {/* Name */}
@@ -516,10 +516,10 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
                   : "bg-abelec-orange text-white hover:bg-abelec-orange-dark",
                 pulse && "scale-105"
               )}
-              aria-label="Ajouter au panier"
+              aria-label={t("catalogue.addToCartAria")}
             >
               {added ? <Check size={13} strokeWidth={2.5} /> : <ShoppingCart size={13} />}
-              {added ? "Ajouté" : "Panier"}
+              {added ? t("catalogue.added") : t("catalogue.addToCart")}
               {pulse && (
                 <span className="absolute inset-0 rounded-lg bg-abelec-orange animate-ping opacity-50" />
               )}
@@ -535,6 +535,8 @@ function CatalogProductCard({ product, listMode }: { product: Product; listMode:
    Category / search banner
    ═══════════════════════════════════════════════════════════════════════════ */
 function ResultsBanner({ category, query, count }: { category?: string; query?: string; count: number }) {
+  const t = useT();
+  const CATEGORY_LABELS = useCategoryLabels();
   if (!category && !query) return null;
 
   const catLabel = category ? CATEGORY_LABELS[category as Category] : null;
@@ -544,9 +546,9 @@ function ResultsBanner({ category, query, count }: { category?: string; query?: 
       <div className="max-w-[1340px] mx-auto px-6 py-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-[12px] font-mono text-abelec-muted mb-3">
-          <Link href="/" className="hover:text-abelec-orange transition-colors">Accueil</Link>
+          <Link href="/" className="hover:text-abelec-orange transition-colors">{t("catalogue.home")}</Link>
           <ChevronRight size={11} className="opacity-50" />
-          <Link href="/catalogue" className="hover:text-abelec-orange transition-colors">Catalogue</Link>
+          <Link href="/catalogue" className="hover:text-abelec-orange transition-colors">{t("catalogue.catalogue")}</Link>
           {catLabel && (
             <>
               <ChevronRight size={11} className="opacity-50" />
@@ -562,16 +564,16 @@ function ResultsBanner({ category, query, count }: { category?: string; query?: 
               <h1 className="font-slab text-[28px] font-bold text-abelec-navy-ink leading-none">
                 {catLabel}
               </h1>
-              <p className="text-[13px] text-abelec-muted mt-1">{count} références disponibles</p>
+              <p className="text-[13px] text-abelec-muted mt-1">{count} {t("catalogue.availableRefs")}</p>
             </div>
           </div>
         ) : (
           <div>
-            <p className="text-[13px] text-abelec-muted mb-1">Résultats pour :</p>
+            <p className="text-[13px] text-abelec-muted mb-1">{t("catalogue.resultsFor")}</p>
             <h1 className="font-slab text-[24px] font-bold text-abelec-navy-ink">
               <span className="text-abelec-orange">&ldquo;{query}&rdquo;</span>
             </h1>
-            <p className="text-[13px] text-abelec-muted mt-1">{count} résultats trouvés</p>
+            <p className="text-[13px] text-abelec-muted mt-1">{count} {t("catalogue.resultsFound")}</p>
           </div>
         )}
       </div>
@@ -591,6 +593,8 @@ function ActivePills({
   onRemoveCategory: (c: string) => void; onRemoveBrand: (b: string) => void;
   onResetPrice: () => void; onResetStock: () => void; onResetRating: () => void;
 }) {
+  const t = useT();
+  const CATEGORY_LABELS = useCategoryLabels();
   const pills: { label: string; onRemove: () => void }[] = [
     ...Array.from(selectedCategories).map((c) => ({
       label: CATEGORY_LABELS[c as Category] ?? c,
@@ -603,8 +607,8 @@ function ActivePills({
     ...(priceRange[0] > 0 || priceRange[1] < 200
       ? [{ label: `${priceRange[0]}€ – ${priceRange[1]}€`, onRemove: onResetPrice }]
       : []),
-    ...(inStockOnly ? [{ label: "En stock", onRemove: onResetStock }] : []),
-    ...(minRating > 0 ? [{ label: `${minRating}★ et plus`, onRemove: onResetRating }] : []),
+    ...(inStockOnly ? [{ label: t("catalogue.inStock"), onRemove: onResetStock }] : []),
+    ...(minRating > 0 ? [{ label: `${minRating}★ ${t("catalogue.andMore")}`, onRemove: onResetRating }] : []),
   ];
 
   if (pills.length === 0) return null;
@@ -636,6 +640,7 @@ function ActivePills({
    Pagination
    ═══════════════════════════════════════════════════════════════════════════ */
 function Pagination({ current, total, onChange }: { current: number; total: number; onChange: (p: number) => void }) {
+  const t = useT();
   if (total <= 1) return null;
 
   const pages = Array.from({ length: total }, (_, i) => i + 1);
@@ -659,7 +664,7 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
         onClick={() => onChange(current - 1)}
         disabled={current === 1}
         className="w-9 h-9 flex items-center justify-center rounded-lg border border-abelec-cream-line text-abelec-muted hover:border-abelec-orange hover:text-abelec-orange disabled:opacity-35 disabled:cursor-not-allowed transition-colors"
-        aria-label="Page précédente"
+        aria-label={t("catalogue.prevPage")}
       >
         <ChevronLeft size={16} />
       </button>
@@ -689,7 +694,7 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
         onClick={() => onChange(current + 1)}
         disabled={current === total}
         className="w-9 h-9 flex items-center justify-center rounded-lg border border-abelec-cream-line text-abelec-muted hover:border-abelec-orange hover:text-abelec-orange disabled:opacity-35 disabled:cursor-not-allowed transition-colors"
-        aria-label="Page suivante"
+        aria-label={t("catalogue.nextPage")}
       >
         <ChevronRight size={16} />
       </button>
@@ -706,6 +711,16 @@ interface ClientProps {
 }
 
 export default function CatalogueClient({ initialCategory, searchQuery }: ClientProps) {
+  const t = useT();
+
+  const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+    { value: "pertinence",  label: t("catalogue.sortPertinence") },
+    { value: "prix-asc",   label: t("catalogue.sortPrixAsc") },
+    { value: "prix-desc",  label: t("catalogue.sortPrixDesc") },
+    { value: "ventes",     label: t("catalogue.sortVentes") },
+    { value: "nouveautes", label: t("catalogue.sortNouveautes") },
+  ];
+
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(
     () => initialCategory ? new Set([initialCategory]) : new Set()
   );
@@ -815,13 +830,13 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
               <div className="flex flex-col gap-0.5">
                 {!initialCategory && !searchQuery && (
                   <nav className="flex items-center gap-1.5 text-[11px] font-mono text-abelec-muted">
-                    <Link href="/" className="hover:text-abelec-orange transition-colors">Accueil</Link>
+                    <Link href="/" className="hover:text-abelec-orange transition-colors">{t("catalogue.home")}</Link>
                     <ChevronRight size={10} className="opacity-50" />
-                    <span className="text-abelec-navy-ink">Catalogue</span>
+                    <span className="text-abelec-navy-ink">{t("catalogue.catalogue")}</span>
                   </nav>
                 )}
                 <p className="text-[13px] font-semibold text-abelec-navy-ink">
-                  {filtered.length} <span className="font-normal text-abelec-muted">résultat{filtered.length !== 1 ? "s" : ""}</span>
+                  {filtered.length} <span className="font-normal text-abelec-muted">{filtered.length !== 1 ? t("catalogue.results") : t("catalogue.result")}</span>
                 </p>
               </div>
 
@@ -844,7 +859,7 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
                     type="button"
                     onClick={() => setViewMode("grid")}
                     className={cn("p-2 transition-colors", viewMode === "grid" ? "bg-abelec-navy text-white" : "text-abelec-muted hover:text-abelec-navy")}
-                    aria-label="Vue grille"
+                    aria-label={t("catalogue.gridView")}
                   >
                     <LayoutGrid size={15} />
                   </button>
@@ -852,7 +867,7 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
                     type="button"
                     onClick={() => setViewMode("list")}
                     className={cn("p-2 transition-colors", viewMode === "list" ? "bg-abelec-navy text-white" : "text-abelec-muted hover:text-abelec-navy")}
-                    aria-label="Vue liste"
+                    aria-label={t("catalogue.listView")}
                   >
                     <List size={15} />
                   </button>
@@ -878,10 +893,10 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
             {paginated.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 text-center">
                 <p className="text-[32px] mb-3">🔍</p>
-                <p className="text-[16px] font-semibold text-abelec-navy-ink mb-2">Aucun résultat</p>
-                <p className="text-[13px] text-abelec-muted mb-5">Essayez de modifier vos filtres.</p>
+                <p className="text-[16px] font-semibold text-abelec-navy-ink mb-2">{t("catalogue.noResults")}</p>
+                <p className="text-[13px] text-abelec-muted mb-5">{t("catalogue.noResultsSub")}</p>
                 <button type="button" onClick={resetAll} className="text-[12px] font-semibold text-abelec-orange border border-abelec-orange/30 px-4 py-2 rounded-lg hover:bg-abelec-orange/5 transition-colors">
-                  Réinitialiser les filtres
+                  {t("catalogue.resetFilters")}
                 </button>
               </div>
             ) : (
@@ -925,7 +940,7 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
           className="flex items-center gap-2 px-5 py-3 bg-abelec-navy text-white rounded-full shadow-card-lg text-[13px] font-semibold"
         >
           <SlidersHorizontal size={15} />
-          Filtrer
+          {t("catalogue.filterBtn")}
           {(selectedCategories.size + selectedBrands.size + (inStockOnly ? 1 : 0) + (minRating > 0 ? 1 : 0)) > 0 && (
             <span className="bg-abelec-orange text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
               {selectedCategories.size + selectedBrands.size + (inStockOnly ? 1 : 0) + (minRating > 0 ? 1 : 0)}
@@ -959,8 +974,8 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
             >
               {/* Drawer header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-abelec-cream-line sticky top-0 bg-white">
-                <span className="text-[15px] font-semibold text-abelec-navy-ink">Filtres</span>
-                <button type="button" onClick={() => setDrawerOpen(false)} className="p-1.5 text-abelec-muted hover:text-abelec-navy-ink" aria-label="Fermer">
+                <span className="text-[15px] font-semibold text-abelec-navy-ink">{t("catalogue.drawerTitle")}</span>
+                <button type="button" onClick={() => setDrawerOpen(false)} className="p-1.5 text-abelec-muted hover:text-abelec-navy-ink" aria-label={t("catalogue.drawerClose")}>
                   <X size={18} />
                 </button>
               </div>
@@ -974,7 +989,7 @@ export default function CatalogueClient({ initialCategory, searchQuery }: Client
                   onClick={() => setDrawerOpen(false)}
                   className="w-full bg-abelec-orange text-white text-[13px] font-semibold py-3 rounded-xl"
                 >
-                  Voir {filtered.length} résultat{filtered.length !== 1 ? "s" : ""}
+                  {t("catalogue.drawerSeeResults")} {filtered.length} {filtered.length !== 1 ? t("catalogue.results") : t("catalogue.result")}
                 </button>
               </div>
             </motion.div>

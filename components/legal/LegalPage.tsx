@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import HelpdeskFloat from "@/components/helpdesk-float";
 import BrandStrip from "@/components/brand-strip";
+import { useT } from "@/lib/i18n";
 
 export interface LegalSection {
   id: string;
@@ -31,6 +32,7 @@ export default function LegalPage({
   children,
   noToc = false,
 }: LegalPageProps) {
+  const t = useT();
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function LegalPage({
             )}
             {lastUpdated && (
               <p className="text-white/35 font-mono text-[11px] uppercase tracking-[0.14em] mt-5">
-                Dernière mise à jour&nbsp;: {lastUpdated}
+                {t("legal.lastUpdated")}&nbsp;: {lastUpdated}
               </p>
             )}
           </motion.div>
@@ -99,7 +101,7 @@ export default function LegalPage({
               <aside className="hidden lg:block w-[220px] shrink-0">
                 <div className="sticky top-28">
                   <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-abelec-muted-2 mb-3 px-2">
-                    Sommaire
+                    {t("legal.toc")}
                   </p>
                   <nav className="flex flex-col gap-0.5">
                     {sections.map(({ id, title: sTitle }) => (

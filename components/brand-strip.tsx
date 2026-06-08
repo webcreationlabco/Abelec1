@@ -1,5 +1,7 @@
 "use client";
 
+import { useT } from "@/lib/i18n";
+
 const BRANDS = [
   "Bosch",
   "Whirlpool",
@@ -16,11 +18,12 @@ const BRANDS = [
 ];
 
 export default function BrandStrip() {
+  const t = useT();
   return (
     <div className="py-8 sm:py-11 pb-2 bg-abelec-cream-deep border-t border-b border-abelec-cream-line">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-8">
         <p className="font-mono text-[11px] tracking-[0.10em] uppercase text-abelec-navy/45 text-center mb-6">
-          &mdash; 80+ marques compatibles &mdash;
+          &mdash; {t("brands.stripLabel")} &mdash;
         </p>
         <div className="relative overflow-hidden">
           <div

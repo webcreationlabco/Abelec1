@@ -1,26 +1,29 @@
 "use client";
 
 import LegalPage, { Section } from "@/components/legal/LegalPage";
-
-const SECTIONS = [
-  { id: "objet",        title: "Objet et champ d'application" },
-  { id: "prix",         title: "Prix et paiement" },
-  { id: "livraison",    title: "Livraison" },
-  { id: "retours",      title: "Retours et garantie" },
-  { id: "responsabilite", title: "Responsabilité" },
-  { id: "droit",        title: "Droit applicable" },
-];
+import { useT } from "@/lib/i18n";
 
 export default function CGVPage() {
+  const t = useT();
+
+  const SECTIONS = [
+    { id: "objet",          title: t("cgv.s1") },
+    { id: "prix",           title: t("cgv.s2") },
+    { id: "livraison",      title: t("cgv.s3") },
+    { id: "retours",        title: t("cgv.s4") },
+    { id: "responsabilite", title: t("cgv.s5") },
+    { id: "droit",          title: t("cgv.s6") },
+  ];
+
   return (
     <LegalPage
-      eyebrow="Légal"
-      title="Conditions Générales de Vente"
-      subtitle="Les présentes conditions régissent tout achat effectué sur abelec.be."
-      lastUpdated="1er mai 2025"
+      eyebrow={t("cgv.eyebrow")}
+      title={t("cgv.title")}
+      subtitle={t("cgv.subtitle")}
+      lastUpdated={t("cgv.lastUpdated")}
       sections={SECTIONS}
     >
-      <Section id="objet" title="Objet et champ d'application">
+      <Section id="objet" title={t("cgv.s1")}>
         <p>
           Les présentes Conditions Générales de Vente (ci-après « CGV ») s&apos;appliquent à toutes les ventes de pièces détachées et accessoires pour appareils électroménagers conclues entre Abelec (ci-après « le Vendeur ») et tout acheteur professionnel ou consommateur (ci-après « l&apos;Acheteur ») via le site internet <strong>www.abelec.be</strong>.
         </p>
@@ -32,7 +35,7 @@ export default function CGVPage() {
         </p>
       </Section>
 
-      <Section id="prix" title="Prix et paiement">
+      <Section id="prix" title={t("cgv.s2")}>
         <p>
           Tous les prix affichés sur le site sont exprimés en euros (€) et incluent la TVA applicable au taux en vigueur au moment de la commande. Les frais de livraison sont indiqués séparément et précisés avant la validation du panier.
         </p>
@@ -56,7 +59,7 @@ export default function CGVPage() {
         </p>
       </Section>
 
-      <Section id="livraison" title="Livraison">
+      <Section id="livraison" title={t("cgv.s3")}>
         <p>
           Les commandes sont expédiées dans un délai de <strong>1 à 2 jours ouvrables</strong> après confirmation du paiement. Les délais de livraison estimés sont :
         </p>
@@ -76,7 +79,7 @@ export default function CGVPage() {
         </p>
       </Section>
 
-      <Section id="retours" title="Retours et garantie">
+      <Section id="retours" title={t("cgv.s4")}>
         <p>
           Conformément à la législation belge et européenne, tout consommateur dispose d&apos;un <strong>droit de rétractation de 30 jours</strong> à compter de la réception du colis, sans avoir à justifier sa décision ni à payer de pénalité.
         </p>
@@ -94,7 +97,7 @@ export default function CGVPage() {
         </p>
       </Section>
 
-      <Section id="responsabilite" title="Responsabilité">
+      <Section id="responsabilite" title={t("cgv.s5")}>
         <p>
           Il appartient à l&apos;Acheteur de vérifier la compatibilité de la pièce commandée avec son appareil avant tout achat. Abelec fournit à titre indicatif des outils de sélection par marque et modèle, mais ne saurait garantir l&apos;exactitude de ces informations dans tous les cas.
         </p>
@@ -109,7 +112,7 @@ export default function CGVPage() {
         </p>
       </Section>
 
-      <Section id="droit" title="Droit applicable et litiges">
+      <Section id="droit" title={t("cgv.s6")}>
         <p>
           Les présentes CGV sont soumises au droit belge. Tout litige relatif à leur interprétation ou leur exécution sera soumis aux tribunaux compétents de l&apos;arrondissement judiciaire de <strong>Charleroi (Belgique)</strong>, sauf dispositions légales impératives contraires.
         </p>

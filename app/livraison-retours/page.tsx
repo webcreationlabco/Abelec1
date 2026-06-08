@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import HelpdeskFloat from "@/components/helpdesk-float";
 import BrandStrip from "@/components/brand-strip";
+import { useT } from "@/lib/i18n";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -49,63 +50,49 @@ function InfoCard({ icon, title, value, accent = false }: {
   );
 }
 
-/* ── Country flag ───────────────────────────────────────────── */
+/* ── Shipping data (country-code keyed) ─────────────────────── */
 const FLAGS: Record<string, string> = {
-  "Belgique":     "🇧🇪",
-  "France":       "🇫🇷",
-  "Pays-Bas":     "🇳🇱",
-  "Luxembourg":   "🇱🇺",
-  "Allemagne":    "🇩🇪",
-  "Italie":       "🇮🇹",
+  "BE": "🇧🇪",
+  "FR": "🇫🇷",
+  "NL": "🇳🇱",
+  "LU": "🇱🇺",
+  "DE": "🇩🇪",
+  "IT": "🇮🇹",
 };
 
 const SHIPPING_DATA = [
-  { country: "Belgique",   standard: "4,95 €",  express: "9,95 €",  free: "50 €",   delay: "1–3 j" },
-  { country: "Luxembourg", standard: "4,95 €",  express: "9,95 €",  free: "50 €",   delay: "2–4 j" },
-  { country: "France",     standard: "7,95 €",  express: "14,95 €", free: "80 €",   delay: "3–5 j" },
-  { country: "Pays-Bas",   standard: "7,95 €",  express: "14,95 €", free: "80 €",   delay: "3–5 j" },
-  { country: "Allemagne",  standard: "8,95 €",  express: "16,95 €", free: "100 €",  delay: "4–6 j" },
-  { country: "Italie",     standard: "12,95 €", express: "22,95 €", free: "120 €",  delay: "5–7 j" },
-];
-
-const RETURN_STEPS = [
-  {
-    n: "01",
-    title: "Contactez le service client",
-    desc: "Envoyez un email à retours@abelec.be avec votre numéro de commande et la raison du retour. Réponse sous 24h ouvrables.",
-  },
-  {
-    n: "02",
-    title: "Préparez votre colis",
-    desc: "Remettez la pièce dans son emballage d'origine, en parfait état avec tous ses accessoires. Joignez le formulaire de retour reçu par email.",
-  },
-  {
-    n: "03",
-    title: "Déposez le colis",
-    desc: "Utilisez l'étiquette de retour fournie (préaffranchie si erreur de notre part) et déposez le colis dans un point relais ou bureau de poste.",
-  },
-  {
-    n: "04",
-    title: "Remboursement sous 14 jours",
-    desc: "Dès réception et vérification du retour, nous procédons au remboursement intégral via le moyen de paiement utilisé lors de l'achat.",
-  },
-];
-
-const RETURN_REASONS_OK = [
-  "Pièce non conforme à la description",
-  "Erreur d'expédition (mauvaise référence)",
-  "Produit défectueux à réception",
-  "Rétractation dans les 30 jours (sans justification)",
-];
-
-const RETURN_REASONS_KO = [
-  "Pièce endommagée lors de l'installation",
-  "Numéro de série gratté ou illisible",
-  "Emballage original manquant ou abîmé",
-  "Pièce commandée par erreur (vérifiez la compatibilité avant achat)",
+  { code: "BE", countryKey: "countryBE", standard: "4,95 €",  express: "9,95 €",  free: "50 €",   delay: "1–3 j" },
+  { code: "LU", countryKey: "countryLU", standard: "4,95 €",  express: "9,95 €",  free: "50 €",   delay: "2–4 j" },
+  { code: "FR", countryKey: "countryFR", standard: "7,95 €",  express: "14,95 €", free: "80 €",   delay: "3–5 j" },
+  { code: "NL", countryKey: "countryNL", standard: "7,95 €",  express: "14,95 €", free: "80 €",   delay: "3–5 j" },
+  { code: "DE", countryKey: "countryDE", standard: "8,95 €",  express: "16,95 €", free: "100 €",  delay: "4–6 j" },
+  { code: "IT", countryKey: "countryIT", standard: "12,95 €", express: "22,95 €", free: "120 €",  delay: "5–7 j" },
 ];
 
 export default function LivraisonRetoursPage() {
+  const t = useT();
+
+  const RETURN_STEPS = [
+    { n: "01", title: t("livraisonPage.step1Title"), desc: t("livraisonPage.step1Desc") },
+    { n: "02", title: t("livraisonPage.step2Title"), desc: t("livraisonPage.step2Desc") },
+    { n: "03", title: t("livraisonPage.step3Title"), desc: t("livraisonPage.step3Desc") },
+    { n: "04", title: t("livraisonPage.step4Title"), desc: t("livraisonPage.step4Desc") },
+  ];
+
+  const RETURN_REASONS_OK = [
+    t("livraisonPage.returnOk1"),
+    t("livraisonPage.returnOk2"),
+    t("livraisonPage.returnOk3"),
+    t("livraisonPage.returnOk4"),
+  ];
+
+  const RETURN_REASONS_KO = [
+    t("livraisonPage.returnKo1"),
+    t("livraisonPage.returnKo2"),
+    t("livraisonPage.returnKo3"),
+    t("livraisonPage.returnKo4"),
+  ];
+
   return (
     <>
       <Header />
@@ -114,13 +101,13 @@ export default function LivraisonRetoursPage() {
       <div className="bg-abelec-navy">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-8 pt-28 pb-14">
           <motion.div {...fadeUp()}>
-            <p className="eyebrow text-abelec-orange mb-3">Services</p>
+            <p className="eyebrow text-abelec-orange mb-3">{t("livraisonPage.eyebrow")}</p>
             <h1 className="font-slab text-white mb-2 leading-tight"
               style={{ fontSize: "clamp(28px, 4vw, 42px)" }}>
-              Livraison & Retours
+              {t("livraisonPage.title")}
             </h1>
             <p className="text-white/60 font-sans text-[15px] mt-2 max-w-xl">
-              Livraison rapide en Europe, retours faciles sous 30 jours. Tout ce que vous devez savoir.
+              {t("livraisonPage.sub")}
             </p>
           </motion.div>
         </div>
@@ -135,10 +122,10 @@ export default function LivraisonRetoursPage() {
             className="grid grid-cols-2 md:grid-cols-4 gap-4"
             {...fadeUp(0.08)}
           >
-            <InfoCard icon={<IconClock />}   title="Livraison standard" value="3–5 jours" />
-            <InfoCard icon={<IconZap />}     title="Livraison express" value="24–48 h" accent />
-            <InfoCard icon={<IconReturn />}  title="Politique retour" value="30 jours" />
-            <InfoCard icon={<IconShield />}  title="Garantie légale" value="2 ans" />
+            <InfoCard icon={<IconClock />}   title={t("livraisonPage.card1Title")} value={t("livraisonPage.card1Value")} />
+            <InfoCard icon={<IconZap />}     title={t("livraisonPage.card2Title")} value={t("livraisonPage.card2Value")} accent />
+            <InfoCard icon={<IconReturn />}  title={t("livraisonPage.card3Title")} value={t("livraisonPage.card3Value")} />
+            <InfoCard icon={<IconShield />}  title={t("livraisonPage.card4Title")} value={t("livraisonPage.card4Value")} />
           </motion.div>
 
           {/* ── Section 1: Délais et tarifs ── */}
@@ -149,7 +136,7 @@ export default function LivraisonRetoursPage() {
               </div>
               <div>
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-abelec-muted-2">Section 1</p>
-                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>Délais et tarifs de livraison</h2>
+                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>{t("livraisonPage.s1Title")}</h2>
               </div>
             </div>
 
@@ -158,21 +145,21 @@ export default function LivraisonRetoursPage() {
                 <table className="w-full text-[13.5px]">
                   <thead>
                     <tr className="bg-abelec-navy text-white">
-                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">Pays</th>
-                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">Délai</th>
-                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">Standard</th>
-                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">Express 24–48h</th>
-                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">Gratuit dès</th>
+                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">{t("livraisonPage.colCountry")}</th>
+                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">{t("livraisonPage.colDelay")}</th>
+                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">{t("livraisonPage.colStandard")}</th>
+                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">{t("livraisonPage.colExpress")}</th>
+                      <th className="text-left px-6 py-4 font-mono font-normal text-[11px] uppercase tracking-wide">{t("livraisonPage.colFree")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-abelec-cream-line">
                     {SHIPPING_DATA.map((row, i) => (
                       <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-abelec-cream-light/40"}>
                         <td className="px-6 py-4 font-semibold text-abelec-navy-ink">
-                          <span className="mr-2 text-[16px]">{FLAGS[row.country]}</span>
-                          {row.country}
+                          <span className="mr-2 text-[16px]">{FLAGS[row.code]}</span>
+                          {t(`livraisonPage.${row.countryKey}`)}
                         </td>
-                        <td className="px-6 py-4 text-abelec-muted">{row.delay} ouvrables</td>
+                        <td className="px-6 py-4 text-abelec-muted">{row.delay} {t("livraisonPage.workingDays")}</td>
                         <td className="px-6 py-4 font-semibold text-abelec-navy">{row.standard}</td>
                         <td className="px-6 py-4 font-semibold text-abelec-orange">{row.express}</td>
                         <td className="px-6 py-4">
@@ -190,7 +177,7 @@ export default function LivraisonRetoursPage() {
                   <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
                 <p className="text-[12px] text-abelec-muted-2">
-                  Les délais sont indicatifs et comptent à partir de l&apos;expédition (J+1 après validation du paiement). Les jours fériés belges peuvent allonger les délais.
+                  {t("livraisonPage.tableNote")}
                 </p>
               </div>
             </div>
@@ -207,18 +194,18 @@ export default function LivraisonRetoursPage() {
               </div>
               <div>
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-abelec-muted-2">Section 2</p>
-                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>Zones de livraison</h2>
+                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>{t("livraisonPage.s2Title")}</h2>
               </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-              {SHIPPING_DATA.map(({ country }) => (
-                <div key={country}
+              {SHIPPING_DATA.map(({ code, countryKey }) => (
+                <div key={code}
                   className="bg-white border border-abelec-cream-line rounded-2xl p-5 flex flex-col items-center gap-3 shadow-card-sm hover:shadow-card-md hover:-translate-y-1 transition-all duration-200">
-                  <span className="text-4xl">{FLAGS[country]}</span>
-                  <p className="font-slab text-abelec-navy text-[13px] font-semibold text-center">{country}</p>
+                  <span className="text-4xl">{FLAGS[code]}</span>
+                  <p className="font-slab text-abelec-navy text-[13px] font-semibold text-center">{t(`livraisonPage.${countryKey}`)}</p>
                   <span className="text-[11px] font-mono uppercase tracking-wide text-abelec-muted-2 bg-abelec-cream-light px-2 py-0.5 rounded-full">
-                    Livré
+                    {t("livraisonPage.deliveredBadge")}
                   </span>
                 </div>
               ))}
@@ -229,9 +216,9 @@ export default function LivraisonRetoursPage() {
                 <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
               </svg>
               <p className="text-[13px] text-abelec-navy/80">
-                Vous êtes hors de ces zones ? Contactez-nous à{" "}
+                {t("livraisonPage.outsideZone")}{" "}
                 <a href="mailto:contact@abelec.be" className="text-abelec-orange hover:underline font-medium">contact@abelec.be</a>
-                {" "}pour une solution de livraison personnalisée.
+                {" "}{t("livraisonPage.outsideZoneSuffix")}
               </p>
             </div>
           </motion.section>
@@ -244,7 +231,7 @@ export default function LivraisonRetoursPage() {
               </div>
               <div>
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-abelec-muted-2">Section 3</p>
-                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>Politique de retour — 30 jours</h2>
+                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>{t("livraisonPage.s3Title")}</h2>
               </div>
             </div>
 
@@ -252,12 +239,12 @@ export default function LivraisonRetoursPage() {
             <div className="bg-abelec-navy rounded-2xl p-8 flex flex-col sm:flex-row gap-8 items-center mb-8">
               <div className="text-center shrink-0">
                 <p className="font-slab text-white leading-none" style={{ fontSize: "64px" }}>30</p>
-                <p className="font-mono text-abelec-orange text-[12px] uppercase tracking-[0.16em]">jours</p>
+                <p className="font-mono text-abelec-orange text-[12px] uppercase tracking-[0.16em]">{t("livraisonPage.returnDays")}</p>
               </div>
               <div>
-                <p className="font-slab text-white text-[18px] mb-2">Satisfait ou remboursé, sans conditions</p>
+                <p className="font-slab text-white text-[18px] mb-2">{t("livraisonPage.returnGuaranteeTitle")}</p>
                 <p className="text-white/60 font-sans text-[14px] leading-relaxed">
-                  Vous disposez de 30 jours calendaires à compter de la réception pour retourner toute pièce, sans avoir à justifier votre décision. Le remboursement intégral est effectué sous 14 jours après réception du retour.
+                  {t("livraisonPage.returnGuaranteeDesc")}
                 </p>
               </div>
             </div>
@@ -269,7 +256,7 @@ export default function LivraisonRetoursPage() {
                   <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center text-green-600">
                     <IconCheck />
                   </div>
-                  <p className="font-slab text-abelec-navy-ink text-[15px] font-semibold">Retours acceptés</p>
+                  <p className="font-slab text-abelec-navy-ink text-[15px] font-semibold">{t("livraisonPage.returnOkTitle")}</p>
                 </div>
                 <ul className="space-y-2.5">
                   {RETURN_REASONS_OK.map((r, i) => (
@@ -285,7 +272,7 @@ export default function LivraisonRetoursPage() {
                   <div className="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center text-red-500">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   </div>
-                  <p className="font-slab text-abelec-navy-ink text-[15px] font-semibold">Retours non acceptés</p>
+                  <p className="font-slab text-abelec-navy-ink text-[15px] font-semibold">{t("livraisonPage.returnKoTitle")}</p>
                 </div>
                 <ul className="space-y-2.5">
                   {RETURN_REASONS_KO.map((r, i) => (
@@ -307,7 +294,7 @@ export default function LivraisonRetoursPage() {
               </div>
               <div>
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-abelec-muted-2">Section 4</p>
-                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>Comment retourner une pièce</h2>
+                <h2 className="font-slab text-abelec-navy-ink" style={{ fontSize: "22px" }}>{t("livraisonPage.s4Title")}</h2>
               </div>
             </div>
 
@@ -348,8 +335,8 @@ export default function LivraisonRetoursPage() {
                   <IconMail />
                 </div>
                 <div>
-                  <p className="font-slab text-white text-[17px] font-semibold">Besoin d&apos;aide pour un retour ?</p>
-                  <p className="text-white/70 text-[13px] mt-0.5">Notre équipe répond sous 24h ouvrables.</p>
+                  <p className="font-slab text-white text-[17px] font-semibold">{t("livraisonPage.helpTitle")}</p>
+                  <p className="text-white/70 text-[13px] mt-0.5">{t("livraisonPage.helpSub")}</p>
                 </div>
               </div>
               <a

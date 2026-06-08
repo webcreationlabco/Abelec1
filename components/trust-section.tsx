@@ -67,6 +67,7 @@ function TrustpilotBadge({ reviews }: { reviews: string }) {
 // ── Rotating testimonials ─────────────────────────────────────────────────
 function RotatingTestimonials({ items }: { items: { q: string; m: string }[] }) {
   const [idx, setIdx] = useState(0);
+  const t = useT();
 
   useEffect(() => {
     if (items.length <= 1) return;
@@ -103,7 +104,7 @@ function RotatingTestimonials({ items }: { items: { q: string; m: string }[] }) 
       {items.length > 1 && (
         <div className="flex items-center gap-1.5 pt-4">
           {items.map((_, i) => (
-            <button key={i} onClick={() => setIdx(i)} aria-label={`Avis ${i + 1}`}>
+            <button key={i} onClick={() => setIdx(i)} aria-label={`${t("trust.reviewDot")} ${i + 1}`}>
               <span className={`block rounded-full transition-all duration-300 ${
                 i === idx ? "w-4 h-1.5 bg-abelec-orange" : "w-1.5 h-1.5 bg-abelec-cream-line"
               }`} />
@@ -155,8 +156,8 @@ export default function TrustSection() {
             </p>
 
             <div className="space-y-2.5">
-              <GoogleBadge reviews="1 214 avis Google" />
-              <TrustpilotBadge reviews="98 avis Trustpilot" />
+              <GoogleBadge reviews={t("trust.googleReviews")} />
+              <TrustpilotBadge reviews={t("trust.trustpilotReviews")} />
             </div>
 
             <div className="h-px bg-abelec-cream-line" />
@@ -202,26 +203,26 @@ export default function TrustSection() {
             className="bg-white rounded-[16px] border border-abelec-cream-line p-6 flex flex-col"
           >
             <p className="font-mono text-[10px] text-abelec-muted-2 uppercase tracking-[0.12em] mb-5">
-              03 · Nos partenaires
+              03 · {t("trust.partnersTitle")}
             </p>
 
             <div className="flex flex-col gap-2.5 flex-1">
               {[
                 {
-                  label: "Repair Cafés & ASBL",
-                  desc: "Tarifs préférentiels pour les initiatives citoyennes de réparation. Support technique dédié et livraison 48h.",
+                  label: t("trust.partner1Label"),
+                  desc: t("trust.partner1Desc"),
                   color: "#2563EB",
                   bg: "#EFF6FF",
                 },
                 {
-                  label: "Foyers & Institutions",
-                  desc: "Compte pro avec facturation mensuelle et interlocuteur unique pour résidences et structures sociales.",
+                  label: t("trust.partner2Label"),
+                  desc: t("trust.partner2Desc"),
                   color: "#059669",
                   bg: "#ECFDF5",
                 },
                 {
-                  label: "Professionnels & Enseignes",
-                  desc: "Conditions tarifaires négociables, stock de 100 000 pièces et livraison B2B Europe pour les pros.",
+                  label: t("trust.partner3Label"),
+                  desc: t("trust.partner3Desc"),
                   color: "#D97E3A",
                   bg: "#FFF7ED",
                 },
@@ -248,7 +249,7 @@ export default function TrustSection() {
                 href="/partenaires"
                 className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-abelec-orange hover:text-[#b8612a] transition-colors"
               >
-                Voir plus
+                {t("trust.seeMore")}
                 <ArrowRight size={14} strokeWidth={2.2} />
               </Link>
             </div>

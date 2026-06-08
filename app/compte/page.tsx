@@ -124,7 +124,7 @@ export default function ComptePage() {
                     </motion.button>
                     <div className="flex items-center gap-3 my-1">
                       <div className="flex-1 h-px bg-abelec-cream-line" />
-                      <span className="font-mono text-[10.5px] text-abelec-muted-2 uppercase tracking-[0.1em]">ou</span>
+                      <span className="font-mono text-[10.5px] text-abelec-muted-2 uppercase tracking-[0.1em]">{t("account.or")}</span>
                       <div className="flex-1 h-px bg-abelec-cream-line" />
                     </div>
                     <button type="button"

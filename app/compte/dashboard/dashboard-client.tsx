@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import RAW_PRODUCTS from "@/data/products";
+import { useT } from "@/lib/i18n";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Types & mock data
@@ -84,19 +85,8 @@ const MOCK_INVOICES: Invoice[] = [
 
 const MOCK_FAVORITES = RAW_PRODUCTS.slice(0, 3);
 
-const STATUS_CONFIG: Record<OrderStatus, { label: string; color: string; bg: string; Icon: React.ElementType }> = {
-  "livre":     { label: "Livré",     color: "#15803d", bg: "#dcfce7", Icon: Check },
-  "en-cours":  { label: "En cours",  color: "#d97e3a", bg: "#fff7ed", Icon: Truck },
-  "en-attente":{ label: "En attente",color: "#64748b", bg: "#f1f5f9", Icon: Clock },
-};
-
-const NAV_ITEMS: { key: Tab; label: string; Icon: React.ElementType }[] = [
-  { key: "commandes",  label: "Mes commandes",        Icon: ShoppingBag },
-  { key: "adresses",   label: "Mes adresses",          Icon: MapPin },
-  { key: "factures",   label: "Mes factures",          Icon: FileText },
-  { key: "favoris",    label: "Mes pièces favorites",  Icon: Heart },
-  { key: "parametres", label: "Paramètres du compte",  Icon: Settings },
-];
+type StatusConfig = Record<OrderStatus, { label: string; color: string; bg: string; Icon: React.ElementType }>;
+type NavItem = { key: Tab; label: string; Icon: React.ElementType };
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Reusable atoms
@@ -131,25 +121,26 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
 /* ═══════════════════════════════════════════════════════════════════════════
    Tab: Commandes
    ═══════════════════════════════════════════════════════════════════════════ */
-function TabCommandes() {
+function TabCommandes({ statusConfig }: { statusConfig: StatusConfig }) {
+  const t = useT();
   const total = MOCK_ORDERS.reduce((s, o) => s + o.total, 0);
   const enCours = MOCK_ORDERS.filter((o) => o.status === "en-cours").length;
 
   return (
     <div>
-      <SectionTitle>Mes commandes</SectionTitle>
+      <SectionTitle>{t("dashboard.tabOrders")}</SectionTitle>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3 mb-6">
-        <StatCard label="Total commandes" value={String(MOCK_ORDERS.length)} />
-        <StatCard label="En cours" value={String(enCours)} sub={enCours === 1 ? "livraison en cours" : "livraisons en cours"} />
-        <StatCard label="Montant total" value={`${total.toFixed(2)} €`} sub="toutes commandes" />
+        <StatCard label={t("dashboard.statTotalOrders")} value={String(MOCK_ORDERS.length)} />
+        <StatCard label={t("dashboard.statInProgress")} value={String(enCours)} sub={enCours === 1 ? t("dashboard.statDeliverySingular") : t("dashboard.statDeliveryPlural")} />
+        <StatCard label={t("dashboard.statTotalAmount")} value={`${total.toFixed(2)} €`} sub={t("dashboard.statAllOrders")} />
       </div>
 
       {/* Orders */}
       <div className="flex flex-col gap-3">
         {MOCK_ORDERS.map((order) => {
-          const s = STATUS_CONFIG[order.status];
+          const s = statusConfig[order.status];
           const SIcon = s.Icon;
           return (
             <Card key={order.id} className="p-0 overflow-hidden">
@@ -168,7 +159,7 @@ function TabCommandes() {
                   </div>
                   <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-[12.5px] text-abelec-muted">
                     <span>{order.date}</span>
-                    <span>{order.items} article{order.items > 1 ? "s" : ""}</span>
+                    <span>{order.items} {order.items > 1 ? t("dashboard.orderArticles") : t("dashboard.orderArticle")}</span>
                     <span className="font-semibold text-abelec-navy">{order.total.toFixed(2)} €</span>
                   </div>
                 </div>
@@ -176,11 +167,11 @@ function TabCommandes() {
                 {/* Actions */}
                 <div className="flex gap-2 flex-shrink-0">
                   <button className="h-9 px-3.5 rounded-xl border border-[rgba(26,58,92,0.12)] text-[12.5px] font-semibold text-abelec-navy hover:border-abelec-orange hover:text-abelec-orange transition-colors">
-                    Voir le détail
+                    {t("dashboard.viewDetail")}
                   </button>
                   {order.status !== "livre" && (
                     <button className="h-9 px-3.5 rounded-xl bg-abelec-orange hover:bg-abelec-orange-dark text-white text-[12.5px] font-semibold transition-colors flex items-center gap-1.5">
-                      <Truck size={13} strokeWidth={2} /> Suivre
+                      <Truck size={13} strokeWidth={2} /> {t("dashboard.trackOrder")}
                     </button>
                   )}
                 </div>
@@ -197,15 +188,16 @@ function TabCommandes() {
    Tab: Adresses
    ═══════════════════════════════════════════════════════════════════════════ */
 function TabAdresses() {
+  const t = useT();
   return (
     <div>
-      <SectionTitle>Mes adresses</SectionTitle>
+      <SectionTitle>{t("dashboard.tabAddresses")}</SectionTitle>
       <div className="grid sm:grid-cols-2 gap-4">
         {MOCK_ADDRESSES.map((addr) => (
           <Card key={addr.id} className="relative">
             {addr.isDefault && (
               <span className="absolute top-4 right-4 text-[10.5px] font-mono font-semibold text-abelec-orange bg-abelec-orange/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Par défaut
+                {t("dashboard.defaultAddress")}
               </span>
             )}
             <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-2">{addr.label}</p>
@@ -218,11 +210,11 @@ function TabAdresses() {
             </p>
             <div className="flex gap-2 mt-4 pt-4 border-t border-[rgba(26,58,92,0.06)]">
               <button className="flex items-center gap-1.5 h-8 px-3 rounded-lg border border-[rgba(26,58,92,0.12)] text-[12px] font-medium text-abelec-navy hover:border-abelec-orange hover:text-abelec-orange transition-colors">
-                <Edit2 size={12} strokeWidth={2} /> Modifier
+                <Edit2 size={12} strokeWidth={2} /> {t("dashboard.editAddress")}
               </button>
               {!addr.isDefault && (
                 <button className="flex items-center gap-1.5 h-8 px-3 rounded-lg border border-red-100 text-[12px] font-medium text-red-500 hover:bg-red-50 transition-colors">
-                  <Trash2 size={12} strokeWidth={2} /> Supprimer
+                  <Trash2 size={12} strokeWidth={2} /> {t("dashboard.deleteAddress")}
                 </button>
               )}
             </div>
@@ -235,7 +227,7 @@ function TabAdresses() {
             <Plus size={18} className="text-abelec-muted group-hover:text-abelec-orange transition-colors" strokeWidth={2} />
           </div>
           <span className="text-[13.5px] font-semibold text-abelec-muted group-hover:text-abelec-orange transition-colors">
-            Ajouter une adresse
+            {t("dashboard.addAddress")}
           </span>
         </button>
       </div>
@@ -247,15 +239,16 @@ function TabAdresses() {
    Tab: Factures
    ═══════════════════════════════════════════════════════════════════════════ */
 function TabFactures() {
+  const t = useT();
   return (
     <div>
-      <SectionTitle>Mes factures</SectionTitle>
+      <SectionTitle>{t("dashboard.tabInvoices")}</SectionTitle>
       <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-[rgba(26,58,92,0.07)]">
-                {["Date", "N° Facture", "Commande liée", "Montant", ""].map((h) => (
+                {[t("dashboard.invoiceDate"), t("dashboard.invoiceNum"), t("dashboard.invoiceOrder"), t("dashboard.invoiceAmount"), ""].map((h) => (
                   <th key={h} className="text-left px-5 py-3.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted font-normal">
                     {h}
                   </th>
@@ -292,19 +285,20 @@ function TabFactures() {
    Tab: Favoris
    ═══════════════════════════════════════════════════════════════════════════ */
 function TabFavoris() {
+  const t = useT();
   const [removed, setRemoved] = useState<number[]>([]);
   const visible = MOCK_FAVORITES.filter((p) => !removed.includes(p.id));
 
   return (
     <div>
-      <SectionTitle>Mes pièces favorites</SectionTitle>
+      <SectionTitle>{t("dashboard.tabFavorites")}</SectionTitle>
       {visible.length === 0 ? (
         <Card className="text-center py-14">
           <Heart size={36} className="mx-auto text-abelec-muted/40 mb-3" strokeWidth={1.5} />
-          <p className="text-[14px] text-abelec-muted mb-4">Aucune pièce sauvegardée.</p>
+          <p className="text-[14px] text-abelec-muted mb-4">{t("dashboard.noFavorites")}</p>
           <Link href="/catalogue"
             className="inline-flex items-center gap-2 h-10 px-5 rounded-xl bg-abelec-orange text-white text-[13.5px] font-semibold hover:bg-abelec-orange-dark transition-colors">
-            Parcourir le catalogue <ChevronRight size={14} strokeWidth={2.5} />
+            {t("dashboard.browseCatalogue")} <ChevronRight size={14} strokeWidth={2.5} />
           </Link>
         </Card>
       ) : (
@@ -355,7 +349,7 @@ function TabFavoris() {
                           onClick={(e) => { e.preventDefault(); setRemoved((r) => [...r, p.id]); }}
                           className="flex items-center gap-1 h-7 px-2.5 rounded-lg border border-red-100 text-red-400 hover:bg-red-50 text-[11.5px] font-medium transition-colors"
                         >
-                          <Trash2 size={11} strokeWidth={2} /> Retirer
+                          <Trash2 size={11} strokeWidth={2} /> {t("dashboard.removeFavorite")}
                         </button>
                       </div>
                     </div>
@@ -374,6 +368,7 @@ function TabFavoris() {
    Tab: Paramètres
    ═══════════════════════════════════════════════════════════════════════════ */
 function TabParametres() {
+  const t = useT();
   const [form, setForm] = useState({ prenom: MOCK_USER.prenom, nom: MOCK_USER.nom, email: MOCK_USER.email, tel: MOCK_USER.tel });
   const [pw, setPw] = useState({ current: "", next: "", confirm: "" });
   const [lang, setLang] = useState<"FR" | "NL">("FR");
@@ -388,16 +383,16 @@ function TabParametres() {
 
   return (
     <div>
-      <SectionTitle>Paramètres du compte</SectionTitle>
+      <SectionTitle>{t("dashboard.tabSettings")}</SectionTitle>
       <form onSubmit={handleSave} className="flex flex-col gap-5">
 
         {/* Informations personnelles */}
         <Card>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">Informations personnelles</p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">{t("dashboard.settingsPersonal")}</p>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { label: "Prénom", key: "prenom" as const, icon: <Package size={14} className="text-abelec-muted" /> },
-              { label: "Nom",    key: "nom"    as const, icon: <Package size={14} className="text-abelec-muted" /> },
+              { label: t("account.firstName") || "Prénom", key: "prenom" as const },
+              { label: t("account.lastName")  || "Nom",    key: "nom"    as const },
             ].map(({ label, key }) => (
               <div key={key}>
                 <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">{label}</label>
@@ -409,7 +404,7 @@ function TabParametres() {
               </div>
             ))}
             <div>
-              <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">Email</label>
+              <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">{t("account.email") || "Email"}</label>
               <div className="relative">
                 <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-abelec-muted pointer-events-none" />
                 <input type="email" value={form.email}
@@ -419,7 +414,7 @@ function TabParametres() {
               </div>
             </div>
             <div>
-              <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">Téléphone</label>
+              <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">{t("account.phone") || "Téléphone"}</label>
               <div className="relative">
                 <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-abelec-muted pointer-events-none" />
                 <input type="tel" value={form.tel}
@@ -433,12 +428,12 @@ function TabParametres() {
 
         {/* Mot de passe */}
         <Card>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">Changer le mot de passe</p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">{t("dashboard.settingsPassword")}</p>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
-              { label: "Mot de passe actuel", key: "current" as const },
-              { label: "Nouveau mot de passe", key: "next" as const },
-              { label: "Confirmer", key: "confirm" as const },
+              { label: t("dashboard.pwCurrent"), key: "current" as const },
+              { label: t("dashboard.pwNew"),     key: "next"    as const },
+              { label: t("dashboard.pwConfirm"), key: "confirm" as const },
             ].map(({ label, key }) => (
               <div key={key}>
                 <label className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted block mb-1.5">{label}</label>
@@ -463,7 +458,7 @@ function TabParametres() {
 
         {/* Langue */}
         <Card>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">Langue préférée</p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-abelec-muted mb-4">{t("dashboard.settingsLang")}</p>
           <div className="flex items-center gap-3">
             <Globe size={16} className="text-abelec-muted" />
             <div className="flex rounded-xl border border-[rgba(26,58,92,0.12)] overflow-hidden">
@@ -487,7 +482,7 @@ function TabParametres() {
             whileTap={{ scale: 0.99 }}
             className="h-11 px-7 rounded-2xl bg-abelec-orange hover:bg-abelec-orange-dark text-white font-bold text-[14px] shadow-[inset_0_-3px_0_rgba(0,0,0,.12)] transition-colors"
           >
-            Enregistrer les modifications
+            {t("dashboard.saveBtn")}
           </motion.button>
           <AnimatePresence>
             {saved && (
@@ -495,7 +490,7 @@ function TabParametres() {
                 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
                 className="flex items-center gap-1.5 text-[13px] text-green-600 font-medium"
               >
-                <Check size={14} strokeWidth={2.5} /> Sauvegardé
+                <Check size={14} strokeWidth={2.5} /> {t("dashboard.saved")}
               </motion.span>
             )}
           </AnimatePresence>
@@ -508,19 +503,35 @@ function TabParametres() {
 /* ═══════════════════════════════════════════════════════════════════════════
    Main dashboard
    ═══════════════════════════════════════════════════════════════════════════ */
-const TAB_COMPONENTS: Record<Tab, React.ComponentType> = {
-  commandes:  TabCommandes,
-  adresses:   TabAdresses,
-  factures:   TabFactures,
-  favoris:    TabFavoris,
-  parametres: TabParametres,
-};
-
 export default function DashboardClient() {
+  const t = useT();
   const [activeTab, setActiveTab] = useState<Tab>("commandes");
-  const ActivePanel = TAB_COMPONENTS[activeTab];
 
   const initials = `${MOCK_USER.prenom[0]}${MOCK_USER.nom[0]}`;
+
+  const STATUS_CONFIG: StatusConfig = {
+    "livre":     { label: t("dashboard.statusDelivered"), color: "#15803d", bg: "#dcfce7", Icon: Check },
+    "en-cours":  { label: t("dashboard.statusInProgress"), color: "#d97e3a", bg: "#fff7ed", Icon: Truck },
+    "en-attente":{ label: t("dashboard.statusPending"),   color: "#64748b", bg: "#f1f5f9", Icon: Clock },
+  };
+
+  const NAV_ITEMS: NavItem[] = [
+    { key: "commandes",  label: t("dashboard.tabOrders"),    Icon: ShoppingBag },
+    { key: "adresses",   label: t("dashboard.tabAddresses"), Icon: MapPin },
+    { key: "factures",   label: t("dashboard.tabInvoices"),  Icon: FileText },
+    { key: "favoris",    label: t("dashboard.tabFavorites"), Icon: Heart },
+    { key: "parametres", label: t("dashboard.tabSettings"),  Icon: Settings },
+  ];
+
+  const TAB_COMPONENTS: Record<Tab, React.ComponentType<{ statusConfig?: StatusConfig }>> = {
+    commandes:  (props) => <TabCommandes statusConfig={props.statusConfig!} />,
+    adresses:   () => <TabAdresses />,
+    factures:   () => <TabFactures />,
+    favoris:    () => <TabFavoris />,
+    parametres: () => <TabParametres />,
+  };
+
+  const ActivePanel = TAB_COMPONENTS[activeTab];
 
   return (
     <main className="min-h-screen" style={{ background: "#F8F5F0" }}>
@@ -591,7 +602,7 @@ export default function DashboardClient() {
               <div className="border-t border-[rgba(26,58,92,0.06)]">
                 <button className="w-full flex items-center gap-3 px-4 py-3.5 text-[13.5px] font-medium text-red-500 hover:bg-red-50 transition-colors">
                   <LogOut size={15} strokeWidth={1.8} />
-                  Déconnexion
+                  {t("dashboard.logout")}
                 </button>
               </div>
             </nav>
@@ -607,7 +618,7 @@ export default function DashboardClient() {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               >
-                <ActivePanel />
+                <ActivePanel statusConfig={STATUS_CONFIG} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -616,7 +627,7 @@ export default function DashboardClient() {
         {/* Mobile: logout */}
         <div className="flex md:hidden justify-center mt-8">
           <button className="flex items-center gap-2 text-[13px] font-medium text-red-400 hover:text-red-500 transition-colors">
-            <LogOut size={14} strokeWidth={2} /> Déconnexion
+            <LogOut size={14} strokeWidth={2} /> {t("dashboard.logout")}
           </button>
         </div>
       </div>
