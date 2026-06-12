@@ -138,7 +138,7 @@ export default function Footer() {
           <div>
             <p className="text-[12.5px] text-[#cfdbe8] font-mono">{t("footer.copyright")}</p>
             <p className="text-[11.5px] text-[#8ea4bd] italic mt-1 max-w-full sm:max-w-[520px]">{t("footer.mention")}</p>
-            <a href="https://bywcs.com" className="opacity-0 text-[10px]" target="_blank" rel="noopener">Designed by bywcs.com</a>
+            <a href="https://bywcs.com" className="text-[11.5px] text-[#8ea4bd] hover:text-abelec-orange transition-colors mt-1 inline-block" target="_blank" rel="noopener">Designed by bywcs.com</a>
           </div>
           <div className="flex items-center gap-4">
             <span className="inline-flex px-2.5 py-1.5 border border-white/[0.18] rounded-lg font-mono text-[12px] text-white items-center gap-1.5">
