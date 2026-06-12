@@ -26,6 +26,7 @@ export default function HeroSection() {
   const [query,       setQuery]       = useState("");
   const [focused,     setFocused]     = useState(false);
   const [activeModal, setActiveModal] = useState<ModalId | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const MONO  = "var(--font-mono), monospace";
   const SANS  = "var(--font-sans), system-ui, sans-serif";
@@ -218,34 +219,23 @@ export default function HeroSection() {
               onClick={() => setActiveModal(modal)}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4 }}
               transition={{ duration: 0.6, delay: 0.62 + i * 0.10, ease: EASE }}
+              onMouseEnter={() => setHoveredCard(i)}
+              onMouseLeave={() => setHoveredCard(null)}
               style={{
                 flex: "1 1 260px", maxWidth: 300,
                 background: "rgba(255,255,255,0.82)",
                 backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
                 borderRadius: 16,
-                border: "1.5px solid rgba(10,31,68,0.07)",
-                boxShadow: "0 4px 18px rgba(0,0,0,0.05)",
+                border: `1.5px solid ${hoveredCard === i ? "#E66324" : "rgba(10,31,68,0.07)"}`,
+                boxShadow: hoveredCard === i
+                  ? "0 12px 32px rgba(10,31,68,0.12)"
+                  : "0 4px 18px rgba(0,0,0,0.05)",
                 cursor: "pointer", textAlign: "left",
                 fontFamily: "inherit", overflow: "hidden",
-                transition: "transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease",
+                transition: "border-color 0.22s ease, box-shadow 0.22s ease",
                 padding: 0,
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = "translateY(-4px)";
-                el.style.boxShadow = "0 12px 32px rgba(10,31,68,0.12)";
-                el.style.borderColor = "#E66324";
-                const arrow = el.querySelector<HTMLElement>(".cta-arrow");
-                if (arrow) arrow.style.transform = "translateX(4px)";
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = "translateY(0)";
-                el.style.boxShadow = "0 4px 18px rgba(0,0,0,0.05)";
-                el.style.borderColor = "rgba(10,31,68,0.07)";
-                const arrow = el.querySelector<HTMLElement>(".cta-arrow");
-                if (arrow) arrow.style.transform = "translateX(0)";
               }}
             >
               {/* Illustration area */}
@@ -264,8 +254,8 @@ export default function HeroSection() {
                   <div style={{ fontSize: 15, fontWeight: 700, color: "#0A1F44", fontFamily: SANS, marginBottom: 4, letterSpacing: "-0.01em" }}>{t(titleKey)}</div>
                   <div style={{ fontSize: 12.5, color: "rgba(10,31,68,0.40)", fontFamily: SANS }}>{t(subKey)}</div>
                 </div>
-                <ArrowRight size={16} color="#E66324" className="cta-arrow"
-                  style={{ flexShrink: 0, transition: "transform 0.2s ease" }} />
+                <ArrowRight size={16} color="#E66324"
+                  style={{ flexShrink: 0, transition: "transform 0.2s ease", transform: hoveredCard === i ? "translateX(4px)" : "translateX(0)" }} />
               </div>
             </motion.button>
           ))}
