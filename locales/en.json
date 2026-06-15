@@ -474,6 +474,7 @@
     "contactDirect": "Direct contact",
     "email": "Email",
     "call": "Call",
+    "form": "Contact form",
     "topic1Label": "Find a part",
     "topic1Sub": "Reference, compatibility",
     "topic2Label": "Track my order",
@@ -1104,5 +1105,23 @@
     "countryNL": "Netherlands",
     "countryDE": "Germany",
     "countryIT": "Italy"
+  },
+  "chatbot": {
+    "title": "Abelec Assistant",
+    "status": "Online · Replies in < 2h",
+    "greeting": "Hello! I'm the Abelec assistant. Choose a question below or contact us directly.",
+    "anotherQuestion": "Another question?",
+    "q1": "What is the delivery time?",
+    "a1": "We deliver in 3 to 5 business days in Belgium. Express 24h delivery is also available at checkout.",
+    "q2": "How do I find my part?",
+    "a2": "Enter your appliance reference or part number in our search bar. Our catalogue covers more than 200 brands.",
+    "q3": "How do I make a return?",
+    "a3": "You have 14 days after receipt to return an unmounted part. Contact us by email to receive a free return label.",
+    "q4": "How do I track my order?",
+    "a4": "Once shipped, you receive an email with a tracking link. You can also check the history in your customer account.",
+    "q5": "Which brands are available?",
+    "a5": "We offer parts for more than 200 brands: Bosch, Siemens, Miele, Whirlpool, Samsung, LG, Electrolux, AEG and many more.",
+    "q6": "Is the part compatible?",
+    "a6": "Enter the full reference of your appliance (model + serial number) in the search. If in doubt, our team checks compatibility for free."
   }
 }

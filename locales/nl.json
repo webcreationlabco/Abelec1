@@ -474,6 +474,7 @@
     "contactDirect": "Direct contact",
     "email": "E-mail",
     "call": "Bellen",
+    "form": "Contactformulier",
     "topic1Label": "Een onderdeel vinden",
     "topic1Sub": "Referentie, compatibiliteit",
     "topic2Label": "Mijn bestelling volgen",
@@ -1104,5 +1105,23 @@
     "countryNL": "Nederland",
     "countryDE": "Duitsland",
     "countryIT": "Italië"
+  },
+  "chatbot": {
+    "title": "Abelec Assistent",
+    "status": "Online · Antwoord in < 2u",
+    "greeting": "Hallo! Ik ben de Abelec assistent. Kies een vraag hieronder of neem rechtstreeks contact op.",
+    "anotherQuestion": "Nog een vraag?",
+    "q1": "Wat is de levertijd?",
+    "a1": "We leveren in 3 tot 5 werkdagen in België. Expreslevering binnen 24u is ook beschikbaar bij het afrekenen.",
+    "q2": "Hoe vind ik mijn onderdeel?",
+    "a2": "Voer de referentie van uw apparaat of het onderdeelnummer in onze zoekbalk in. Onze catalogus dekt meer dan 200 merken.",
+    "q3": "Hoe doe ik een retour?",
+    "a3": "U heeft 14 dagen na ontvangst om een niet-gemonteerd onderdeel terug te sturen. Contacteer ons per e-mail voor een gratis retourlabel.",
+    "q4": "Hoe volg ik mijn bestelling?",
+    "a4": "Zodra verzonden, ontvangt u een e-mail met een trackinglink. U kunt ook de geschiedenis raadplegen in uw klantenaccount.",
+    "q5": "Welke merken zijn beschikbaar?",
+    "a5": "Wij bieden onderdelen voor meer dan 200 merken: Bosch, Siemens, Miele, Whirlpool, Samsung, LG, Electrolux, AEG en nog veel meer.",
+    "q6": "Is het onderdeel compatibel?",
+    "a6": "Voer de volledige referentie van uw apparaat (model + serienummer) in de zoekbalk in. Bij twijfel controleert ons team de compatibiliteit gratis."
   }
 }

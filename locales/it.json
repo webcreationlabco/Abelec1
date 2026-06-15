@@ -474,6 +474,7 @@
     "contactDirect": "Contatto diretto",
     "email": "Email",
     "call": "Chiamare",
+    "form": "Modulo di contatto",
     "topic1Label": "Trovare un pezzo",
     "topic1Sub": "Riferimento, compatibilità",
     "topic2Label": "Tracciare il mio ordine",
@@ -1104,5 +1105,23 @@
     "countryNL": "Paesi Bassi",
     "countryDE": "Germania",
     "countryIT": "Italia"
+  },
+  "chatbot": {
+    "title": "Assistente Abelec",
+    "status": "Online · Risponde in < 2h",
+    "greeting": "Ciao! Sono l'assistente Abelec. Scegli una domanda qui sotto o contattaci direttamente.",
+    "anotherQuestion": "Un'altra domanda?",
+    "q1": "Qual è il tempo di consegna?",
+    "a1": "Consegniamo in 3-5 giorni lavorativi in Belgio. La consegna express entro 24h è disponibile al momento del pagamento.",
+    "q2": "Come trovo il mio pezzo?",
+    "a2": "Inserisci il riferimento del tuo apparecchio o il numero del pezzo nella nostra barra di ricerca. Il nostro catalogo copre più di 200 marchi.",
+    "q3": "Come effettuo un reso?",
+    "a3": "Hai 14 giorni dalla ricezione per restituire un pezzo non montato. Contattaci per email per ricevere un'etichetta di reso gratuita.",
+    "q4": "Come traccio il mio ordine?",
+    "a4": "Dopo la spedizione, riceverai un'email con un link di tracciamento. Puoi anche consultare la cronologia nel tuo account cliente.",
+    "q5": "Quali marchi sono disponibili?",
+    "a5": "Offriamo pezzi per oltre 200 marchi: Bosch, Siemens, Miele, Whirlpool, Samsung, LG, Electrolux, AEG e molti altri.",
+    "q6": "Il pezzo è compatibile?",
+    "a6": "Inserisci il riferimento completo del tuo apparecchio (modello + numero di serie) nella ricerca. In caso di dubbio, il nostro team verifica la compatibilità gratuitamente."
   }
 }
